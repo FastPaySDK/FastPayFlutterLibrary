@@ -1,3 +1,5 @@
+import 'package:fastpay_flutter_sdk/constants/Environment.dart';
+import 'package:fastpay_flutter_sdk/constants/FastpayRequest.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -22,7 +24,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    initPlatformState();
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -31,8 +32,9 @@ class _MyAppState extends State<MyApp> {
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
     try {
-      platformVersion =
-          await _fastpayFlutterSdkPlugin.getPlatformVersion() ?? 'Unknown platform version';
+      var request = FastpayRequest(storeId: "storeId", storePassword: "storePassword", amount: "amount", orderId: "orderId", environment: Environment.sandbox);
+      platformVersion = await _fastpayFlutterSdkPlugin.getFastpayPaymentResult(request) ?? 'Unknown platform version';
+      debugPrint(platformVersion);
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
@@ -52,10 +54,22 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('Fastpay SDK test'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text("Test"),
+              FilledButton(
+                onPressed: (){
+                  initPlatformState();
+                },
+                child: Text('Click to initiate'),
+              ),
+            ],
+          ),
         ),
       ),
     );
