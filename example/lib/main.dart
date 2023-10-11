@@ -32,7 +32,7 @@ class _MyAppState extends State<MyApp> {
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
     try {
-      var request = FastpayRequest(storeId: "storeId", storePassword: "storePassword", amount: "amount", orderId: "orderId", environment: Environment.sandbox);
+      var request = FastpayRequest(storeId: "748957_847", storePassword: "v=7bUPTeC2#nQ2-+", amount: "261", orderId: "asldkfasdl71721", environment: Environment.sandbox);
       platformVersion = await _fastpayFlutterSdkPlugin.getFastpayPaymentResult(request) ?? 'Unknown platform version';
       debugPrint(platformVersion);
     } on PlatformException {
