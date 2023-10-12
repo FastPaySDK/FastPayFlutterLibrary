@@ -1,4 +1,4 @@
 rootProject.name = 'fastpay_flutter_sdk'
-include ':merchantSDK-release'
-project(':merchantSDK-release').projectDir = new File('android/merchantSDK-release')
+android.enableJetifier=true
+android.useAndroidX=true
 
