@@ -20,6 +20,8 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
   final _fastpayFlutterSdkPlugin = FastpayFlutterSdk();
+  TextEditingController orderId = TextEditingController(text: '');
+  TextEditingController amount = TextEditingController(text: '');
 
   @override
   void initState() {
@@ -32,7 +34,7 @@ class _MyAppState extends State<MyApp> {
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
     try {
-      var request = FastpayRequest(storeId: "748957_847", storePassword: "v=7bUPTeC2#nQ2-+", amount: "261", orderId: "asldkfasdl71721", environment: Environment.sandbox);
+      var request = FastpayRequest(storeId: "748957_847", storePassword: "v=7bUPTeC2#nQ2-+", amount: amount.text, orderId: orderId.text, environment: Environment.sandbox);
       platformVersion = await _fastpayFlutterSdkPlugin.getFastpayPaymentResult(request) ?? 'Unknown platform version';
       debugPrint(platformVersion);
     } on PlatformException {
@@ -56,19 +58,41 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Fastpay SDK test'),
         ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text("Test"),
-              FilledButton(
-                onPressed: (){
-                  initPlatformState();
-                },
-                child: Text('Click to initiate'),
-              ),
-            ],
+        body: Container(
+          padding: EdgeInsets.all(20),
+          child: Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                SizedBox(height: 16.0),
+                TextField(
+                  controller: orderId,
+                  decoration: InputDecoration(
+                    labelText: 'Order ID',
+                    border: OutlineInputBorder(),
+                    filled: true,
+                    fillColor: Colors.grey[200],
+                  ),
+                ),
+                SizedBox(height: 16.0),
+                TextField(
+                  controller: amount,
+                  decoration: InputDecoration(
+                    labelText: 'Amount',
+                    border: OutlineInputBorder(),
+                    filled: true,
+                    fillColor: Colors.grey[200],
+                  ),
+                ),
+                SizedBox(height: 16.0),
+                FilledButton(
+                  onPressed: () {
+                    initPlatformState();
+                  },
+                  child: Text('Submit'),
+                ),
+              ],
+            ),
           ),
         ),
       ),
