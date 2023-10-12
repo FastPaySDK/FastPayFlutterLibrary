@@ -1,7 +1,7 @@
 name: fastpay_flutter_sdk
 description: Fastpay sdk for flutter
 version: 1.0.0
-homepage:
+homepage:https://github.com/FastPaySDK/FastPayFlutterLibrary
 
 environment:
   sdk: '>=2.19.2 <3.0.0'
