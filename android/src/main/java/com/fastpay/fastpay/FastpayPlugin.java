@@ -68,9 +68,7 @@ public class FastpayPlugin implements FlutterPlugin, MethodCallHandler , Activit
 
       if (activity != null) {
         try {
-
-              final Intent intent = request.getIntent();
-              activity.startActivityForResult(intent, 1999);
+          request.startPaymentIntent(activity,1999);
         } catch (Exception e) {
           mResult.success("{\"isSuccess\":false,\"errorMessage\":\""+e.getMessage()+"\",\"transactionStatus\":\"\",\"transactionId\":\"\",\"orderId\":\"\",\"paymentAmount\":\"\",\"paymentCurrency\":\"\",\"payeeName\":\"\",\"payeeMobileNumber\":\"\",\"paymentTime\":\"\"}");
         }

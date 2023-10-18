@@ -6,6 +6,6 @@ framework module FastpayMerchantSDK {
 }
 
 module FastpayMerchantSDK.Swift {
-    header "FastpayMerchantSDK-Swift.h"
-    requires objc
+  header "FastpayMerchantSDK-Swift.h"
+  requires objc
 }
