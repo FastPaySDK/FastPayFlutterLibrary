@@ -18,7 +18,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  fastpay_iraq:
+  fastpay_merchant:
     # When depending on this package from a real application you should use:
     #   fastpay: ^x.y.z
     # See https://dart.dev/tools/pub/dependencies#version-constraints

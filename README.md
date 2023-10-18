@@ -17,7 +17,7 @@ Accept payments with FastPay's APIs. Our simple and easy-to-integrate APIs allow
 ## Installation
 ``` 
 dependencies:
-  fastpay: ^1.0.2
+  fastpay_merchant: ^1.0.0
 ```
 
 ## Android 

@@ -1,8 +1,8 @@
 # Changelog
 
-## 1.0.2 
+## 1.0.0 
 
 <!-- - Feature: init pub -->
-- Bug Fix: update documentation & ios improvements
+- Initial Build
 <!-- - Documentation: Update the documentation --> -->
 
