@@ -3,7 +3,7 @@
 # Run `pod lib lint fastpay_iraq.podspec` to validate before publishing.
 #
 Pod::Spec.new do |s|
-  s.name             = 'fastpay_iraq'
+  s.name             = 'fastpay_merchant'
   s.version          = '1.0.3'
   s.summary          = 'A new Flutter plugin project.'
   s.description      = <<-DESC

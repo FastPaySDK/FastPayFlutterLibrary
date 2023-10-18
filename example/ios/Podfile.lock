@@ -1,22 +1,22 @@
 PODS:
-  - fastpay_iraq (1.0.2):
+  - fastpay_merchant (1.0.3):
     - Flutter
   - Flutter (1.0.0)
 
 DEPENDENCIES:
-  - fastpay_iraq (from `.symlinks/plugins/fastpay_iraq/ios`)
+  - fastpay_merchant (from `.symlinks/plugins/fastpay_merchant/ios`)
   - Flutter (from `Flutter`)
 
 EXTERNAL SOURCES:
-  fastpay_iraq:
-    :path: ".symlinks/plugins/fastpay_iraq/ios"
+  fastpay_merchant:
+    :path: ".symlinks/plugins/fastpay_merchant/ios"
   Flutter:
     :path: Flutter
 
 SPEC CHECKSUMS:
-  fastpay_iraq: f941abc0b334082524d5358e85e39fcc358f5341
+  fastpay_merchant: 0c74eeb409e538516cd241adc2e8b487173fb83e
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
 
 PODFILE CHECKSUM: 044fcdb235c67cda34b233a0f09a79134cabc0b6
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.0
