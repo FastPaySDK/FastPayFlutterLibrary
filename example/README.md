@@ -1,6 +1,6 @@
-# fastpay_flutter_sdk_example
+# fastpay_example
 
-Demonstrates how to use the fastpay_flutter_sdk plugin.
+Demonstrates how to use the fastpay plugin.
 
 ## Getting Started
 

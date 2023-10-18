@@ -1,9 +1,0 @@
-
-/*plugins {
-    base
-}*/
-configurations.maybeCreate("default")
-artifacts.add("default", file('merchantSDK-release.aar'))
-/*
-group("com.newroztech.fastpaysdk")
-version("1.0.0")*/

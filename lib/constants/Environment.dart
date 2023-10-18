@@ -1,4 +1,0 @@
-enum Environment {
-  sandbox,
-  production,
-}

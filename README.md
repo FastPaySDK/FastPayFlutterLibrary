@@ -1,4 +1,4 @@
-# FastPay Flutter
+# FastPay Iraq Flutter
 
 FastPay Developers Arena
 Accept payments with FastPay's APIs. Our simple and easy-to-integrate APIs allow for less effort in processing payments. This is not an official support channel, but our APIs support both Android and iOS.
@@ -17,21 +17,21 @@ Accept payments with FastPay's APIs. Our simple and easy-to-integrate APIs allow
 ## Installation
 ``` 
 dependencies:
-  fastpay_flutter_sdk: ^1.0.0
+  fastpay: ^1.0.2
 ```
 
-## Android
+## Android 
 - Requires AndroidX
 
 ### Build Gradle
 
-Include support in ```android/app/build.gradle```
+ Include support in ```android/app/build.gradle```
 add this line if not exit:
 ```properties
 implementation 'com.android.support:appcompat-v7:28.0.0'
 ```
 ### styles
-change theme app in ```android/app/src/main/res/values/styles.xml``` and ```android/app/src/main/res/values-night/styles.xml``` to :
+ change theme app in ```android/app/src/main/res/values/styles.xml``` and ```android/app/src/main/res/values-night/styles.xml``` to :
 ##### if you want show appbar with app name title :
 ```bash 
 Theme.AppCompat.Light
@@ -76,11 +76,16 @@ ___
 - __Amount__ : Payable amount in the transaction ex: “1000”
 - __isProduction__ : Payment Environment to initiate transaction (false for test & true for real life transaction)
 
-## Examples
+## Examples 
 ```dart 
-FastpayResult _fastpayResult = FastpayRequest(storeId: "748957_847", storePassword: "v=7bUPTeC2#nQ2-+", amount: amount.text, orderId: orderId.text, environment: Environment.sandbox);
-final _fastpayFlutterSdkPlugin = FastpayFlutterSdk();
-String result = await _fastpayFlutterSdkPlugin.getFastpayPaymentResult(request)
+FastpayResult _fastpayResult = await FastPayRequest(
+                    storeID: "********", 
+                    storePassword: "********",
+                    amount: "1000", 
+                    orderID: "HBBS7657", 
+                     isProduction: false, 
+                  );
+
  if (_fastpayResult.isSuccess ?? false) {
        // transaction success
      } else {
@@ -90,9 +95,9 @@ String result = await _fastpayFlutterSdkPlugin.getFastpayPaymentResult(request)
 
 When __FastPayRequest__ call open FastPay SDK then after payment return __FastpayResult__ that contains:
 
-### payment result
+### payment result 
 - __isSuccess__ : return true for a successful transaction else false.
-- __errorMessage__ : if transaction failed return failed result
+- __errorMessage__ : if transaction failed return failed result 
 - __transactionStatus__ : Payment status weather it is success / failed.
 - __transactionId__ : If payment is successful then a transaction id will be available.
 - __orderId__ : Unique Order ID/Bill number for the transaction which was passed at initiation time.
@@ -102,3 +107,6 @@ When __FastPayRequest__ call open FastPay SDK then after payment return __Fastpa
 - __payeeMobileNumber__ :  Number: Payee name for a successful transaction.
 - __paymentTime__ : Payment occurrence time as the timestamp.
    
+
+
+
