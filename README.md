@@ -1,4 +1,4 @@
-# FastPay Iraq Flutter
+# FastPay Flutter SDK
 
 FastPay Developers Arena
 Accept payments with FastPay's APIs. Our simple and easy-to-integrate APIs allow for less effort in processing payments. This is not an official support channel, but our APIs support both Android and iOS.
@@ -17,7 +17,7 @@ Accept payments with FastPay's APIs. Our simple and easy-to-integrate APIs allow
 ## Installation
 ``` 
 dependencies:
-  fastpay_merchant: ^1.0.0
+  fastpay_merchant: ^1.0.1
 ```
 
 ## Android 

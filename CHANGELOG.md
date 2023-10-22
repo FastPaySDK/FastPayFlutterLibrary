@@ -1,8 +1,5 @@
 # Changelog
 
-## 1.0.0 
-
-<!-- - Feature: init pub -->
-- Initial Build
-<!-- - Documentation: Update the documentation --> -->
+## 1.0.1
+ - Readme.MD changed.
 
