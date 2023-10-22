@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:fastpay_iraq/fastPayRequests.dart';
+import 'package:fastpay_merchant/fastPayRequests.dart';
 import 'package:flutter/material.dart';
 
 void main() {
