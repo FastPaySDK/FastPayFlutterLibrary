@@ -5,8 +5,9 @@ Accept payments with FastPay's APIs. Our simple and easy-to-integrate APIs allow
 
 
 
-|<img src="https://github.com/halgurdkamal/FastPay-Flutter/blob/main/asset/payment1.jpg?raw=true" width="250"> |
-<img src="https://github.com/halgurdkamal/FastPay-Flutter/blob/main/asset/payment2.jpg?raw=true" width="250"> |
+|<img src="https://github.com/FastPaySDK/FastPayFlutterLibrary/blob/devZarraf/1.jpg?raw=true" width="250"> |
+<img src="https://github.com/FastPaySDK/FastPayFlutterLibrary/blob/devZarraf/2.jpg?raw=true" width="250"> |
+<img src="https://github.com/FastPaySDK/FastPayFlutterLibrary/blob/devZarraf/3.jpg?raw=true" width="250"> |
 
 ## Quick Glance
 - this plugin not Official but build with integrate native Android & IOS that by FastPay published on [FastPay Developers Portal](https://developer.fast-pay.iq/).
