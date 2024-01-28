@@ -1,28 +1,29 @@
 # FastPay Flutter SDK
 
-FastPay Developers Arena
+## FastPay Developers Arena
+
 Accept payments with FastPay's APIs. Our simple and easy-to-integrate APIs allow for less effort in processing payments. This is not an official support channel, but our APIs support both Android and iOS.
 
+### Screenshots
 
-
-|<img src="https://github.com/FastPaySDK/FastPayFlutterLibrary/blob/devZarraf/1.jpg?raw=true" width="250"> |
-<img src="https://github.com/FastPaySDK/FastPayFlutterLibrary/blob/devZarraf/2.jpg?raw=true" width="250"> |
-<img src="https://github.com/FastPaySDK/FastPayFlutterLibrary/blob/devZarraf/3.jpg?raw=true" width="250"> |
+| ![Screenshot 1](https://github.com/FastPaySDK/FastPayFlutterLibrary/blob/devZarraf/1.jpg?raw=true) | ![Screenshot 2](https://github.com/FastPaySDK/FastPayFlutterLibrary/blob/devZarraf/2.jpg?raw=true) | ![Screenshot 3](https://github.com/FastPaySDK/FastPayFlutterLibrary/blob/devZarraf/3.jpg?raw=true) |
+| :---: | :---: | :---: |
 
 ## Quick Glance
-- this plugin not Official but build with integrate native Android & IOS that by FastPay published on [FastPay Developers Portal](https://developer.fast-pay.iq/).
-- you need contact FastPay to get storeID and Password
 
-
+- This plugin is official. [FastPay Developers Portal](https://developer.fast-pay.iq/).
+- You need to contact FastPay to get a storeID and Password.
 
 ## Installation
-``` 
+
+```yaml
 dependencies:
-  fastpay_merchant: ^1.0.1
+  fastpay_merchant: ^1.0.3
 ```
 
-## Android 
-- Requires AndroidX
+
+## Android Setup
+  - Requires AndroidX
 
 ### Build Gradle
 
