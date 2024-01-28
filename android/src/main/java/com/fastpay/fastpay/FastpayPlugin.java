@@ -38,6 +38,8 @@ public class FastpayPlugin implements FlutterPlugin, MethodCallHandler , Activit
   private Context context;
   private Activity activity;
   private Result mResult;
+  private boolean isProduction = false;
+  private static final String TAG = "FastpayPlugin";
 
 
   @Override
@@ -61,7 +63,7 @@ public class FastpayPlugin implements FlutterPlugin, MethodCallHandler , Activit
       String storePassword = (String)getData.get("storePassword");
       String orderId = (String)getData.get("orderID");
       String amount = (String)getData.get("amount");
-      boolean isProduction = (boolean)getData.get("isProduction");
+      isProduction = (boolean)getData.get("isProduction");
 
       FastpayRequest request = new FastpayRequest(context, storeId,storePassword , amount, orderId, isProduction ? FastpaySDK.PRODUCTION : FastpaySDK.SANDBOX);
       mResult = result;
@@ -70,7 +72,10 @@ public class FastpayPlugin implements FlutterPlugin, MethodCallHandler , Activit
         try {
           request.startPaymentIntent(activity,1999);
         } catch (Exception e) {
-          mResult.success("{\"isSuccess\":false,\"errorMessage\":\""+e.getMessage()+"\",\"transactionStatus\":\"\",\"transactionId\":\"\",\"orderId\":\"\",\"paymentAmount\":\"\",\"paymentCurrency\":\"\",\"payeeName\":\"\",\"payeeMobileNumber\":\"\",\"paymentTime\":\"\"}");
+          String response = "{\"isSuccess\":false,\"errorMessage\":\""+e.getMessage()+"\",\"transactionStatus\":\"\",\"transactionId\":\"\",\"orderId\":\"\",\"paymentAmount\":\"\",\"paymentCurrency\":\"\",\"payeeName\":\"\",\"payeeMobileNumber\":\"\",\"paymentTime\":\"\"}";
+          if (!isProduction)
+            android.util.Log.i(TAG, "onMethodCall: ....."+response);
+          mResult.success(response);
         }
       }
     } else {
@@ -114,12 +119,17 @@ public class FastpayPlugin implements FlutterPlugin, MethodCallHandler , Activit
   @Override
   public boolean onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
     if (requestCode == 1999) {
+      String response;
       switch (resultCode) {
         case Activity.RESULT_OK:
           if (data != null && data.hasExtra(FastpayResult.EXTRA_PAYMENT_RESULT)) {
             FastpayResult result = data.getParcelableExtra(FastpayResult.EXTRA_PAYMENT_RESULT);
             //? is payment success
-            mResult.success("{\"isSuccess\":true,\"errorMessage\":\"\",\"transactionStatus\":\""+result.getTransactionStatus()+"\",\"transactionId\":\""+result.getTransactionId()+"\",\"orderId\":\""+result.getOrderId()+"\",\"paymentAmount\":\""+result.getPaymentAmount()+"\",\"paymentCurrency\":\""+result.getPaymentCurrency()+"\",\"payeeName\":\""+result.getPayeeName()+"\",\"payeeMobileNumber\":\""+result.getPayeeMobileNumber()+"\",\"paymentTime\":\""+result.getPaymentTime()+"\"}");
+            response = "{\"isSuccess\":true,\"errorMessage\":\"\",\"transactionStatus\":\""+result.getTransactionStatus()+"\",\"transactionId\":\""+result.getTransactionId()+"\",\"orderId\":\""+result.getOrderId()+"\",\"paymentAmount\":\""+result.getPaymentAmount()+"\",\"paymentCurrency\":\""+result.getPaymentCurrency()+"\",\"payeeName\":\""+result.getPayeeName()+"\",\"payeeMobileNumber\":\""+result.getPayeeMobileNumber()+"\",\"paymentTime\":\""+result.getPaymentTime()+"\"}";
+            if (!isProduction)
+              android.util.Log.i(TAG, "onMethodCall: ....."+response);
+
+            mResult.success(response);
           }
           break;
 
@@ -128,16 +138,23 @@ public class FastpayPlugin implements FlutterPlugin, MethodCallHandler , Activit
           if (data != null && data.hasExtra(FastpayRequest.EXTRA_PAYMENT_MESSAGE)) {
             String message = data.getStringExtra(FastpayRequest.EXTRA_PAYMENT_MESSAGE);
             //? is payment fail any fastPay resource cancel
-            mResult.success("{\"isSuccess\":false,\"errorMessage\":\""+message+"\",\"transactionStatus\":\"\",\"transactionId\":\"\",\"orderId\":\"\",\"paymentAmount\":\"\",\"paymentCurrency\":\"\",\"payeeName\":\"\",\"payeeMobileNumber\":\"\",\"paymentTime\":\"\"}");
+            response = "{\"isSuccess\":false,\"errorMessage\":\""+message+"\",\"transactionStatus\":\"\",\"transactionId\":\"\",\"orderId\":\"\",\"paymentAmount\":\"\",\"paymentCurrency\":\"\",\"payeeName\":\"\",\"payeeMobileNumber\":\"\",\"paymentTime\":\"\"}";
+            mResult.success(response);
 
           } else {
             //? is payment back
-            mResult.success("{\"isSuccess\":false,\"errorMessage\":\""+"CANCELED"+"\",\"transactionStatus\":\"\",\"transactionId\":\"\",\"orderId\":\"\",\"paymentAmount\":\"\",\"paymentCurrency\":\"\",\"payeeName\":\"\",\"payeeMobileNumber\":\"\",\"paymentTime\":\"\"}");
+            response = "{\"isSuccess\":false,\"errorMessage\":\""+"CANCELED"+"\",\"transactionStatus\":\"\",\"transactionId\":\"\",\"orderId\":\"\",\"paymentAmount\":\"\",\"paymentCurrency\":\"\",\"payeeName\":\"\",\"payeeMobileNumber\":\"\",\"paymentTime\":\"\"}";
+            mResult.success(response);
           }
+          if (!isProduction)
+            android.util.Log.i(TAG, "onMethodCall: ....."+response);
           break;
         default:
           //? is payment for any other resource cancel
-          mResult.success("{\"isSuccess\":false,\"errorMessage\":\""+"CANCELED"+"\",\"transactionStatus\":\"\",\"transactionId\":\"\",\"orderId\":\"\",\"paymentAmount\":\"\",\"paymentCurrency\":\"\",\"payeeName\":\"\",\"payeeMobileNumber\":\"\",\"paymentTime\":\"\"}");
+          response = "{\"isSuccess\":false,\"errorMessage\":\""+"CANCELED"+"\",\"transactionStatus\":\"\",\"transactionId\":\"\",\"orderId\":\"\",\"paymentAmount\":\"\",\"paymentCurrency\":\"\",\"payeeName\":\"\",\"payeeMobileNumber\":\"\",\"paymentTime\":\"\"}";
+          mResult.success(response);
+          if (!isProduction)
+            android.util.Log.i(TAG, "onMethodCall: ....."+response);
           break;
       }
     }

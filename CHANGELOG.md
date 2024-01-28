@@ -4,4 +4,6 @@
  - Readme.MD changed.
 ## 1.0.2
 - Some minor bug fixed.
+## 1.0.3
+- Some minor bug fixed.
 
