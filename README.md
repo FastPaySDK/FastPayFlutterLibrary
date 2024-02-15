@@ -18,7 +18,7 @@ Accept payments with FastPay's APIs. Our simple and easy-to-integrate APIs allow
 
 ```yaml
 dependencies:
-  fastpay_merchant: ^1.0.3
+  fastpay_merchant: ^1.0.5
 ```
 
 

@@ -1,6 +1,6 @@
 name: fastpay_merchant
 description: FastPay merchant OFFICIAL flutter SDK.
-version: 1.0.4
+version: 1.0.5
 homepage: https://github.com/FastPaySDK/FastPayFlutterLibrary
 # publish_to: anyone
 
