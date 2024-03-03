@@ -24,7 +24,9 @@ import io.flutter.plugin.common.PluginRegistry;
 import com.fastpay.payment.model.merchant.FastpayRequest;
 import com.fastpay.payment.model.merchant.FastpayResult;
 import com.fastpay.payment.model.merchant.FastpaySDK;
+import com.fastpay.payment.service.listener.ListenerFastpayCallback;
 
+import java.util.Locale;
 import java.util.Map;
 
 
@@ -65,7 +67,12 @@ public class FastpayPlugin implements FlutterPlugin, MethodCallHandler , Activit
       String amount = (String)getData.get("amount");
       isProduction = (boolean)getData.get("isProduction");
 
-      FastpayRequest request = new FastpayRequest(context, storeId,storePassword , amount, orderId, isProduction ? FastpaySDK.PRODUCTION : FastpaySDK.SANDBOX);
+      FastpayRequest request = new FastpayRequest(context, storeId, storePassword, amount, orderId, isProduction ? FastpaySDK.PRODUCTION : FastpaySDK.SANDBOX, (sdkStatus, message) -> {
+        /*String statusString = sdkStatus.name().toLowerCase(Locale.ROOT);
+        String response = "{\"isSuccess\":false,\"isStatus\":true,\"status\":"+statusString+",\"statusMessage\":"+message+",\"errorMessage\":\"\",\"transactionStatus\":\"\",\"transactionId\":\"\",\"orderId\":\"\",\"paymentAmount\":\"\",\"paymentCurrency\":\"\",\"payeeName\":\"\",\"payeeMobileNumber\":\"\",\"paymentTime\":\"\"}";
+        mResult.success(response);*/
+        channel.invokeMethod("frequentCall","{\"status\":\""+sdkStatus.name()+"\",\"message\":\""+message+"\"}");
+      });
       mResult = result;
 
       if (activity != null) {
@@ -82,7 +89,6 @@ public class FastpayPlugin implements FlutterPlugin, MethodCallHandler , Activit
       result.notImplemented();
     }
   }
-
 
 
 

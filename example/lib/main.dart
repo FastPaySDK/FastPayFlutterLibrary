@@ -43,18 +43,24 @@ class _MyAppState extends State<MyApp> {
               ElevatedButton(
                 onPressed: () async {
                   FastpayResult _fastpayResult = await FastPayRequest(
-                    storeID: "**********",
-                    storePassword: "**********",
+                    storeID: "748957_847",
+                    storePassword: "v=7bUPTeC2#nQ2-+",
                     amount: "10000",
                     orderID: DateTime.now().microsecondsSinceEpoch.toString(),
                     isProduction: false,
+                    callback: (status,message){
+                      debugPrint("CALLBACK..................."+message);
+                      _showToast(context,message);
+                    }
                   );
                   if (_fastpayResult.isSuccess ?? false) {
                     // transaction success
-                    print('transaction success');
+                    _showToast(context,"transaction success");
+                    print('......................................transaction success');
                   } else {
                     // transaction failed
-                    print('transaction failed');
+                    _showToast(context,"transaction failed");
+                    print('......................................transaction failed');
                   }
                   setState(() {});
                 },
@@ -62,6 +68,16 @@ class _MyAppState extends State<MyApp> {
               ),
             ],
           )),
+    );
+  }
+
+  void _showToast(BuildContext context,String message) {
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        content:  Text(message),
+        action: SnackBarAction(label: 'UNDO', onPressed: scaffold.hideCurrentSnackBar),
+      ),
     );
   }
 }

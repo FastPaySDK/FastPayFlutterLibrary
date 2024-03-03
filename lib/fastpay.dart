@@ -8,7 +8,14 @@ import 'fastpay_platform_interface.dart';
 // }
 
 class Fastpay {
-  Future<String?> getPlatformVersion(Map<String, dynamic> fastPayData) {
-    return FastpayPlatform.instance.getPlatformVersion(fastPayData);
+  Future<String?> getPlatformVersion(Map<String, dynamic> fastPayData,Function(SDKStatus,String)? callback) {
+    return FastpayPlatform.instance.getPlatformVersion(fastPayData,callback);
   }
+}
+
+enum SDKStatus{
+  INIT,
+  PAYMENT_WITH_FASTPAY_APP,
+  PAYMENT_WITH_FASTPAY_SDK,
+  CANCEL
 }
