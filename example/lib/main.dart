@@ -50,13 +50,22 @@ class _MyAppState extends State<MyApp> {
                     isProduction: false,
                     callback: (status,message){
                       debugPrint("..................."+message);
+                      ScaffoldMessenger.of(context).showSnackBar( SnackBar(
+                        content: Text(message),
+                      ));
                     }
                   );
                   if (_fastpayResult.isSuccess ?? false) {
                     // transaction success
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text("transaction success"),
+                    ));
                     print('......................................transaction success');
                   } else {
                     // transaction failed
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text("transaction failed"),
+                    ));
                     print('......................................transaction failed');
                   }
                   setState(() {});
