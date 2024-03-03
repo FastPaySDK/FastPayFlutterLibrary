@@ -8,6 +8,7 @@ Future<FastpayResult> FastPayRequest({
   required String amount,
   required String orderID,
   bool isProduction = false,
+  Function(SDKStatus,String)? callback
 }) async {
   try {
     final _fastpayPlugin = Fastpay();
@@ -17,7 +18,7 @@ Future<FastpayResult> FastPayRequest({
           "amount": amount,
           "orderID": orderID,
           "isProduction": isProduction,
-        }) ??
+        },callback) ??
         'null';
     if (_fastpayPluginResult == "null") {
       return FastpayResult(
@@ -34,9 +35,12 @@ Future<FastpayResult> FastPayRequest({
     }
 
     Map<String, dynamic>? data = jsonDecode(_fastpayPluginResult);
-    return FastpayResult.fromJson(data ??
+    FastpayResult fastpayResult = FastpayResult.fromJson(data ??
         {
           "isSuccess": false,
+          'isStatus':false,
+          'status':'',
+          'statusMessage':'',
           "errorMessage": "null",
           "transactionStatus": "",
           "transactionId": "",
@@ -47,6 +51,7 @@ Future<FastpayResult> FastPayRequest({
           "payeeMobileNumber": "",
           "paymentTime": ""
         });
+    return fastpayResult;
   } catch (e) {
     return FastpayResult(
         isSuccess: false,
@@ -64,6 +69,9 @@ Future<FastpayResult> FastPayRequest({
 
 class FastpayResult {
   final bool? isSuccess;
+  final bool? isStatus;
+  final String? status;
+  final String? statusMessage;
   final String? transactionStatus;
   final String? transactionId;
   final String? orderId;
@@ -76,6 +84,9 @@ class FastpayResult {
 
   FastpayResult({
     this.isSuccess,
+    this.isStatus,
+    this.status,
+    this.statusMessage,
     this.transactionStatus,
     this.transactionId,
     this.orderId,
@@ -90,6 +101,9 @@ class FastpayResult {
   factory FastpayResult.fromJson(Map<String, dynamic> json) {
     return FastpayResult(
       isSuccess: json['isSuccess'] ?? false,
+      isStatus: json['isStatus'] ?? false,
+      status: json['status'] ?? '',
+      statusMessage: json['statusMessage'] ?? '',
       transactionStatus: json['transactionStatus'] ?? '',
       transactionId: json['transactionId'] ?? '',
       orderId: json['orderId'] ?? '',
@@ -105,6 +119,9 @@ class FastpayResult {
   Map<String, dynamic> toJson() {
     return {
       'isSuccess': isSuccess,
+      'isStatus':isStatus,
+      'status':status,
+      'statusMessage':statusMessage,
       'transactionStatus': transactionStatus,
       'transactionId': transactionId,
       'orderId': orderId,

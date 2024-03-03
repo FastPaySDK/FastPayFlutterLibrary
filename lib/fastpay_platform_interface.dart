@@ -1,10 +1,12 @@
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
+import 'fastpay.dart';
 import 'fastpay_method_channel.dart';
 
 abstract class FastpayPlatform extends PlatformInterface {
   /// Constructs a FastpayPlatform.
   FastpayPlatform() : super(token: _token);
+  Function(SDKStatus,String)? callback;
 
   static final Object _token = Object();
 
@@ -23,7 +25,8 @@ abstract class FastpayPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<String?> getPlatformVersion(Map<String, dynamic> fastPayData) {
+  Future<String?> getPlatformVersion(Map<String, dynamic> fastPayData,Function(SDKStatus,String)? callback) {
+    _instance.callback = callback;
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 }
