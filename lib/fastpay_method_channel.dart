@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
@@ -23,9 +25,22 @@ class MethodChannelFastpay extends FastpayPlatform {
   }
 
   Future<void> _fromNative(MethodCall call) async {
-    if (call.method == 'callTestResuls') {
-      print('callTest result = ${call.arguments}');
-      callback?.call(SDKStatus.CANCEL,"MEssage");
+    if (call.method == 'frequentCall') {
+      //print('callTest result = ${call.arguments}');
+      String arg = call.arguments;
+      //debugPrint("............."+arg);
+      Map<String, dynamic> data = jsonDecode(arg);
+      //debugPrint("MAP............."+data.toString());
+      String status = data['status']??'';
+      if(status.toLowerCase() == "init"){
+        callback?.call(SDKStatus.INIT,data['message']??'');
+      } else if(status.toLowerCase() == "payment_with_fastpay_app"){
+        callback?.call(SDKStatus.PAYMENT_WITH_FASTPAY_APP,data['message']??'');
+      } else if(status.toLowerCase() == "payment_with_fastpay_sdk"){
+        callback?.call(SDKStatus.PAYMENT_WITH_FASTPAY_SDK,data['message']??'');
+      }else if(status.toLowerCase() == "cancel"){
+        callback?.call(SDKStatus.CANCEL,data['message']??'');
+      }
     }
   }
 

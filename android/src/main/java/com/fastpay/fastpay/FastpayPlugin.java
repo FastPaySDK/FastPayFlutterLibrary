@@ -71,7 +71,7 @@ public class FastpayPlugin implements FlutterPlugin, MethodCallHandler , Activit
         /*String statusString = sdkStatus.name().toLowerCase(Locale.ROOT);
         String response = "{\"isSuccess\":false,\"isStatus\":true,\"status\":"+statusString+",\"statusMessage\":"+message+",\"errorMessage\":\"\",\"transactionStatus\":\"\",\"transactionId\":\"\",\"orderId\":\"\",\"paymentAmount\":\"\",\"paymentCurrency\":\"\",\"payeeName\":\"\",\"payeeMobileNumber\":\"\",\"paymentTime\":\"\"}";
         mResult.success(response);*/
-        generateResults();
+        channel.invokeMethod("frequentCall","{\"status\":\""+sdkStatus.name()+"\",\"message\":\""+message+"\"}");
       });
       mResult = result;
 
@@ -91,14 +91,6 @@ public class FastpayPlugin implements FlutterPlugin, MethodCallHandler , Activit
   }
 
 
-  private void generateResults() {
-    channel.invokeMethod("callTestResuls", "1");
-    channel.invokeMethod("callTestResuls", "2");
-    channel.invokeMethod("callTestResuls", "32");
-    channel.invokeMethod("callTestResuls", "4");
-    channel.invokeMethod("callTestResuls", "5");
-    channel.invokeMethod("callTestResuls", "6");
-  }
 
 
   @Override

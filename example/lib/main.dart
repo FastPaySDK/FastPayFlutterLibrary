@@ -54,10 +54,10 @@ class _MyAppState extends State<MyApp> {
                   );
                   if (_fastpayResult.isSuccess ?? false) {
                     // transaction success
-                    print('transaction success');
+                    print('......................................transaction success');
                   } else {
                     // transaction failed
-                    print('transaction failed');
+                    print('......................................transaction failed');
                   }
                   setState(() {});
                 },
