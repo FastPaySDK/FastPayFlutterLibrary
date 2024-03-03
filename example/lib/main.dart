@@ -49,23 +49,17 @@ class _MyAppState extends State<MyApp> {
                     orderID: DateTime.now().microsecondsSinceEpoch.toString(),
                     isProduction: false,
                     callback: (status,message){
-                      debugPrint("..................."+message);
-                      ScaffoldMessenger.of(context).showSnackBar( SnackBar(
-                        content: Text(message),
-                      ));
+                      debugPrint("CALLBACK..................."+message);
+                      _showToast(context,message);
                     }
                   );
                   if (_fastpayResult.isSuccess ?? false) {
                     // transaction success
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text("transaction success"),
-                    ));
+                    _showToast(context,"transaction success");
                     print('......................................transaction success');
                   } else {
                     // transaction failed
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text("transaction failed"),
-                    ));
+                    _showToast(context,"transaction failed");
                     print('......................................transaction failed');
                   }
                   setState(() {});
@@ -74,6 +68,16 @@ class _MyAppState extends State<MyApp> {
               ),
             ],
           )),
+    );
+  }
+
+  void _showToast(BuildContext context,String message) {
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        content:  Text(message),
+        action: SnackBarAction(label: 'UNDO', onPressed: scaffold.hideCurrentSnackBar),
+      ),
     );
   }
 }
