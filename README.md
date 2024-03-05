@@ -18,7 +18,7 @@ Accept payments with FastPay's APIs. Our simple and easy-to-integrate APIs allow
 
 ```yaml
 dependencies:
-  fastpay_merchant: ^1.0.5
+  fastpay_merchant: ^1.0.6
 ```
 
 
@@ -77,6 +77,16 @@ ___
 - __Order ID__ : Order ID/Bill number for the transaction, this value should be unique in every transaction
 - __Amount__ : Payable amount in the transaction ex: “1000”
 - __isProduction__ : Payment Environment to initiate transaction (false for test & true for real life transaction)
+- **Callback( Sdk status, message):** There are four sdk status (e.g. *FastpayRequest.SDKStatus.INIT*) and status message.
+
+```dart 
+  enum SDKStatus{
+      INIT,
+      PAYMENT_WITH_FASTPAY_APP,
+      PAYMENT_WITH_FASTPAY_SDK,
+      CANCEL
+   }
+```
 
 ## Examples 
 ```dart 
@@ -85,8 +95,11 @@ FastpayResult _fastpayResult = await FastPayRequest(
                     storePassword: "********",
                     amount: "1000", 
                     orderID: "HBBS7657", 
-                     isProduction: false, 
-                  );
+                     isProduction: false,
+              callback: (status,message){
+                  debugPrint("CALLBACK..................."+message);
+                  _showToast(context,message);
+            });
 
  if (_fastpayResult.isSuccess ?? false) {
        // transaction success

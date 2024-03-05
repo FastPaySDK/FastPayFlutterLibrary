@@ -43,8 +43,8 @@ class _MyAppState extends State<MyApp> {
               ElevatedButton(
                 onPressed: () async {
                   FastpayResult _fastpayResult = await FastPayRequest(
-                    storeID: "748957_847",
-                    storePassword: "v=7bUPTeC2#nQ2-+",
+                    storeID: "*******",
+                    storePassword: "********",
                     amount: "10000",
                     orderID: DateTime.now().microsecondsSinceEpoch.toString(),
                     isProduction: false,

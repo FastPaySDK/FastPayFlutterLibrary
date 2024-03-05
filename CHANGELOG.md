@@ -10,4 +10,6 @@
 - Some minor bug fixed.
 ## 1.0.5
 - Some minor bug fixed.
+## 1.0.6
+- SDK status added
 
