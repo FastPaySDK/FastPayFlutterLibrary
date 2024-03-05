@@ -1,7 +1,7 @@
 framework module FastpayMerchantSDK {
   umbrella header "FastpayMerchantSDK.h"
-
   export *
+
   module * { export * }
 }
 

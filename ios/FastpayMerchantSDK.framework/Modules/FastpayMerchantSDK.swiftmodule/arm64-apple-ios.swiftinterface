@@ -1,18 +1,32 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.8.1 (swiftlang-5.8.0.124.5 clang-1403.0.22.11.100)
+// swift-compiler-version: Apple Swift version 5.9 (swiftlang-5.9.0.128.108 clang-1500.0.40.1)
 // swift-module-flags: -target arm64-apple-ios12.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -Onone -module-name FastpayMerchantSDK
 // swift-module-flags-ignorable: -enable-bare-slash-regex
 import CoreGraphics
+import DeveloperToolsSupport
 @_exported import FastpayMerchantSDK
 import Foundation
 import QuartzCore
 import Swift
+import SwiftUI
 import SystemConfiguration
 import UIKit
 import _Concurrency
 import _StringProcessing
+import _SwiftConcurrencyShims
 @objc public enum FPCurrency : Swift.Int {
   case IQD = 0
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum FPFrameworkStatus : Swift.Int {
+  case INIT
+  case PAYMENT_WITH_FASTPAY_APP
+  case PAYMENT_WITH_FASTPAY_SDK
+  case CANCEL
   public init?(rawValue: Swift.Int)
   public typealias RawValue = Swift.Int
   public var rawValue: Swift.Int {
@@ -45,6 +59,7 @@ extension UIKit.UIView {
 @objc public protocol FastPayDelegate {
   @objc func fastpayTransactionSucceeded(with transaction: FastpayMerchantSDK.FPTransaction)
   @objc func fastpayTransactionFailed(with orderId: Swift.String)
+  @objc func fastPayProcessStatus(with status: FastpayMerchantSDK.FPFrameworkStatus)
 }
 @objc public class Fastpay : ObjectiveC.NSObject {
   @objc weak public var delegate: (any FastpayMerchantSDK.FastPayDelegate)?
@@ -82,6 +97,9 @@ extension UIKit.UIView {
 extension FastpayMerchantSDK.FPCurrency : Swift.Equatable {}
 extension FastpayMerchantSDK.FPCurrency : Swift.Hashable {}
 extension FastpayMerchantSDK.FPCurrency : Swift.RawRepresentable {}
+extension FastpayMerchantSDK.FPFrameworkStatus : Swift.Equatable {}
+extension FastpayMerchantSDK.FPFrameworkStatus : Swift.Hashable {}
+extension FastpayMerchantSDK.FPFrameworkStatus : Swift.RawRepresentable {}
 extension FastpayMerchantSDK.FPEnvironment : Swift.Equatable {}
 extension FastpayMerchantSDK.FPEnvironment : Swift.Hashable {}
 extension FastpayMerchantSDK.FPEnvironment : Swift.RawRepresentable {}
