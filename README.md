@@ -2,7 +2,7 @@
 
 ## FastPay Developers Arena
 
-Accept payments with FastPay's APIs. Our simple and easy-to-integrate APIs allow for less effort in processing payments. This is not an official support channel, but our APIs support both Android and iOS.
+Accept payments with FastPay's APIs. Our simple and easy-to-integrate APIs allow for less effort in processing payments. This is an official support channel, but our APIs support both Android and iOS.
 
 ### Screenshots
 
@@ -19,6 +19,8 @@ Accept payments with FastPay's APIs. Our simple and easy-to-integrate APIs allow
 ```yaml
 dependencies:
   fastpay_merchant: ^1.0.6
+  #To handle callbacks (Redirection) from fastpay wallet application.
+  app_links: ^4.0.0 
 ```
 
 
@@ -77,6 +79,7 @@ ___
 - __Order ID__ : Order ID/Bill number for the transaction, this value should be unique in every transaction
 - __Amount__ : Payable amount in the transaction ex: “1000”
 - __isProduction__ : Payment Environment to initiate transaction (false for test & true for real life transaction)
+- __Call back Uri__: When the SDK redirect to the fastpay application for payment and after payment cancel or failed it throws a callback with this uri. It is used for deeplinking with the client app for catching callbacks from fastpay application.
 - **Callback( Sdk status, message):** There are four sdk status (e.g. *FastpayRequest.SDKStatus.INIT*) and status message.
 
 ```dart 
@@ -99,13 +102,29 @@ FastpayResult _fastpayResult = await FastPayRequest(
               callback: (status,message){
                   debugPrint("CALLBACK..................."+message);
                   _showToast(context,message);
-            });
+            },callbackUri: "sdk://your.website.com/further/paths",);
 
  if (_fastpayResult.isSuccess ?? false) {
        // transaction success
      } else {
        // transaction failed
      }
+```
+
+## SDK callback Uri
+
+```dart
+//Using app_links
+import 'package:app_links/app_links.dart';
+
+Future<void> _handleIncomingIntent() async {
+    final _appLinks = AppLinks();
+    final uri = await _appLinks.getLatestAppLink();
+    final allQueryParams = uri?.queryParameters;
+    final status = allQueryParams?['status'];
+    final orderId = allQueryParams?['order_id'];
+    debugPrint("..........................STATUS::: "+status.toString()+", OrderId:::"+orderId.toString());
+  }
 ```
 
 When __FastPayRequest__ call open FastPay SDK then after payment return __FastpayResult__ that contains:
@@ -122,6 +141,11 @@ When __FastPayRequest__ call open FastPay SDK then after payment return __Fastpa
 - __payeeMobileNumber__ :  Number: Payee name for a successful transaction.
 - __paymentTime__ : Payment occurrence time as the timestamp.
    
+### Callback Uri via app deeplinks results.
 
+```java
+callback URI pattern (SUCCESS): sdk://your.website.com/further/paths?status=success&transaction_id=XXXX&order_id=XXXX&amount=XXX&currency=XXX&mobile_number=XXXXXX&time=XXXX&name=XXXX
+callback URI pattern (FAILED): sdk://your.website.com/further/paths?status=failed&order_id=XXXXX
+```
 
 
