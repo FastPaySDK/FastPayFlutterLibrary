@@ -26,11 +26,8 @@ class MethodChannelFastpay extends FastpayPlatform {
 
   Future<void> _fromNative(MethodCall call) async {
     if (call.method == 'frequentCall') {
-      //print('callTest result = ${call.arguments}');
       String arg = call.arguments;
-      //debugPrint("............."+arg);
       Map<String, dynamic> data = jsonDecode(arg);
-      //debugPrint("MAP............."+data.toString());
       String status = data['status']??'';
       if(status.toLowerCase() == "init"){
         callback?.call(SDKStatus.INIT,data['message']??'');

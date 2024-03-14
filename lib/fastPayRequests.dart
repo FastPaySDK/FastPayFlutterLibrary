@@ -7,6 +7,7 @@ Future<FastpayResult> FastPayRequest({
   required String storePassword,
   required String amount,
   required String orderID,
+  required String callbackUri,
   bool isProduction = false,
   Function(SDKStatus,String)? callback
 }) async {
@@ -17,6 +18,7 @@ Future<FastpayResult> FastPayRequest({
           "storePassword": storePassword,
           "amount": amount,
           "orderID": orderID,
+          "callbackUri":callbackUri,
           "isProduction": isProduction,
         },callback) ??
         'null';

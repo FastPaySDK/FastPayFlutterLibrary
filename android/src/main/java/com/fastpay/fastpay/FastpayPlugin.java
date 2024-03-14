@@ -65,9 +65,10 @@ public class FastpayPlugin implements FlutterPlugin, MethodCallHandler , Activit
       String storePassword = (String)getData.get("storePassword");
       String orderId = (String)getData.get("orderID");
       String amount = (String)getData.get("amount");
+      String callbackUri = (String)getData.get("callbackUri");
       isProduction = (boolean)getData.get("isProduction");
 
-      FastpayRequest request = new FastpayRequest(context, storeId, storePassword, amount, orderId, isProduction ? FastpaySDK.PRODUCTION : FastpaySDK.SANDBOX, (sdkStatus, message) -> {
+      FastpayRequest request = new FastpayRequest(context, storeId, storePassword, amount, orderId, isProduction ? FastpaySDK.PRODUCTION : FastpaySDK.SANDBOX,callbackUri, (sdkStatus, message) -> {
         /*String statusString = sdkStatus.name().toLowerCase(Locale.ROOT);
         String response = "{\"isSuccess\":false,\"isStatus\":true,\"status\":"+statusString+",\"statusMessage\":"+message+",\"errorMessage\":\"\",\"transactionStatus\":\"\",\"transactionId\":\"\",\"orderId\":\"\",\"paymentAmount\":\"\",\"paymentCurrency\":\"\",\"payeeName\":\"\",\"payeeMobileNumber\":\"\",\"paymentTime\":\"\"}";
         mResult.success(response);*/
