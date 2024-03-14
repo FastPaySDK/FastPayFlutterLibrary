@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:io';
 
+import 'package:app_links/app_links.dart';
 import 'package:fastpay_merchant/fastPayRequests.dart';
 import 'package:flutter/material.dart';
 
@@ -19,6 +21,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     initPlatformState();
+    _handleIncomingIntent();
   }
 
   FastpayResult? _fastpayResult;
@@ -79,5 +82,14 @@ class _MyAppState extends State<MyApp> {
         action: SnackBarAction(label: 'UNDO', onPressed: scaffold.hideCurrentSnackBar),
       ),
     );
+  }
+
+  Future<void> _handleIncomingIntent() async {
+    final _appLinks = AppLinks();
+    final uri = await _appLinks.getLatestAppLink();
+    final allQueryParams = uri?.queryParameters;
+    final status = allQueryParams?['status'];
+    final orderId = allQueryParams?['order_id'];
+    debugPrint("..........................STATUS::: "+status.toString()+", OrderId:::"+orderId.toString());
   }
 }
