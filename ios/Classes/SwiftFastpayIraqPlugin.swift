@@ -8,6 +8,7 @@ public class SwiftFastpayIraqPlugin: UIViewController, FlutterPlugin, FastPayDel
     var resultG: FlutterResult!
     var isPresented: Bool = false
     var timer: Timer?
+
     
     public func fastPayProcessStatus(with status: FastpayMerchantSDK.FPFrameworkStatus) {
         resultG(status)
@@ -49,13 +50,17 @@ public class SwiftFastpayIraqPlugin: UIViewController, FlutterPlugin, FastPayDel
             let orderId = args["orderID"] as! String
             let amount = args["amount"] as! String
             let isProduction = args["isProduction"] as! Bool
+            let uri = args["callbackUri"] as! String
             
             let amounts = Int(amount)
             let testObj = Fastpay(storeId: storeId, storePassword: storePassword, orderId: orderId ,
-                                  amount: amounts!, currency: .IQD)
+                                  amount: amounts ?? 0, currency: .IQD, uri: uri)
             testObj.delegate = self
             let uiContoller = (UIApplication.shared.keyWindow?.rootViewController!)!
-            let x =  testObj.start(in: uiContoller, for: isProduction ? .Production : .Sandbox)
+            
+            let vc = FlutterViewController()
+
+            let x: () =  testObj.start(in: vc, for: isProduction ? .Production : .Sandbox)
             
             
             timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] timer in
@@ -63,10 +68,10 @@ public class SwiftFastpayIraqPlugin: UIViewController, FlutterPlugin, FastPayDel
                     if rootVC.presentedViewController != nil {
                         
                     } else {
-                        print("return exit \(self?.isPresented)")
+                        print("return exit \(String(describing: self?.isPresented))")
                         timer.invalidate()
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                            print("return call result \(self?.isPresented)")
+                            print("return call result \(String(describing: self?.isPresented))")
                             if(!self!.isPresented == true){
                                 self?.resultG("{\"isSuccess\":false,\"errorMessage\":\""+"Cancel"+"\",\"transactionStatus\":\"\",\"transactionId\":\"\",\"orderId\":\"\",\"paymentAmount\":\"\",\"paymentCurrency\":\"\",\"payeeName\":\"\",\"payeeMobileNumber\":\"\",\"paymentTime\":\"\"}")
                             }

@@ -6,11 +6,11 @@
 	<dict>
 		<key>Assets.car</key>
 		<data>
-		ScQbGVUwEmeCnvHiUe1UXV7b9Vo=
+		lbsnHhcQiFdfMoRdJNwqA4tkpZo=
 		</data>
 		<key>Headers/FastpayMerchantSDK-Swift.h</key>
 		<data>
-		SBwEKOVi4DGA9O+JmhGKKikRfaY=
+		Fk0ra5JmtHhD6YP9dfatO0tYP5Y=
 		</data>
 		<key>Headers/FastpayMerchantSDK.h</key>
 		<data>
@@ -18,31 +18,31 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		hjR/knrCMVKAcfdhY6nULhq2I6o=
+		THF3yQL6Gy7HFo1+k6M70xhZvTs=
 		</data>
 		<key>Modules/FastpayMerchantSDK.swiftmodule/Project/arm64-apple-ios.swiftsourceinfo</key>
 		<data>
-		S0r6Xg9wYjfcXwsCoELbQKYwG5c=
+		3+i8I2ycZkBTV8DU9ZATK1nU3vI=
 		</data>
 		<key>Modules/FastpayMerchantSDK.swiftmodule/arm64-apple-ios.abi.json</key>
 		<data>
-		oQv0rZ5FEs8HOOAO+hJbVMuxrUE=
+		zHxh+iwgAURxZUbdEb1vkyu5XYQ=
 		</data>
 		<key>Modules/FastpayMerchantSDK.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<data>
-		alc37ksvIFBZN6evj3BMbJ0wNAU=
+		r3uyudXjdYbgj39KNF5gfU3sob0=
 		</data>
 		<key>Modules/FastpayMerchantSDK.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<data>
-		YNGE5tgCSxdT72rm1IXcSsIWn2o=
+		CfljeJ+2Rx0Mhom3h6d5y5vFJ48=
 		</data>
 		<key>Modules/FastpayMerchantSDK.swiftmodule/arm64-apple-ios.swiftinterface</key>
 		<data>
-		alc37ksvIFBZN6evj3BMbJ0wNAU=
+		r3uyudXjdYbgj39KNF5gfU3sob0=
 		</data>
 		<key>Modules/FastpayMerchantSDK.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<data>
-		ocq0do15jOxnLHD542ix7XXlpUA=
+		pBXq1w4YHExuZS51C23BT/7nxtU=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -55,14 +55,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			I2hOFhFa81LsS3fiLAU+tZ4FTzl40kXtsvX0pPtOk7E=
+			Ydh0ybnwJYmO6Q+R2s7ESZAiMnE2JWRW8YICcjp1QFU=
 			</data>
 		</dict>
 		<key>Headers/FastpayMerchantSDK-Swift.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			KrWvk0ErGH7oqQ8oczjPL3toI9jH6NG9wuxsmMOvbqI=
+			QaAQQ5r3unrqkwio2vCXjnhQHmz3Ie9id/wpni9SsHs=
 			</data>
 		</dict>
 		<key>Headers/FastpayMerchantSDK.h</key>
@@ -76,42 +76,42 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			5fTt+dMOB/TKoTmlIDpgov8e2xxyAf4niEbT2gF+R1s=
+			ME5bo4ocVGVBzTrPs9uXCFkZ1m4W+9KxgOber6nj8Aw=
 			</data>
 		</dict>
 		<key>Modules/FastpayMerchantSDK.swiftmodule/arm64-apple-ios.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ok9+zq1NhdgaLPT+GP17H0yfJP/JGRqH2QtVlOv4MeI=
+			rhA2MGP/DZsJBMOhU61tfA1nFtUKSwAtfxTj0y2bavU=
 			</data>
 		</dict>
 		<key>Modules/FastpayMerchantSDK.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			0/KqRXjcukhGkodua33xp6uwz0THTFYYXLRSb8x9vFQ=
+			MkyyxGL2Y8W0kA0WfX5vOgtdp9GBNsXD1HdMtAp6Z5g=
 			</data>
 		</dict>
 		<key>Modules/FastpayMerchantSDK.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			AKoRsi002U5Ox41F5x+alNlDVPEvGMpCNvxkpIKRYSc=
+			yAhQmc7xUkyWRGuJXVRg30ahJ7FqZXMjTuAgqf/6EgY=
 			</data>
 		</dict>
 		<key>Modules/FastpayMerchantSDK.swiftmodule/arm64-apple-ios.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			0/KqRXjcukhGkodua33xp6uwz0THTFYYXLRSb8x9vFQ=
+			MkyyxGL2Y8W0kA0WfX5vOgtdp9GBNsXD1HdMtAp6Z5g=
 			</data>
 		</dict>
 		<key>Modules/FastpayMerchantSDK.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			MkLPCLhNgyeRrvlO2iVozeSRr9JIxHzcC4O2NAfR368=
+			1WjNdMXzJ/dY1DpJU2BUUSf2OPWUqc40qv4B24Y1teQ=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

@@ -63,7 +63,7 @@ extension UIKit.UIView {
 }
 @objc public class Fastpay : ObjectiveC.NSObject {
   @objc weak public var delegate: (any FastpayMerchantSDK.FastPayDelegate)?
-  @objc public init(storeId: Swift.String, storePassword: Swift.String, orderId: Swift.String, amount: Swift.Int, currency: FastpayMerchantSDK.FPCurrency)
+  @objc public init(storeId: Swift.String, storePassword: Swift.String, orderId: Swift.String, amount: Swift.Int, currency: FastpayMerchantSDK.FPCurrency, uri: Swift.String)
   @objc public func start(in viewController: UIKit.UIViewController, for environment: FastpayMerchantSDK.FPEnvironment)
   @objc deinit
 }

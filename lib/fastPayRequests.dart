@@ -9,6 +9,7 @@ Future<FastpayResult> FastPayRequest({
   required String orderID,
   required String callbackUri,
   bool isProduction = false,
+
   Function(SDKStatus,String)? callback
 }) async {
   try {

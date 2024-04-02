@@ -1,4 +1,6 @@
 PODS:
+  - app_links (0.0.1):
+    - Flutter
   - fastpay_merchant (1.0.3):
     - Flutter
   - Flutter (1.0.0)
@@ -8,6 +10,7 @@ PODS:
   - Toast (4.1.0)
 
 DEPENDENCIES:
+  - app_links (from `.symlinks/plugins/app_links/ios`)
   - fastpay_merchant (from `.symlinks/plugins/fastpay_merchant/ios`)
   - Flutter (from `Flutter`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
@@ -17,6 +20,8 @@ SPEC REPOS:
     - Toast
 
 EXTERNAL SOURCES:
+  app_links:
+    :path: ".symlinks/plugins/app_links/ios"
   fastpay_merchant:
     :path: ".symlinks/plugins/fastpay_merchant/ios"
   Flutter:
@@ -25,11 +30,12 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/fluttertoast/ios"
 
 SPEC CHECKSUMS:
+  app_links: e70ca16b4b0f88253b3b3660200d4a10b4ea9795
   fastpay_merchant: 0c74eeb409e538516cd241adc2e8b487173fb83e
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   fluttertoast: 31b00dabfa7fb7bacd9e7dbee580d7a2ff4bf265
   Toast: ec33c32b8688982cecc6348adeae667c1b9938da
 
-PODFILE CHECKSUM: bf1a3435c3a0c3fbc3f8a28916628dec280c26a2
+PODFILE CHECKSUM: 819463e6a0290f5a72f145ba7cde16e8b6ef0796
 
 COCOAPODS: 1.15.2

@@ -18,7 +18,7 @@ Accept payments with FastPay's APIs. Our simple and easy-to-integrate APIs allow
 
 ```yaml
 dependencies:
-  fastpay_merchant: ^1.0.6
+  fastpay_merchant: ^1.0.10
   #To handle callbacks (Redirection) from fastpay wallet application.
   app_links: ^4.0.0 
 ```
@@ -125,6 +125,29 @@ Future<void> _handleIncomingIntent() async {
     final orderId = allQueryParams?['order_id'];
     debugPrint("..........................STATUS::: "+status.toString()+", OrderId:::"+orderId.toString());
   }
+```
+
+NOTE: Don't forget to add following code block to your android manifest file.
+
+```properties
+<application
+    <activity
+        android:name=".MainActivity"...>
+        ...
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN"/>
+            <category android:name="android.intent.category.LAUNCHER"/>
+        </intent-filter>
+        <intent-filter>
+            <data android:scheme="sdk" android:host="your.website.com" android:pathPrefix="/further/paths"/>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+        </intent-filter>
+        ...
+    </activity>
+      ...
+</application>
 ```
 
 When __FastPayRequest__ call open FastPay SDK then after payment return __FastpayResult__ that contains:

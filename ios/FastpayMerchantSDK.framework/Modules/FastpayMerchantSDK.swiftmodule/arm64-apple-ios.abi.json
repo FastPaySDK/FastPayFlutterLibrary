@@ -6163,7 +6163,7 @@
           {
             "kind": "Constructor",
             "name": "init",
-            "printedName": "init(storeId:storePassword:orderId:amount:currency:)",
+            "printedName": "init(storeId:storePassword:orderId:amount:currency:uri:)",
             "children": [
               {
                 "kind": "TypeNominal",
@@ -6200,13 +6200,19 @@
                 "name": "FPCurrency",
                 "printedName": "FastpayMerchantSDK.FPCurrency",
                 "usr": "c:@M@FastpayMerchantSDK@E@FPCurrency"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
               }
             ],
             "declKind": "Constructor",
-            "usr": "c:@M@FastpayMerchantSDK@objc(cs)Fastpay(im)initWithStoreId:storePassword:orderId:amount:currency:",
-            "mangledName": "$s18FastpayMerchantSDK0A0C7storeId0D8Password05orderE06amount8currencyACSS_S2SSiAA10FPCurrencyOtcfc",
+            "usr": "c:@M@FastpayMerchantSDK@objc(cs)Fastpay(im)initWithStoreId:storePassword:orderId:amount:currency:uri:",
+            "mangledName": "$s18FastpayMerchantSDK0A0C7storeId0D8Password05orderE06amount8currency3uriACSS_S2SSiAA10FPCurrencyOSStcfc",
             "moduleName": "FastpayMerchantSDK",
-            "objc_name": "initWithStoreId:storePassword:orderId:amount:currency:",
+            "objc_name": "initWithStoreId:storePassword:orderId:amount:currency:uri:",
             "declAttributes": [
               "AccessControl",
               "ObjC"
@@ -7320,6 +7326,177 @@
             "isOpen": true,
             "declAttributes": [
               "Custom"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Var",
+            "name": "appDidEnterBackgroundDate",
+            "printedName": "appDidEnterBackgroundDate",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Foundation.Date?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Date",
+                    "printedName": "Foundation.Date",
+                    "usr": "s:10Foundation4DateV"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:18FastpayMerchantSDK18BaseViewControllerC25appDidEnterBackgroundDate10Foundation0K0VSgvp",
+            "mangledName": "$s18FastpayMerchantSDK18BaseViewControllerC25appDidEnterBackgroundDate10Foundation0K0VSgvp",
+            "moduleName": "FastpayMerchantSDK",
+            "isOpen": true,
+            "declAttributes": [
+              "Custom",
+              "HasInitialValue",
+              "HasStorage"
+            ],
+            "fixedbinaryorder": 14,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Foundation.Date?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Date",
+                        "printedName": "Foundation.Date",
+                        "usr": "s:10Foundation4DateV"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18FastpayMerchantSDK18BaseViewControllerC25appDidEnterBackgroundDate10Foundation0K0VSgvg",
+                "mangledName": "$s18FastpayMerchantSDK18BaseViewControllerC25appDidEnterBackgroundDate10Foundation0K0VSgvg",
+                "moduleName": "FastpayMerchantSDK",
+                "implicit": true,
+                "isOpen": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Foundation.Date?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Date",
+                        "printedName": "Foundation.Date",
+                        "usr": "s:10Foundation4DateV"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18FastpayMerchantSDK18BaseViewControllerC25appDidEnterBackgroundDate10Foundation0K0VSgvs",
+                "mangledName": "$s18FastpayMerchantSDK18BaseViewControllerC25appDidEnterBackgroundDate10Foundation0K0VSgvs",
+                "moduleName": "FastpayMerchantSDK",
+                "implicit": true,
+                "isOpen": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18FastpayMerchantSDK18BaseViewControllerC25appDidEnterBackgroundDate10Foundation0K0VSgvM",
+                "mangledName": "$s18FastpayMerchantSDK18BaseViewControllerC25appDidEnterBackgroundDate10Foundation0K0VSgvM",
+                "moduleName": "FastpayMerchantSDK",
+                "implicit": true,
+                "isOpen": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "applicationDidEnterBackground",
+            "printedName": "applicationDidEnterBackground(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "NotificationCenter",
+                "printedName": "Foundation.NotificationCenter",
+                "usr": "c:objc(cs)NSNotificationCenter"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@FastpayMerchantSDK@objc(cs)BaseViewController(im)applicationDidEnterBackground:",
+            "mangledName": "$s18FastpayMerchantSDK18BaseViewControllerC29applicationDidEnterBackgroundyySo20NSNotificationCenterCF",
+            "moduleName": "FastpayMerchantSDK",
+            "isOpen": true,
+            "declAttributes": [
+              "Custom",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "applicationWillEnterForeground",
+            "printedName": "applicationWillEnterForeground(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "NotificationCenter",
+                "printedName": "Foundation.NotificationCenter",
+                "usr": "c:objc(cs)NSNotificationCenter"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@FastpayMerchantSDK@objc(cs)BaseViewController(im)applicationWillEnterForeground:",
+            "mangledName": "$s18FastpayMerchantSDK18BaseViewControllerC30applicationWillEnterForegroundyySo20NSNotificationCenterCF",
+            "moduleName": "FastpayMerchantSDK",
+            "isOpen": true,
+            "declAttributes": [
+              "Custom",
+              "ObjC"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -17410,6 +17587,692 @@
       },
       {
         "kind": "TypeDecl",
+        "name": "GTimer",
+        "printedName": "GTimer",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "sharedTimer",
+            "printedName": "sharedTimer",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "GTimer",
+                "printedName": "FastpayMerchantSDK.GTimer",
+                "usr": "c:@M@FastpayMerchantSDK@objc(cs)GTimer"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:18FastpayMerchantSDK6GTimerC11sharedTimerACvpZ",
+            "mangledName": "$s18FastpayMerchantSDK6GTimerC11sharedTimerACvpZ",
+            "moduleName": "FastpayMerchantSDK",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "HasStorage"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "GTimer",
+                    "printedName": "FastpayMerchantSDK.GTimer",
+                    "usr": "c:@M@FastpayMerchantSDK@objc(cs)GTimer"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18FastpayMerchantSDK6GTimerC11sharedTimerACvgZ",
+                "mangledName": "$s18FastpayMerchantSDK6GTimerC11sharedTimerACvgZ",
+                "moduleName": "FastpayMerchantSDK",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "timerName",
+            "printedName": "timerName",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Name",
+                "printedName": "Foundation.NSNotification.Name",
+                "usr": "c:@T@NSNotificationName"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:18FastpayMerchantSDK6GTimerC9timerNameSo014NSNotificationF0avpZ",
+            "mangledName": "$s18FastpayMerchantSDK6GTimerC9timerNameSo014NSNotificationF0avpZ",
+            "moduleName": "FastpayMerchantSDK",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "HasStorage"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Name",
+                    "printedName": "Foundation.NSNotification.Name",
+                    "usr": "c:@T@NSNotificationName"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18FastpayMerchantSDK6GTimerC9timerNameSo014NSNotificationF0avgZ",
+                "mangledName": "$s18FastpayMerchantSDK6GTimerC9timerNameSo014NSNotificationF0avgZ",
+                "moduleName": "FastpayMerchantSDK",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "internalTimer",
+            "printedName": "internalTimer",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Timer",
+                "printedName": "Foundation.Timer",
+                "usr": "c:objc(cs)NSTimer"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:18FastpayMerchantSDK6GTimerC13internalTimerSo7NSTimerCvp",
+            "mangledName": "$s18FastpayMerchantSDK6GTimerC13internalTimerSo7NSTimerCvp",
+            "moduleName": "FastpayMerchantSDK",
+            "isOpen": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage"
+            ],
+            "fixedbinaryorder": 0,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Timer",
+                    "printedName": "Foundation.Timer",
+                    "usr": "c:objc(cs)NSTimer"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18FastpayMerchantSDK6GTimerC13internalTimerSo7NSTimerCvg",
+                "mangledName": "$s18FastpayMerchantSDK6GTimerC13internalTimerSo7NSTimerCvg",
+                "moduleName": "FastpayMerchantSDK",
+                "implicit": true,
+                "isOpen": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Timer",
+                    "printedName": "Foundation.Timer",
+                    "usr": "c:objc(cs)NSTimer"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18FastpayMerchantSDK6GTimerC13internalTimerSo7NSTimerCvs",
+                "mangledName": "$s18FastpayMerchantSDK6GTimerC13internalTimerSo7NSTimerCvs",
+                "moduleName": "FastpayMerchantSDK",
+                "implicit": true,
+                "isOpen": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18FastpayMerchantSDK6GTimerC13internalTimerSo7NSTimerCvM",
+                "mangledName": "$s18FastpayMerchantSDK6GTimerC13internalTimerSo7NSTimerCvM",
+                "moduleName": "FastpayMerchantSDK",
+                "implicit": true,
+                "isOpen": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "numberOfTimesFired",
+            "printedName": "numberOfTimesFired",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:18FastpayMerchantSDK6GTimerC18numberOfTimesFiredSivp",
+            "mangledName": "$s18FastpayMerchantSDK6GTimerC18numberOfTimesFiredSivp",
+            "moduleName": "FastpayMerchantSDK",
+            "isOpen": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage"
+            ],
+            "fixedbinaryorder": 1,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18FastpayMerchantSDK6GTimerC18numberOfTimesFiredSivg",
+                "mangledName": "$s18FastpayMerchantSDK6GTimerC18numberOfTimesFiredSivg",
+                "moduleName": "FastpayMerchantSDK",
+                "implicit": true,
+                "isOpen": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18FastpayMerchantSDK6GTimerC18numberOfTimesFiredSivs",
+                "mangledName": "$s18FastpayMerchantSDK6GTimerC18numberOfTimesFiredSivs",
+                "moduleName": "FastpayMerchantSDK",
+                "implicit": true,
+                "isOpen": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18FastpayMerchantSDK6GTimerC18numberOfTimesFiredSivM",
+                "mangledName": "$s18FastpayMerchantSDK6GTimerC18numberOfTimesFiredSivM",
+                "moduleName": "FastpayMerchantSDK",
+                "implicit": true,
+                "isOpen": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "recentReducedAmount",
+            "printedName": "recentReducedAmount",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:18FastpayMerchantSDK6GTimerC19recentReducedAmountSivp",
+            "mangledName": "$s18FastpayMerchantSDK6GTimerC19recentReducedAmountSivp",
+            "moduleName": "FastpayMerchantSDK",
+            "isOpen": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage"
+            ],
+            "fixedbinaryorder": 2,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18FastpayMerchantSDK6GTimerC19recentReducedAmountSivg",
+                "mangledName": "$s18FastpayMerchantSDK6GTimerC19recentReducedAmountSivg",
+                "moduleName": "FastpayMerchantSDK",
+                "implicit": true,
+                "isOpen": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18FastpayMerchantSDK6GTimerC19recentReducedAmountSivs",
+                "mangledName": "$s18FastpayMerchantSDK6GTimerC19recentReducedAmountSivs",
+                "moduleName": "FastpayMerchantSDK",
+                "implicit": true,
+                "isOpen": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18FastpayMerchantSDK6GTimerC19recentReducedAmountSivM",
+                "mangledName": "$s18FastpayMerchantSDK6GTimerC19recentReducedAmountSivM",
+                "moduleName": "FastpayMerchantSDK",
+                "implicit": true,
+                "isOpen": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "isRequestTimeOut",
+            "printedName": "isRequestTimeOut",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:18FastpayMerchantSDK6GTimerC16isRequestTimeOutSbvp",
+            "mangledName": "$s18FastpayMerchantSDK6GTimerC16isRequestTimeOutSbvp",
+            "moduleName": "FastpayMerchantSDK",
+            "isOpen": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage"
+            ],
+            "fixedbinaryorder": 3,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18FastpayMerchantSDK6GTimerC16isRequestTimeOutSbvg",
+                "mangledName": "$s18FastpayMerchantSDK6GTimerC16isRequestTimeOutSbvg",
+                "moduleName": "FastpayMerchantSDK",
+                "implicit": true,
+                "isOpen": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18FastpayMerchantSDK6GTimerC16isRequestTimeOutSbvs",
+                "mangledName": "$s18FastpayMerchantSDK6GTimerC16isRequestTimeOutSbvs",
+                "moduleName": "FastpayMerchantSDK",
+                "implicit": true,
+                "isOpen": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18FastpayMerchantSDK6GTimerC16isRequestTimeOutSbvM",
+                "mangledName": "$s18FastpayMerchantSDK6GTimerC16isRequestTimeOutSbvM",
+                "moduleName": "FastpayMerchantSDK",
+                "implicit": true,
+                "isOpen": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "startTimer",
+            "printedName": "startTimer(timeOut:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:18FastpayMerchantSDK6GTimerC10startTimer7timeOutySi_tF",
+            "mangledName": "$s18FastpayMerchantSDK6GTimerC10startTimer7timeOutySi_tF",
+            "moduleName": "FastpayMerchantSDK",
+            "isOpen": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "reduceSecond",
+            "printedName": "reduceSecond(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:18FastpayMerchantSDK6GTimerC12reduceSecondyySiF",
+            "mangledName": "$s18FastpayMerchantSDK6GTimerC12reduceSecondyySiF",
+            "moduleName": "FastpayMerchantSDK",
+            "isOpen": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "stopTimer",
+            "printedName": "stopTimer()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:18FastpayMerchantSDK6GTimerC9stopTimeryyF",
+            "mangledName": "$s18FastpayMerchantSDK6GTimerC9stopTimeryyF",
+            "moduleName": "FastpayMerchantSDK",
+            "isOpen": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "fireTimerAction",
+            "printedName": "fireTimerAction(sender:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "AnyObject?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "AnyObject"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@FastpayMerchantSDK@objc(cs)GTimer(im)fireTimerActionWithSender:",
+            "mangledName": "$s18FastpayMerchantSDK6GTimerC15fireTimerAction6senderyyXlSg_tF",
+            "moduleName": "FastpayMerchantSDK",
+            "isOpen": true,
+            "objc_name": "fireTimerActionWithSender:",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "postRequestTimeoutNotification",
+            "printedName": "postRequestTimeoutNotification()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:18FastpayMerchantSDK6GTimerC30postRequestTimeoutNotificationyyF",
+            "mangledName": "$s18FastpayMerchantSDK6GTimerC30postRequestTimeoutNotificationyyF",
+            "moduleName": "FastpayMerchantSDK",
+            "isOpen": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "GTimer",
+                "printedName": "FastpayMerchantSDK.GTimer",
+                "usr": "c:@M@FastpayMerchantSDK@objc(cs)GTimer"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@FastpayMerchantSDK@objc(cs)GTimer(im)init",
+            "mangledName": "$s18FastpayMerchantSDK6GTimerCACycfc",
+            "moduleName": "FastpayMerchantSDK",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@FastpayMerchantSDK@objc(cs)GTimer",
+        "mangledName": "$s18FastpayMerchantSDK6GTimerC",
+        "moduleName": "FastpayMerchantSDK",
+        "isOpen": true,
+        "declAttributes": [
+          "ObjC"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "FastpayMerchantSDK",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
         "name": "ToCViewController",
         "printedName": "ToCViewController",
         "children": [
@@ -19872,6 +20735,129 @@
           },
           {
             "kind": "Var",
+            "name": "uri",
+            "printedName": "uri",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ImplicitlyUnwrappedOptional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:18FastpayMerchantSDK13FPDataHandlerC3uriSSSgvp",
+            "mangledName": "$s18FastpayMerchantSDK13FPDataHandlerC3uriSSSgvp",
+            "moduleName": "FastpayMerchantSDK",
+            "isOpen": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage"
+            ],
+            "fixedbinaryorder": 6,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ImplicitlyUnwrappedOptional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18FastpayMerchantSDK13FPDataHandlerC3uriSSSgvg",
+                "mangledName": "$s18FastpayMerchantSDK13FPDataHandlerC3uriSSSgvg",
+                "moduleName": "FastpayMerchantSDK",
+                "implicit": true,
+                "isOpen": true,
+                "declAttributes": [
+                  "Transparent"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ImplicitlyUnwrappedOptional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18FastpayMerchantSDK13FPDataHandlerC3uriSSSgvs",
+                "mangledName": "$s18FastpayMerchantSDK13FPDataHandlerC3uriSSSgvs",
+                "moduleName": "FastpayMerchantSDK",
+                "implicit": true,
+                "isOpen": true,
+                "declAttributes": [
+                  "Transparent"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18FastpayMerchantSDK13FPDataHandlerC3uriSSSgvM",
+                "mangledName": "$s18FastpayMerchantSDK13FPDataHandlerC3uriSSSgvM",
+                "moduleName": "FastpayMerchantSDK",
+                "implicit": true,
+                "isOpen": true,
+                "declAttributes": [
+                  "Transparent"
+                ],
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
             "name": "epgwDelegate",
             "printedName": "epgwDelegate",
             "children": [
@@ -19900,7 +20886,7 @@
               "HasStorage",
               "RawDocComment"
             ],
-            "fixedbinaryorder": 6,
+            "fixedbinaryorder": 7,
             "hasStorage": true,
             "accessors": [
               {
@@ -25478,6 +26464,110 @@
           },
           {
             "kind": "Var",
+            "name": "eye",
+            "printedName": "eye",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ImageResource",
+                "printedName": "FastpayMerchantSDK.ImageResource",
+                "usr": "s:18FastpayMerchantSDK13ImageResourceV"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:18FastpayMerchantSDK13ImageResourceV3eyeACvpZ",
+            "mangledName": "$s18FastpayMerchantSDK13ImageResourceV3eyeACvpZ",
+            "moduleName": "FastpayMerchantSDK",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ImageResource",
+                    "printedName": "FastpayMerchantSDK.ImageResource",
+                    "usr": "s:18FastpayMerchantSDK13ImageResourceV"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18FastpayMerchantSDK13ImageResourceV3eyeACvgZ",
+                "mangledName": "$s18FastpayMerchantSDK13ImageResourceV3eyeACvgZ",
+                "moduleName": "FastpayMerchantSDK",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Transparent"
+                ],
+                "isFromExtension": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "eyeSlash",
+            "printedName": "eyeSlash",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ImageResource",
+                "printedName": "FastpayMerchantSDK.ImageResource",
+                "usr": "s:18FastpayMerchantSDK13ImageResourceV"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:18FastpayMerchantSDK13ImageResourceV8eyeSlashACvpZ",
+            "mangledName": "$s18FastpayMerchantSDK13ImageResourceV8eyeSlashACvpZ",
+            "moduleName": "FastpayMerchantSDK",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ImageResource",
+                    "printedName": "FastpayMerchantSDK.ImageResource",
+                    "usr": "s:18FastpayMerchantSDK13ImageResourceV"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18FastpayMerchantSDK13ImageResourceV8eyeSlashACvgZ",
+                "mangledName": "$s18FastpayMerchantSDK13ImageResourceV8eyeSlashACvgZ",
+                "moduleName": "FastpayMerchantSDK",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Transparent"
+                ],
+                "isFromExtension": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
             "name": "largeWhiteTick",
             "printedName": "largeWhiteTick",
             "children": [
@@ -30460,113 +31550,106 @@
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Utils\/StaticTexts.swift",
       "kind": "StringLiteral",
       "offset": 1154,
-      "length": 6,
-      "value": "\"Back\""
+      "length": 16,
+      "value": "\"Cancel Payment\""
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Utils\/StaticTexts.swift",
       "kind": "StringLiteral",
-      "offset": 1170,
-      "length": 6,
-      "value": "\"Back\""
+      "offset": 1180,
+      "length": 16,
+      "value": "\"Cancel Payment\""
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Utils\/StaticTexts.swift",
       "kind": "StringLiteral",
-      "offset": 1187,
-      "length": 6,
-      "value": "\"Back\""
+      "offset": 1207,
+      "length": 16,
+      "value": "\"Cancel Payment\""
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Utils\/StaticTexts.swift",
       "kind": "StringLiteral",
-      "offset": 1227,
+      "offset": 1257,
       "length": 54,
       "value": "\"Use another mobile or let your friends & family help\""
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Utils\/StaticTexts.swift",
       "kind": "StringLiteral",
-      "offset": 1291,
+      "offset": 1321,
       "length": 54,
       "value": "\"Use another mobile or let your friends & family help\""
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Utils\/StaticTexts.swift",
       "kind": "StringLiteral",
-      "offset": 1356,
+      "offset": 1386,
       "length": 54,
       "value": "\"Use another mobile or let your friends & family help\""
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Utils\/StaticTexts.swift",
       "kind": "StringLiteral",
-      "offset": 1448,
+      "offset": 1478,
       "length": 22,
       "value": "\"Use Login Credential\""
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Utils\/StaticTexts.swift",
       "kind": "StringLiteral",
-      "offset": 1480,
+      "offset": 1510,
       "length": 22,
       "value": "\"Use Login Credential\""
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Utils\/StaticTexts.swift",
       "kind": "StringLiteral",
-      "offset": 1513,
+      "offset": 1543,
       "length": 22,
       "value": "\"Use Login Credential\""
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Utils\/StaticTexts.swift",
       "kind": "StringLiteral",
-      "offset": 1579,
+      "offset": 1609,
       "length": 22,
       "value": "\"Something went wrong\""
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Utils\/StaticTexts.swift",
       "kind": "StringLiteral",
-      "offset": 1611,
+      "offset": 1641,
       "length": 22,
       "value": "\"Something went wrong\""
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Utils\/StaticTexts.swift",
       "kind": "StringLiteral",
-      "offset": 1644,
+      "offset": 1674,
       "length": 22,
       "value": "\"Something went wrong\""
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Utils\/StaticTexts.swift",
       "kind": "StringLiteral",
-      "offset": 1695,
+      "offset": 1725,
       "length": 7,
       "value": "\"Retry\""
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Utils\/StaticTexts.swift",
       "kind": "StringLiteral",
-      "offset": 1712,
+      "offset": 1742,
       "length": 7,
       "value": "\"Retry\""
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Utils\/StaticTexts.swift",
       "kind": "StringLiteral",
-      "offset": 1730,
+      "offset": 1760,
       "length": 7,
       "value": "\"Retry\""
-    },
-    {
-      "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Utils\/StaticTexts.swift",
-      "kind": "StringLiteral",
-      "offset": 1779,
-      "length": 20,
-      "value": "\"Payment Successful\""
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Utils\/StaticTexts.swift",
@@ -30578,105 +31661,105 @@
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Utils\/StaticTexts.swift",
       "kind": "StringLiteral",
-      "offset": 1840,
+      "offset": 1839,
       "length": 20,
       "value": "\"Payment Successful\""
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Utils\/StaticTexts.swift",
       "kind": "StringLiteral",
-      "offset": 1910,
+      "offset": 1870,
+      "length": 20,
+      "value": "\"Payment Successful\""
+    },
+    {
+      "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Utils\/StaticTexts.swift",
+      "kind": "StringLiteral",
+      "offset": 1940,
       "length": 36,
       "value": "\"Please wait while we take you back\""
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Utils\/StaticTexts.swift",
       "kind": "StringLiteral",
-      "offset": 1956,
+      "offset": 1986,
       "length": 36,
       "value": "\"Please wait while we take you back\""
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Utils\/StaticTexts.swift",
       "kind": "StringLiteral",
-      "offset": 2003,
+      "offset": 2033,
       "length": 36,
       "value": "\"Please wait while we take you back\""
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Utils\/StaticTexts.swift",
       "kind": "StringLiteral",
-      "offset": 2065,
+      "offset": 2095,
       "length": 4,
       "value": "\"OK\""
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Utils\/StaticTexts.swift",
       "kind": "StringLiteral",
-      "offset": 2079,
+      "offset": 2109,
       "length": 4,
       "value": "\"OK\""
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Utils\/StaticTexts.swift",
       "kind": "StringLiteral",
-      "offset": 2094,
+      "offset": 2124,
       "length": 4,
       "value": "\"OK\""
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Utils\/StaticTexts.swift",
       "kind": "StringLiteral",
-      "offset": 2141,
+      "offset": 2171,
       "length": 43,
       "value": "\"Internet connection appears to be offline\""
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Utils\/StaticTexts.swift",
       "kind": "StringLiteral",
-      "offset": 2194,
+      "offset": 2224,
       "length": 43,
       "value": "\"Internet connection appears to be offline\""
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Utils\/StaticTexts.swift",
       "kind": "StringLiteral",
-      "offset": 2248,
+      "offset": 2278,
       "length": 43,
       "value": "\"Internet connection appears to be offline\""
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Utils\/StaticTexts.swift",
       "kind": "StringLiteral",
-      "offset": 2331,
+      "offset": 2361,
       "length": 15,
       "value": "\"Error Occured\""
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Utils\/StaticTexts.swift",
       "kind": "StringLiteral",
-      "offset": 2356,
+      "offset": 2386,
       "length": 15,
       "value": "\"Error Occured\""
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Utils\/StaticTexts.swift",
       "kind": "StringLiteral",
-      "offset": 2382,
+      "offset": 2412,
       "length": 15,
       "value": "\"Error Occured\""
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Utils\/StaticTexts.swift",
       "kind": "StringLiteral",
-      "offset": 2439,
-      "length": 19,
-      "value": "\"Successfully done\""
-    },
-    {
-      "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Utils\/StaticTexts.swift",
-      "kind": "StringLiteral",
-      "offset": 2468,
+      "offset": 2469,
       "length": 19,
       "value": "\"Successfully done\""
     },
@@ -30690,21 +31773,28 @@
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Utils\/StaticTexts.swift",
       "kind": "StringLiteral",
-      "offset": 2553,
+      "offset": 2528,
+      "length": 19,
+      "value": "\"Successfully done\""
+    },
+    {
+      "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Utils\/StaticTexts.swift",
+      "kind": "StringLiteral",
+      "offset": 2583,
       "length": 12,
       "value": "\"Initiating\""
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Utils\/StaticTexts.swift",
       "kind": "StringLiteral",
-      "offset": 2575,
+      "offset": 2605,
       "length": 12,
       "value": "\"Initiating\""
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Utils\/StaticTexts.swift",
       "kind": "StringLiteral",
-      "offset": 2598,
+      "offset": 2628,
       "length": 12,
       "value": "\"Initiating\""
     },
@@ -30746,7 +31836,7 @@
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/BaseViewController.swift",
       "kind": "StringLiteral",
-      "offset": 11826,
+      "offset": 13223,
       "length": 4,
       "value": "\"OK\""
     },
@@ -30907,35 +31997,35 @@
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPWebServiceHandler.swift",
       "kind": "StringLiteral",
-      "offset": 9930,
+      "offset": 9934,
       "length": 7,
       "value": "\":#[]@\""
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPWebServiceHandler.swift",
       "kind": "StringLiteral",
-      "offset": 10035,
+      "offset": 10039,
       "length": 13,
       "value": "\"!$&'()*+,;=\""
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPWebServiceHandler.swift",
       "kind": "StringLiteral",
-      "offset": 10146,
+      "offset": 10150,
       "length": 54,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPWebServiceHandler.swift",
       "kind": "StringLiteral",
-      "offset": 10175,
+      "offset": 10179,
       "length": 1,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPWebServiceHandler.swift",
       "kind": "StringLiteral",
-      "offset": 10199,
+      "offset": 10203,
       "length": 2,
       "value": "\"\""
     },
@@ -31511,285 +32601,299 @@
       "kind": "StringLiteral",
       "offset": 10247,
       "length": 9,
-      "value": "\"#2892D7\""
+      "value": "\"#43466E\""
+    },
+    {
+      "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
+      "kind": "StringLiteral",
+      "offset": 10331,
+      "length": 9,
+      "value": "\"#D8E5EB\""
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 10328,
+      "offset": 10378,
+      "length": 1,
+      "value": "8"
+    },
+    {
+      "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
+      "kind": "IntegerLiteral",
+      "offset": 10435,
       "length": 2,
       "value": "12"
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "StringLiteral",
-      "offset": 10413,
+      "offset": 10520,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 10712,
+      "offset": 10819,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 10749,
+      "offset": 10856,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 11268,
+      "offset": 11375,
       "length": 2,
       "value": "28"
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 11366,
+      "offset": 11473,
       "length": 2,
       "value": "24"
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 11477,
+      "offset": 11584,
       "length": 3,
       "value": "-28"
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 11829,
+      "offset": 11936,
       "length": 1,
       "value": "6"
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 12034,
+      "offset": 12141,
       "length": 1,
       "value": "1"
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 12246,
+      "offset": 12353,
       "length": 2,
       "value": "28"
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 12374,
+      "offset": 12481,
       "length": 2,
       "value": "23"
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 12482,
+      "offset": 12589,
       "length": 3,
       "value": "-28"
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 12695,
+      "offset": 12802,
       "length": 2,
       "value": "28"
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 12811,
+      "offset": 12918,
       "length": 1,
       "value": "8"
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 12917,
+      "offset": 13024,
       "length": 3,
       "value": "-28"
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 12998,
+      "offset": 13105,
       "length": 2,
       "value": "48"
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 13203,
+      "offset": 13310,
       "length": 2,
       "value": "28"
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 13315,
+      "offset": 13422,
       "length": 2,
       "value": "20"
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 13419,
+      "offset": 13526,
       "length": 3,
       "value": "-28"
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 13624,
+      "offset": 13731,
       "length": 2,
       "value": "28"
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 13732,
+      "offset": 13839,
       "length": 1,
       "value": "8"
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 13834,
+      "offset": 13941,
       "length": 3,
       "value": "-28"
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 13911,
+      "offset": 14018,
       "length": 2,
       "value": "48"
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 14104,
+      "offset": 14211,
       "length": 2,
       "value": "28"
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 14206,
+      "offset": 14313,
       "length": 2,
       "value": "20"
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 14314,
+      "offset": 14421,
       "length": 3,
       "value": "-28"
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 14511,
+      "offset": 14618,
       "length": 2,
       "value": "28"
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 14609,
+      "offset": 14716,
       "length": 2,
       "value": "20"
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 14708,
+      "offset": 14815,
       "length": 3,
       "value": "-28"
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 14781,
+      "offset": 14888,
       "length": 2,
       "value": "48"
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 15043,
+      "offset": 15150,
       "length": 2,
       "value": "20"
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 15302,
+      "offset": 15409,
       "length": 2,
       "value": "20"
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 15514,
+      "offset": 15621,
       "length": 2,
       "value": "28"
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 15610,
+      "offset": 15717,
       "length": 2,
       "value": "20"
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 15721,
+      "offset": 15828,
       "length": 3,
       "value": "-28"
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 15996,
-      "length": 2,
-      "value": "28"
-    },
-    {
-      "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
-      "kind": "IntegerLiteral",
-      "offset": 16094,
-      "length": 2,
-      "value": "94"
+      "offset": 16103,
+      "length": 1,
+      "value": "0"
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "IntegerLiteral",
       "offset": 16200,
-      "length": 3,
-      "value": "-28"
+      "length": 2,
+      "value": "30"
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 16293,
+      "offset": 16401,
       "length": 3,
       "value": "-20"
     },
     {
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
+      "kind": "IntegerLiteral",
+      "offset": 16470,
+      "length": 3,
+      "value": "120"
+    },
+    {
+      "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPAuthViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 16520,
+      "offset": 16697,
       "length": 5,
       "value": "false"
     },
@@ -32483,6 +33587,34 @@
       "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/FPQRViewController.swift",
       "kind": "BooleanLiteral",
       "offset": 8017,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Models\/GTimer.swift",
+      "kind": "StringLiteral",
+      "offset": 218,
+      "length": 25,
+      "value": "\"com.user.requestTimeOut\""
+    },
+    {
+      "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Models\/GTimer.swift",
+      "kind": "IntegerLiteral",
+      "offset": 306,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Models\/GTimer.swift",
+      "kind": "IntegerLiteral",
+      "offset": 338,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/has9\/Documents\/GitHub\/FastpayMerchantSDK\/FastpayMerchantSDK\/Models\/GTimer.swift",
+      "kind": "BooleanLiteral",
+      "offset": 372,
       "length": 5,
       "value": "false"
     },
@@ -33476,56 +34608,70 @@
     {
       "filePath": "\/Users\/has9\/Library\/Developer\/Xcode\/DerivedData\/FastpayMerchantSDK-hkdlubekwnshrjgwowvyzzqbggfq\/Build\/Intermediates.noindex\/FastpayMerchantSDK.build\/Debug-iphoneos\/FastpayMerchantSDK.build\/DerivedSources\/GeneratedAssetSymbols.swift",
       "kind": "StringLiteral",
-      "offset": 1022,
+      "offset": 1000,
+      "length": 5,
+      "value": "\"eye\""
+    },
+    {
+      "filePath": "\/Users\/has9\/Library\/Developer\/Xcode\/DerivedData\/FastpayMerchantSDK-hkdlubekwnshrjgwowvyzzqbggfq\/Build\/Intermediates.noindex\/FastpayMerchantSDK.build\/Debug-iphoneos\/FastpayMerchantSDK.build\/DerivedSources\/GeneratedAssetSymbols.swift",
+      "kind": "StringLiteral",
+      "offset": 1132,
+      "length": 11,
+      "value": "\"eye_slash\""
+    },
+    {
+      "filePath": "\/Users\/has9\/Library\/Developer\/Xcode\/DerivedData\/FastpayMerchantSDK-hkdlubekwnshrjgwowvyzzqbggfq\/Build\/Intermediates.noindex\/FastpayMerchantSDK.build\/Debug-iphoneos\/FastpayMerchantSDK.build\/DerivedSources\/GeneratedAssetSymbols.swift",
+      "kind": "StringLiteral",
+      "offset": 1281,
       "length": 16,
       "value": "\"largeWhiteTick\""
     },
     {
       "filePath": "\/Users\/has9\/Library\/Developer\/Xcode\/DerivedData\/FastpayMerchantSDK-hkdlubekwnshrjgwowvyzzqbggfq\/Build\/Intermediates.noindex\/FastpayMerchantSDK.build\/Debug-iphoneos\/FastpayMerchantSDK.build\/DerivedSources\/GeneratedAssetSymbols.swift",
       "kind": "StringLiteral",
-      "offset": 1165,
+      "offset": 1424,
       "length": 11,
       "value": "\"logoFP-en\""
     },
     {
       "filePath": "\/Users\/has9\/Library\/Developer\/Xcode\/DerivedData\/FastpayMerchantSDK-hkdlubekwnshrjgwowvyzzqbggfq\/Build\/Intermediates.noindex\/FastpayMerchantSDK.build\/Debug-iphoneos\/FastpayMerchantSDK.build\/DerivedSources\/GeneratedAssetSymbols.swift",
       "kind": "StringLiteral",
-      "offset": 1315,
+      "offset": 1574,
       "length": 17,
       "value": "\"logoFPSplash-en\""
     },
     {
       "filePath": "\/Users\/has9\/Library\/Developer\/Xcode\/DerivedData\/FastpayMerchantSDK-hkdlubekwnshrjgwowvyzzqbggfq\/Build\/Intermediates.noindex\/FastpayMerchantSDK.build\/Debug-iphoneos\/FastpayMerchantSDK.build\/DerivedSources\/GeneratedAssetSymbols.swift",
       "kind": "StringLiteral",
-      "offset": 1465,
+      "offset": 1724,
       "length": 14,
       "value": "\"navLogoFP-en\""
     },
     {
       "filePath": "\/Users\/has9\/Library\/Developer\/Xcode\/DerivedData\/FastpayMerchantSDK-hkdlubekwnshrjgwowvyzzqbggfq\/Build\/Intermediates.noindex\/FastpayMerchantSDK.build\/Debug-iphoneos\/FastpayMerchantSDK.build\/DerivedSources\/GeneratedAssetSymbols.swift",
       "kind": "StringLiteral",
-      "offset": 1613,
+      "offset": 1872,
       "length": 14,
       "value": "\"qrButtonIcon\""
     },
     {
       "filePath": "\/Users\/has9\/Library\/Developer\/Xcode\/DerivedData\/FastpayMerchantSDK-hkdlubekwnshrjgwowvyzzqbggfq\/Build\/Intermediates.noindex\/FastpayMerchantSDK.build\/Debug-iphoneos\/FastpayMerchantSDK.build\/DerivedSources\/GeneratedAssetSymbols.swift",
       "kind": "StringLiteral",
-      "offset": 1745,
+      "offset": 2004,
       "length": 6,
       "value": "\"tick\""
     },
     {
       "filePath": "\/Users\/has9\/Library\/Developer\/Xcode\/DerivedData\/FastpayMerchantSDK-hkdlubekwnshrjgwowvyzzqbggfq\/Build\/Intermediates.noindex\/FastpayMerchantSDK.build\/Debug-iphoneos\/FastpayMerchantSDK.build\/DerivedSources\/GeneratedAssetSymbols.swift",
       "kind": "StringLiteral",
-      "offset": 1889,
+      "offset": 2148,
       "length": 16,
       "value": "\"trxFailureIcon\""
     },
     {
       "filePath": "\/Users\/has9\/Library\/Developer\/Xcode\/DerivedData\/FastpayMerchantSDK-hkdlubekwnshrjgwowvyzzqbggfq\/Build\/Intermediates.noindex\/FastpayMerchantSDK.build\/Debug-iphoneos\/FastpayMerchantSDK.build\/DerivedSources\/GeneratedAssetSymbols.swift",
       "kind": "StringLiteral",
-      "offset": 2043,
+      "offset": 2302,
       "length": 16,
       "value": "\"trxSuccessIcon\""
     }

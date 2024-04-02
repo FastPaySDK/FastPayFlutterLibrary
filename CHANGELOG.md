@@ -12,4 +12,12 @@
 - Some minor bug fixed.
 ## 1.0.6
 - SDK status added
+## 1.0.7
+- Redirect URI feature added
+## 1.0.8
+- Minor bug fix
+## 1.0.9
+- Added manifest code snippet for redirection
+## 1.0.10
+- Added manifest code snippet for redirection
 

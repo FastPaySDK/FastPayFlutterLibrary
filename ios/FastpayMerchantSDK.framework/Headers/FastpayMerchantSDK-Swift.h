@@ -348,7 +348,7 @@ SWIFT_PROTOCOL("_TtP18FastpayMerchantSDK15FastPayDelegate_")
 SWIFT_CLASS("_TtC18FastpayMerchantSDK7Fastpay")
 @interface Fastpay : NSObject
 @property (nonatomic, weak) id <FastPayDelegate> _Nullable delegate;
-- (nonnull instancetype)initWithStoreId:(NSString * _Nonnull)storeId storePassword:(NSString * _Nonnull)storePassword orderId:(NSString * _Nonnull)orderId amount:(NSInteger)amount currency:(enum FPCurrency)currency OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithStoreId:(NSString * _Nonnull)storeId storePassword:(NSString * _Nonnull)storePassword orderId:(NSString * _Nonnull)orderId amount:(NSInteger)amount currency:(enum FPCurrency)currency uri:(NSString * _Nonnull)uri OBJC_DESIGNATED_INITIALIZER;
 - (void)startIn:(UIViewController * _Nonnull)viewController for:(enum FPEnvironment)environment;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");

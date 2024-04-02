@@ -1,6 +1,6 @@
 name: fastpay_merchant
 description: FastPay merchant OFFICIAL flutter SDK.
-version: 1.0.6
+version: 1.0.10
 homepage: https://github.com/FastPaySDK/FastPayFlutterLibrary
 # publish_to: anyone
 
@@ -17,7 +17,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+#  flutter_lints: ^2.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
