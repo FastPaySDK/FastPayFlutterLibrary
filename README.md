@@ -150,6 +150,22 @@ NOTE: Don't forget to add following code block to your android manifest file.
 </application>
 ```
 
+For iOS redirection:
+
+- Create URI Create a URI with a unique name (our suggestion is to provide your app name with prefix text "appfpclient", for example, if your app name is "FaceLook", your URI should be appfpclientFaceLook)
+- Add URI to your `info.plist` Now add this URI to your app info.plist file
+```yaml
+  <key>CFBundleURLTypes</key>
+  <array>
+    <dict>
+      <key>CFBundleURLSchemes</key>
+      <array>
+    < string>appfpclientFaceLook</string>
+      </array>
+    </dict>
+  </array>
+```
+
 When __FastPayRequest__ call open FastPay SDK then after payment return __FastpayResult__ that contains:
 
 ### payment result 

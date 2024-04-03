@@ -20,4 +20,6 @@
 - Added manifest code snippet for redirection
 ## 1.0.10
 - Added manifest code snippet for redirection
+## 1.1.0
+- Added iOS redirection .plist code snippet in documentation
 
