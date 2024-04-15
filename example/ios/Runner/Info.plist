@@ -52,7 +52,7 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>appfpclientfastpaysdktest3</string>
+				<string>myApp://ftest.com</string>
 			</array>
 		</dict>
 	</array>

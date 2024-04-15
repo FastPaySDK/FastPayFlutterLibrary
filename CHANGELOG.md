@@ -22,4 +22,6 @@
 - Added manifest code snippet for redirection
 ## 1.1.0
 - Added iOS redirection .plist code snippet in documentation
+## 1.1.1
+- iOS framework issue solved
 

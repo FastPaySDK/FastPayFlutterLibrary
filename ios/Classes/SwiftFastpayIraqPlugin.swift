@@ -5,13 +5,15 @@ import FastpayMerchantSDK
 public class SwiftFastpayIraqPlugin: UIViewController, FlutterPlugin, FastPayDelegate {
     
     
+
     var resultG: FlutterResult!
     var isPresented: Bool = false
     var timer: Timer?
 
     
     public func fastPayProcessStatus(with status: FastpayMerchantSDK.FPFrameworkStatus) {
-        resultG(status)
+        print("Here is the print: \(status)")
+        resultG("\(status)")
     }
     
     public func fastpayTransactionSucceeded(with transaction: FPTransaction) {
@@ -36,6 +38,7 @@ public class SwiftFastpayIraqPlugin: UIViewController, FlutterPlugin, FastPayDel
         let channel = FlutterMethodChannel(name: "fastpay", binaryMessenger: registrar.messenger())
         let instance = SwiftFastpayIraqPlugin()
         registrar.addMethodCallDelegate(instance, channel: channel)
+        registrar.addApplicationDelegate(instance)
     }
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
@@ -60,7 +63,7 @@ public class SwiftFastpayIraqPlugin: UIViewController, FlutterPlugin, FastPayDel
             
             let vc = FlutterViewController()
 
-            let x: () =  testObj.start(in: vc, for: isProduction ? .Production : .Sandbox)
+            let x: () =  testObj.start(in: uiContoller, for: isProduction ? .Production : .Sandbox)
             
             
             timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] timer in
@@ -83,10 +86,13 @@ public class SwiftFastpayIraqPlugin: UIViewController, FlutterPlugin, FastPayDel
             
             
             print(x)
-            print("_____________")
+            print("______////\\\\_______")
         } catch let e{
             result("{\"isSuccess\":false,\"errorMessage\":\""+"\(e)"+"\",\"transactionStatus\":\"\",\"transactionId\":\"\",\"orderId\":\"\",\"paymentAmount\":\"\",\"paymentCurrency\":\"\",\"payeeName\":\"\",\"payeeMobileNumber\":\"\",\"paymentTime\":\"\"}")
         }
         
     }
+
+
+
 }

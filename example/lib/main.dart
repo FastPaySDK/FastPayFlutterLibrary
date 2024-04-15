@@ -35,15 +35,16 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-          appBar: AppBar(
-            title: const Text('Plugin example app'),
-          ),
-          body: Column(
-            children: [
-              Center(
-                child: Text("${_fastpayResult?.toJson()}\n"),
-              ),
-              ElevatedButton(
+        appBar: AppBar(
+          title: const Text('Plugin example app'),
+        ),
+        body: Column(
+          children: [
+            Center(
+              child: Text("${_fastpayResult?.toJson()}\n"),
+            ),
+            ScaffoldMessenger(
+              child: ElevatedButton(
                 onPressed: () async {
                   FastpayResult _fastpayResult = await FastPayRequest(
                     storeID: "*****",
@@ -53,26 +54,33 @@ class _MyAppState extends State<MyApp> {
                     isProduction: false,
                     callback: (status,message){
                       debugPrint("CALLBACK..................."+message);
-                      _showToast(context,message);
+                      //_showToast(context,message);
                     }, callbackUri: "sdk://fastpay-sdk.com/callback",
                   );
                   if (_fastpayResult.isSuccess ?? false) {
                     // transaction success
-                    _showToast(context,"transaction success");
-                    print('......................................transaction success');
+                   // _showToast(context, "transaction success");
+                    print(
+                        '......................................transaction success');
                   } else {
                     // transaction failed
-                    _showToast(context,"transaction failed");
-                    print('......................................transaction failed');
+                    //_showToast(context, "transaction failed");
+                    print(
+                        '......................................transaction failed');
                   }
                   setState(() {});
                 },
                 child: Text("Pay"),
               ),
-            ],
-          )),
+            ),
+          ],
+        ),
+      ),
     );
   }
+
+
+
 
   void _showToast(BuildContext context,String message) {
     final scaffold = ScaffoldMessenger.of(context);
