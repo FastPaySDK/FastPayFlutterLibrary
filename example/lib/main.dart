@@ -1,3 +1,4 @@
+import 'package:fastpay_flutter_sdk/models/fastpay_payment_request.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -54,7 +55,20 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: SdkInitializeScreen(),
+          child: SdkInitializeScreen(
+            FastpayPaymentRequest(
+              "748957_847",
+             "v=7bUPTeC2#nQ2-+",
+              "450",
+              DateTime.now().microsecondsSinceEpoch.toString(),
+              "sdk://fastpay-sdk.com/callback",
+              false,
+              (status,message){
+                debugPrint("CALLBACK..................."+message);
+                //_showToast(context,message);
+              },
+            )
+          ),
         ),
       ),
     );
