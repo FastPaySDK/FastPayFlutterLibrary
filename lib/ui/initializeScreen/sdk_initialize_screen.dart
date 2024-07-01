@@ -16,12 +16,12 @@ class _SdkInitializeScreenState extends State<SdkInitializeScreen> {
   @override
   void initState() {
     super.initState();
-    /*Timer(const Duration(seconds: 2), () {
+    Timer(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const PaymentScreen()),
       );
-    });*/
+    });
   }
 
 
