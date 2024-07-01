@@ -16,12 +16,12 @@ class _SdkInitializeScreenState extends State<SdkInitializeScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 2), () {
+    /*Timer(const Duration(seconds: 2), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const PaymentScreen()),
       );
-    });
+    });*/
   }
 
 
@@ -36,7 +36,7 @@ class _SdkInitializeScreenState extends State<SdkInitializeScreen> {
           padding: EdgeInsets.only(top: MediaQuery.of(context).size.width/1.5),
           child: Column(
             children: [
-              Image.asset('lib/assets/ic_logo.png', width: MediaQuery.of(context).size.width/3,),
+              Image.asset(AssetImage("assets/ic_logo.png").assetName, package: 'fastpay_flutter_sdk',width: MediaQuery.of(context).size.width/3,),
               const SizedBox(height: 25,),
               const Text('Initiating...')
             ],
