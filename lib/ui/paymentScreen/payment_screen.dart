@@ -10,6 +10,14 @@ class PaymentScreen extends StatefulWidget {
 class _PaymentScreenState extends State<PaymentScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return SafeArea(child: Scaffold(
+      body: Column(
+        children: [
+          Container(
+
+          )
+        ],
+      ),
+    ));
   }
 }
