@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../termsAndConditionScreen/terms_and_condition_screen.dart';
 import '../widget/CustomCheckbox.dart';
 import '../widget/PhoneNumberTextInputFormatter.dart';
 import '../widget/amount_dashboard.dart';
@@ -58,7 +59,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 ],
               ),
             ),
-            QRViewWidget()
+            paymentViewWidget()
           ],
         ),
       ),
@@ -85,34 +86,48 @@ class _PaymentScreenState extends State<PaymentScreen> {
             cursorColor: Color(0xFF000000),
             inputFormatters: <TextInputFormatter>[
               FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-              PhoneNumberTextInputFormatter()
+              PhoneNumberTextInputFormatter(),
             ],
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
               counterText: '',
-              prefix: const Text('+964 - ',style: TextStyle(color: Color(0xFF000000), fontSize: 14, fontWeight: FontWeight.normal)),
+              prefixIcon: Padding(
+                padding: const EdgeInsets.only(left: 20), // Adjust padding to fit design
+                child: Text(
+                  '+964 - ',
+                  style: TextStyle(
+                    color: Color(0xFF000000),
+                    fontSize: 16,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+              ),
+              prefixIconConstraints: BoxConstraints(minWidth: 0, minHeight: 0),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(24),
-                // Rounded border radius
                 borderSide: BorderSide.none,
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(24),
                 borderSide: const BorderSide(
-                    color: Color(0xFFC4C4C4),
-                    width: 1),
+                  color: Color(0xFFC4C4C4),
+                  width: 1,
+                ),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(24),
                 borderSide: const BorderSide(
-                    color: Color(0xFF2892D7), width: 1),
+                  color: Color(0xFF2892D7),
+                  width: 1,
+                ),
               ),
               filled: true,
               fillColor: Colors.transparent,
               contentPadding: const EdgeInsets.symmetric(
-                  vertical: 15, horizontal: 20),
+                  vertical: 15, horizontal: 20), // Ensure padding does not overlap with prefix
             ),
-          ),
+          )
+          ,
           SizedBox(height: 20,),
           Text('Password', style: TextStyle(color: Color(0xFF000000), fontSize: 12, fontWeight: FontWeight.normal),),
           SizedBox(height: 8,),
@@ -169,7 +184,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           fontSize: 12, fontWeight: FontWeight.normal
                       ),
                       recognizer: TapGestureRecognizer()
-                        ..onTap = (){},
+                        ..onTap = (){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const TermsAndConditionScreen()),
+                          );
+                        },
                     ),
                   ],
                 ),
@@ -215,7 +235,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               SizedBox(width: 10,),
               Image.asset(AssetImage("assets/ic_logo.png").assetName, package: 'fastpay_flutter_sdk',width: 80, height: 80,),
             ],),
-          Center(child: Text('Use another mobile or\n let your friends & family help', style: TextStyle(color: Color(0xFF000000), fontSize: 12, fontWeight: FontWeight.normal),textAlign: TextAlign.center,)),
+          const Center(child: Text('Use another mobile or\n let your friends & family help', style: TextStyle(color: Color(0xFF000000), fontSize: 12, fontWeight: FontWeight.normal),textAlign: TextAlign.center,)),
           SizedBox(height: 20,),
           Container(
             width: MediaQuery.of(context).size.width/1.5,
@@ -233,6 +253,60 @@ class _PaymentScreenState extends State<PaymentScreen> {
           SizedBox(height: 20,),
           Center(child: Text('Use Login Credential', style: TextStyle(color: Color(0xFF2892D7), fontSize: 14, fontWeight: FontWeight.normal),)),
           SizedBox(height: 50,),
+        ],
+      ),
+    );
+  }
+
+  Widget paymentSuccessWidget() {
+    return Container(
+      padding:const EdgeInsets.only(top: 60, left: 24, right: 24),
+      child:Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text('Payment successful', style: TextStyle(color: Color(0xFF636696), fontSize: 20, fontWeight: FontWeight.normal),textAlign: TextAlign.center,),
+          SizedBox(height: 20,),
+          Container(
+            width: MediaQuery.of(context).size.width/1.5,
+            height: MediaQuery.of(context).size.height/3.5,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color: Color(0xFFE9EEF2),
+                width: 1,
+              )
+            ),
+          ),
+          SizedBox(height: 20,),
+          Center(child: Text('Please wait while we take you back.', style: TextStyle(color: Color(0xFF636696), fontSize: 16, fontWeight: FontWeight.normal),)),
+        ],
+      ),
+    );
+  }
+
+  Widget paymentFailedWidget() {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(AssetImage("assets/ic_error.png").assetName, package: 'fastpay_flutter_sdk',width: 123, height: 101,),
+          SizedBox(height: 32,),
+          Text('Something went wrong!', style: TextStyle(color: Color(0xFF636696), fontSize: 18, fontWeight: FontWeight.normal),),
+          SizedBox(height: 12,),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(1218),
+              border: Border.all(
+                color: Color(0xFF2892D7),
+                width: 2,
+              )
+            ),
+            child: Text('RETRY', style: TextStyle(color: Color(0xFF2892D7), fontSize: 12, fontWeight: FontWeight.bold),),
+          ),
         ],
       ),
     );
