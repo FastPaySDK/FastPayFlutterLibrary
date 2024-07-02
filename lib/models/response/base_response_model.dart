@@ -7,7 +7,7 @@ class BaseResponseModel {
   BaseResponseModel({
       int? code, 
       String? message, 
-      List<dynamic>? errors,
+      List<String>? errors,
       dynamic data,}){
     _code = code;
     _message = message;
@@ -28,12 +28,12 @@ class BaseResponseModel {
   }
   int? _code;
   String? _message;
-  List<dynamic>? _errors;
+  List<String>? _errors;
   dynamic _data;
 
   int? get code => _code;
   String? get message => _message;
-  List<dynamic>? get errors => _errors;
+  List<String>? get errors => _errors;
   dynamic get data => _data;
 
   @override

@@ -62,7 +62,7 @@ class FastpaySdkController{
       PaymentSendOtpRequest paymentSendOtpRequest,
       Function(String message) onSuccess,
       {Function(int code,String message)? onFailed}) async {
-    final response = await _executeNetworkRequest(FastpayFlutterSdk.instance.apiSendOtp,NetworkRequestType.POST,paymentSendOtpRequest.toJson(),onFailed: onFailed,isVersion2: true,isEmptyBody: true);
+    final response = await _executeNetworkRequest(FastpayFlutterSdk.instance.apiPaymentWithOtpVerification,NetworkRequestType.POST,paymentSendOtpRequest.toJson(),onFailed: onFailed,isVersion2: true,isEmptyBody: true);
     if(response != null){
       try{
         onSuccess.call(response);
@@ -85,11 +85,13 @@ class FastpaySdkController{
       'Accept':'application/json',
       'Content-Type':'application/json',
     };
+    debugPrint('PRINT_STACK_TRACE::URL...........................: ${url.toString()}');
+    debugPrint('PRINT_STACK_TRACE::Request.......................: ${json.encode(requestBody)}');
     var response = (requestType == NetworkRequestType.GET)?await http.get(url, headers: headers):await http.post(url, headers: headers,body: json.encode(requestBody));
     if(response != null){
       var jsonMap = jsonDecode(response.body);
       var data = BaseResponseModel.fromJson(jsonMap);
-      debugPrint('PRINT_STACK_TRACE.....................: ${data.toString()}');
+      debugPrint('PRINT_STACK_TRACE::Response(${response.statusCode}).....................: ${data.toString()}');
       if (response.statusCode == 200) {
         if(data.code == 200){
           if(isEmptyBody) {
@@ -97,11 +99,11 @@ class FastpaySdkController{
           }
           return data.data;
         }else{
-          onFailed?.call(data.code??0,data.message??'');
+          onFailed?.call(data.code??0,(data.errors??[]).join("/n"));
           return null;
         }
       } else {
-        onFailed?.call(data.code??0,data.message??'');
+        onFailed?.call(data.code??0,(data.errors??[]).join("/n"));
         return null;
       }
     }else{

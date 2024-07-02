@@ -36,7 +36,9 @@ class PaymentSendOtpRequest {
     map['order_id'] = _orderId;
     map['password'] = _password;
     map['token'] = _token;
-    map['otp'] = _otp;
+    if(_otp != null) {
+      map['otp'] = _otp;
+    }
     return map;
   }
 
