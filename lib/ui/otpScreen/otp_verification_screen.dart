@@ -36,8 +36,12 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   // Function to check if all fields are filled
   void _checkAllFieldsFilled() {
     if (allFieldsFilled()) {
-      Navigator.pop(context, MaterialPageRoute(builder: (context) => PaymentScreen()));
+      Navigator.pop(context, _getOtp());
     }
+  }
+
+  String _getOtp(){
+    return '${_fieldOne.text}${_fieldTwo.text}${_fieldThree.text}${_fieldFour.text}${_fieldFive.text}${_fieldSix.text}';
   }
 
   bool allFieldsFilled() {

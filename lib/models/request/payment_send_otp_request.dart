@@ -8,10 +8,12 @@ class PaymentSendOtpRequest {
       String? mobileNumber, 
       String? orderId, 
       String? password, 
+      String? otp,
       String? token,}){
     _mobileNumber = mobileNumber;
     _orderId = orderId;
     _password = password;
+    _otp = otp;
     _token = token;
 }
 
@@ -19,17 +21,14 @@ class PaymentSendOtpRequest {
     _mobileNumber = json['mobile_number'];
     _orderId = json['order_id'];
     _password = json['password'];
+    _otp = json['otp'];
     _token = json['token'];
   }
   String? _mobileNumber;
   String? _orderId;
   String? _password;
+  String? _otp;
   String? _token;
-
-  String? get mobileNumber => _mobileNumber;
-  String? get orderId => _orderId;
-  String? get password => _password;
-  String? get token => _token;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -37,7 +36,27 @@ class PaymentSendOtpRequest {
     map['order_id'] = _orderId;
     map['password'] = _password;
     map['token'] = _token;
+    map['otp'] = _otp;
     return map;
   }
 
+  set token(String value) {
+    _token = value;
+  }
+
+  set otp(String value) {
+    _otp = value;
+  }
+
+  set password(String value) {
+    _password = value;
+  }
+
+  set orderId(String value) {
+    _orderId = value;
+  }
+
+  set mobileNumber(String value) {
+    _mobileNumber = value;
+  }
 }

@@ -44,6 +44,34 @@ class FastpaySdkController{
     }
   }
 
+  Future<void> payWithOtp(
+      PaymentSendOtpRequest paymentSendOtpRequest,
+      Function(String message) onSuccess,
+      {Function(int code,String message)? onFailed}) async {
+    final response = await _executeNetworkRequest(FastpayFlutterSdk.instance.apiPaymentWithOtpVerification,NetworkRequestType.POST,paymentSendOtpRequest.toJson(),onFailed: onFailed,isVersion2: true,isEmptyBody: true);
+    if(response != null){
+      try{
+        onSuccess.call(response);
+      }catch(e){
+        onFailed?.call(0,'Something went wrong');
+      }
+    }
+  }
+
+  Future<void> paymentWithOtpVerification(
+      PaymentSendOtpRequest paymentSendOtpRequest,
+      Function(String message) onSuccess,
+      {Function(int code,String message)? onFailed}) async {
+    final response = await _executeNetworkRequest(FastpayFlutterSdk.instance.apiSendOtp,NetworkRequestType.POST,paymentSendOtpRequest.toJson(),onFailed: onFailed,isVersion2: true,isEmptyBody: true);
+    if(response != null){
+      try{
+        onSuccess.call(response);
+      }catch(e){
+        onFailed?.call(0,'Something went wrong');
+      }
+    }
+  }
+
   Future<dynamic> _executeNetworkRequest(
       String networkUrl,
       NetworkRequestType requestType,

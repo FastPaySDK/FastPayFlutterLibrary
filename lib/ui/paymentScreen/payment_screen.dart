@@ -1,4 +1,5 @@
 import 'package:fastpay_flutter_sdk/models/request/payment_send_otp_request.dart';
+import 'package:fastpay_flutter_sdk/models/response/payment_initiation_response.dart';
 import 'package:fastpay_flutter_sdk/ui/otpScreen/otp_verification_screen.dart';
 import 'package:fastpay_flutter_sdk/ui/widget/text_style.dart';
 import 'package:flutter/gestures.dart';
@@ -13,7 +14,8 @@ import '../widget/PhoneNumberTextInputFormatter.dart';
 import '../widget/amount_dashboard.dart';
 
 class PaymentScreen extends StatefulWidget {
-  const PaymentScreen({super.key});
+  PaymentInitiationResponse _paymentInitiationResponse;
+  PaymentScreen(this._paymentInitiationResponse, {super.key});
 
   @override
   State<PaymentScreen> createState() => _PaymentScreenState();
@@ -25,6 +27,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
   String password = '';
   bool showQrCode = false;
 
+  PaymentSendOtpRequest? _paymentSendOtpRequest;
+
   bool shouldEnableButton() {
     return phoneNumber.length == 12 && password.isNotEmpty && isSelected == true;
   }
@@ -35,22 +39,35 @@ class _PaymentScreenState extends State<PaymentScreen> {
   }
 
   void _callPaymentSendOtpApi(){
+    _paymentSendOtpRequest = PaymentSendOtpRequest(
+        mobileNumber: '+964${phoneNumber.replaceAll(' ', '')}',
+        orderId: FastpayFlutterSdk.instance.fastpayPaymentRequest?.orderID??'',
+        password: password,
+        token: FastpayFlutterSdk.instance.apiToken
+    );
     FastpaySdkController.instance.sendOtp(
-        PaymentSendOtpRequest(
-            mobileNumber: '+964${phoneNumber.replaceAll(' ', '')}',
-            orderId: FastpayFlutterSdk.instance.fastpayPaymentRequest?.orderID??'',
-            password: password,
-            token: FastpayFlutterSdk.instance.apiToken
-        ),(response){
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => OtpVerificationScreen(response)),
-        );
-    },
+        _paymentSendOtpRequest!
+        ,(response) async{
+          var result = await Navigator.push(context, MaterialPageRoute(builder: (context) => OtpVerificationScreen(response)));
+          debugPrint('PRINT_STACK_TRACE.....................: $result');
+          _callPaywithOtp(result);
+        },
         onFailed: (code,message){
             debugPrint('PRINT_STACK_TRACE.....................: $message');
         }
     );
+  }
+
+  void _callPaywithOtp(String otpCode) {
+      _paymentSendOtpRequest?.otp = otpCode;
+      FastpaySdkController.instance.paymentWithOtpVerification(
+          _paymentSendOtpRequest!
+          ,(response) async{
+      },
+          onFailed: (code,message){
+            debugPrint('PRINT_STACK_TRACE.....................: $message');
+          }
+      );
   }
 
   @override

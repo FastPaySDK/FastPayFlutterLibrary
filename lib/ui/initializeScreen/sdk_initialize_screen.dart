@@ -35,7 +35,7 @@ class _SdkInitializeScreenState extends State<SdkInitializeScreen> {
           widget.fastpayPaymentRequest.orderID,
           'IQD'
       ),(response){
-          Navigator.push(context,MaterialPageRoute(builder: (context) => PaymentScreen()) );
+          Navigator.push(context,MaterialPageRoute(builder: (context) => PaymentScreen(response)) );
       },
       onFailed: (code,message){
 
