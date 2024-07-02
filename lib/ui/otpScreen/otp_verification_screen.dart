@@ -6,7 +6,8 @@ import '../widget/CustomOtpView.dart';
 import '../widget/app_bar.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
-  const OtpVerificationScreen({super.key});
+  final String message;
+  const OtpVerificationScreen(this.message,{super.key});
 
   @override
   State<OtpVerificationScreen> createState() => _OtpVerificationScreenState();
@@ -77,7 +78,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                 children: [
                   Text('Confirm Transaction via Email OTP', style: getTextStyle(fontColor: Color(0xFF000000), textSize: 18, fontWeight: FontWeight.w500),),
                   SizedBox(height: 10,),
-                  Text('An OTP has been sent to your email qa**@new***.com', style: getTextStyle(fontColor: Color(0xFF000000), textSize: 14, fontWeight: FontWeight.normal),),
+                  Text(widget.message, style: getTextStyle(fontColor: Color(0xFF000000), textSize: 14, fontWeight: FontWeight.normal),),
                   SizedBox(height: 10,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

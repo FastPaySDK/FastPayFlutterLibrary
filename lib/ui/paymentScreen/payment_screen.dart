@@ -1,9 +1,12 @@
+import 'package:fastpay_flutter_sdk/models/request/payment_send_otp_request.dart';
 import 'package:fastpay_flutter_sdk/ui/otpScreen/otp_verification_screen.dart';
 import 'package:fastpay_flutter_sdk/ui/widget/text_style.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../fastpay_flutter_sdk.dart';
+import '../../services/fastpay_sdk_controller.dart';
 import '../termsAndConditionScreen/terms_and_condition_screen.dart';
 import '../widget/CustomCheckbox.dart';
 import '../widget/PhoneNumberTextInputFormatter.dart';
@@ -30,6 +33,26 @@ class _PaymentScreenState extends State<PaymentScreen> {
   void initState() {
     super.initState();
   }
+
+  void _callPaymentSendOtpApi(){
+    FastpaySdkController.instance.sendOtp(
+        PaymentSendOtpRequest(
+            mobileNumber: '+964${phoneNumber.replaceAll(' ', '')}',
+            orderId: FastpayFlutterSdk.instance.fastpayPaymentRequest?.orderID??'',
+            password: password,
+            token: FastpayFlutterSdk.instance.apiToken
+        ),(response){
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => OtpVerificationScreen(response)),
+        );
+    },
+        onFailed: (code,message){
+            debugPrint('PRINT_STACK_TRACE.....................: $message');
+        }
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(child: Scaffold(
@@ -214,10 +237,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
           SizedBox(height: 35,),
           InkWell(
             onTap: shouldEnableButton() ? () {
-              Navigator.push(
+              _callPaymentSendOtpApi();
+              /*Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const OtpVerificationScreen()),
-              );
+              );*/
             } : null,
             child: Container(
               width: MediaQuery.of(context).size.width,

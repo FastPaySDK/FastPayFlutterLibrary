@@ -36,4 +36,8 @@ class BaseResponseModel {
   List<dynamic>? get errors => _errors;
   dynamic get data => _data;
 
+  @override
+  String toString() {
+    return 'BaseResponseModel{_code: $_code, _message: $_message, _errors: $_errors, _data: $_data}';
+  }
 }
