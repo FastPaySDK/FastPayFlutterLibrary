@@ -35,7 +35,7 @@ class _SdkInitializeScreenState extends State<SdkInitializeScreen> {
           widget.fastpayPaymentRequest.orderID,
           'IQD'
       ),(response){
-          debugPrint('PRINT_STACK_TRACE.....................: ${response.token}');
+          Navigator.push(context,MaterialPageRoute(builder: (context) => PaymentScreen()) );
       },
       onFailed: (code,message){
 

@@ -38,8 +38,8 @@ class _TermsAndConditionScreenState extends State<TermsAndConditionScreen> {
                   child: ScrollbarTheme(
                     data: ScrollbarThemeData(
                       radius: Radius.circular(6),
-                      thickness: WidgetStateProperty.all(10.0),
-                      thumbColor: WidgetStateProperty.all(Color(0xFFED0F69)), // Thickness of the scrollbar thumb
+                      thickness: MaterialStateProperty.all(10.0),
+                      thumbColor: MaterialStateProperty.all(Color(0xFFED0F69)),
                     ),
                     child: Scrollbar(
                         controller: controller,

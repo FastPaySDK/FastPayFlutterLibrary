@@ -21,8 +21,8 @@ class FastpayFlutterSdk{
   static FastpayFlutterSdk get instance => _instance;
 
 
-  FastpayPaymentRequest? _fastpayPaymentRequest = null;
-  String _apiToken = "";
+  FastpayPaymentRequest? _fastpayPaymentRequest;
+  String? _apiToken;
 
   final String _sandBoxUrl = "https://staging-apigw-sdk.fast-pay.iq/";
   final String _productionUrl = "https://apigw-sdk.fast-pay.iq/";
@@ -45,7 +45,7 @@ class FastpayFlutterSdk{
     _apiToken = value;
   }
 
-  String get apiToken => _apiToken;
+  String get apiToken => _apiToken??'';
 
   String get productionUrl => _productionUrl;
 
@@ -64,6 +64,4 @@ class FastpayFlutterSdk{
   String get apiVersionV2 => _apiVersionV2;
 
   String get apiVersionV1 => _apiVersionV1;
-
-  String get apiToken => _apiToken;
 }
