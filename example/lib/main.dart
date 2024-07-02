@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+import 'package:fastpay_flutter_sdk/ui/otpScreen/otp_verification_screen.dart';
+=======
 import 'package:fastpay_flutter_sdk/models/fastpay_payment_request.dart';
+>>>>>>> c2fd0816ec335898a246c832c3e73fd700e06b89
 import 'package:flutter/material.dart';
 import 'dart:async';
 

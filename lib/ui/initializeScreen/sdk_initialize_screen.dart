@@ -1,5 +1,8 @@
 import 'dart:async';
 
+
+import 'package:fastpay_flutter_sdk/ui/widget/text_style.dart';
+
 import 'package:fastpay_flutter_sdk/fastpay_flutter_sdk.dart';
 import 'package:fastpay_flutter_sdk/models/fastpay_payment_request.dart';
 import 'package:fastpay_flutter_sdk/models/request/payment_initiation_request.dart';
@@ -54,7 +57,7 @@ class _SdkInitializeScreenState extends State<SdkInitializeScreen> {
             children: [
               Image.asset(AssetImage("assets/ic_logo.png").assetName, package: 'fastpay_flutter_sdk',width: MediaQuery.of(context).size.width/3,),
               const SizedBox(height: 25,),
-              const Text('Initiating...')
+              Text('Initiating...',style: getTextStyle(textSize: 12),)
             ],
           ),
         ),

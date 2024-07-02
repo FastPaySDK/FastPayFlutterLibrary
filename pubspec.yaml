@@ -10,6 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  google_fonts: ^4.0.4
   plugin_platform_interface: ^2.0.2
   http: ^1.2.1
 
@@ -45,6 +46,7 @@ flutter:
   assets:
     - assets/ic_logo.png
     - assets/ic_scan.png
+    - assets/ic_error.png
   #
   # For details regarding assets in packages, see
   # https://flutter.dev/assets-and-images/#from-packages
