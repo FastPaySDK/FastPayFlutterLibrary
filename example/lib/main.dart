@@ -9,66 +9,59 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Plugin Example App',
+      home: MyAppHomePage(),
+    );
+  }
 }
 
-class _MyAppState extends State<MyApp> {
+class MyAppHomePage extends StatefulWidget {
+  const MyAppHomePage({super.key});
+
+  @override
+  State<MyAppHomePage> createState() => _MyAppHomePageState();
+}
+
+class _MyAppHomePageState extends State<MyAppHomePage> {
   String _platformVersion = 'Unknown';
   //final _fastpayFlutterSdkPlugin = FastpayFlutterSdk();
 
   @override
   void initState() {
     super.initState();
-    initPlatformState();
-  }
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    // We also handle the message potentially returning null.
-    try {
-      //platformVersion =await _fastpayFlutterSdkPlugin.getPlatformVersion() ?? 'Unknown platform version';
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-     // _platformVersion = platformVersion;
-    });
+    FastpayFlutterSdk.instance.fastpayPaymentRequest = FastpayPaymentRequest(
+      "748957_847",
+      "v=7bUPTeC2#nQ2-+",
+      "450",
+      DateTime.now().microsecondsSinceEpoch.toString(),
+      "sdk://fastpay-sdk.com/callback",
+      false,
+          (status,message){
+        debugPrint("CALLBACK..................."+message);
+        //_showToast(context,message);
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Center(
-          child: SdkInitializeScreen(
-            FastpayPaymentRequest(
-              "748957_847",
-             "v=7bUPTeC2#nQ2-+",
-              "450",
-              DateTime.now().microsecondsSinceEpoch.toString(),
-              "sdk://fastpay-sdk.com/callback",
-              false,
-              (status,message){
-                debugPrint("CALLBACK..................."+message);
-                //_showToast(context,message);
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Plugin example app'),
+      ),
+      body: Center(
+        child: InkWell(
+            onTap: ()async{
+                await Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SdkInitializeScreen()));
+                debugPrint('.............'+FastpayFlutterSdk.instance.apiToken);
               },
-            )
-          ),
+            child: Text('Click here')
         ),
       ),
     );

@@ -1,4 +1,8 @@
+import 'dart:async';
+
 import 'package:fastpay_flutter_sdk/models/fastpay_payment_request.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 export 'ui/initializeScreen/sdk_initialize_screen.dart';
 
@@ -20,6 +24,10 @@ class FastpayFlutterSdk{
   static final FastpayFlutterSdk _instance = FastpayFlutterSdk._privateConstructor();
   static FastpayFlutterSdk get instance => _instance;
 
+  Timer? _timer;
+  int _start = 20;
+
+  BuildContext? _context;
 
   FastpayPaymentRequest? _fastpayPaymentRequest;
   String? _apiToken;
@@ -45,6 +53,11 @@ class FastpayFlutterSdk{
     _apiToken = value;
   }
 
+
+  set context(BuildContext value) {
+    _context = value;
+  }
+
   String get apiToken => _apiToken??'';
 
   String get productionUrl => _productionUrl;
@@ -64,4 +77,25 @@ class FastpayFlutterSdk{
   String get apiVersionV2 => _apiVersionV2;
 
   String get apiVersionV1 => _apiVersionV1;
+
+  void startTimer() {
+    const oneSec = const Duration(seconds: 1);
+    _timer = new Timer.periodic(
+      oneSec,
+          (Timer timer) {
+        if (_start == 0) {
+          debugPrint('.............timer is finished');
+          dispose();
+        } else {
+          _start--;
+        }
+      },
+    );
+  }
+
+  void dispose(){
+    _start = 10;
+    Navigator.of(_context!).popUntil(ModalRoute.withName('/'));
+    _timer?.cancel();
+  }
 }

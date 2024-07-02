@@ -13,9 +13,9 @@ import '../paymentScreen/payment_screen.dart';
 
 class SdkInitializeScreen extends StatefulWidget {
 
-  final FastpayPaymentRequest fastpayPaymentRequest;
+  //final FastpayPaymentRequest fastpayPaymentRequest;
 
-  const SdkInitializeScreen(this.fastpayPaymentRequest,{super.key});
+  const SdkInitializeScreen({super.key});
 
   @override
   State<SdkInitializeScreen> createState() => _SdkInitializeScreenState();
@@ -26,16 +26,18 @@ class _SdkInitializeScreenState extends State<SdkInitializeScreen> {
   @override
   void initState() {
     super.initState();
-    FastpayFlutterSdk.instance.fastpayPaymentRequest = widget.fastpayPaymentRequest;
+    FastpayFlutterSdk.instance.startTimer();
+    FastpayFlutterSdk.instance.context = context;
+    var paymentRequest = FastpayFlutterSdk.instance.fastpayPaymentRequest;
     FastpaySdkController.instance.initPayment(
       PaymentInitiationRequest(
-          widget.fastpayPaymentRequest.stroreId,
-          widget.fastpayPaymentRequest.storePassword,
-          widget.fastpayPaymentRequest.amount,
-          widget.fastpayPaymentRequest.orderID,
+          paymentRequest?.stroreId??'',
+          paymentRequest?.storePassword??'',
+          paymentRequest?.amount??'',
+          paymentRequest?.orderID??'',
           'IQD'
       ),(response){
-          Navigator.push(context,MaterialPageRoute(builder: (context) => PaymentScreen(response)) );
+      Navigator.of(context).push(MaterialPageRoute(builder: (_) => PaymentScreen(response)));
       },
       onFailed: (code,message){
 

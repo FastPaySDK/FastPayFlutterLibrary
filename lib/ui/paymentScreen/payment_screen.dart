@@ -76,9 +76,16 @@ class _PaymentScreenState extends State<PaymentScreen> {
         _paymentSendOtpRequest!
         ,(response) async{
           Navigator.pop(context);
-          var result = await Navigator.push(context, MaterialPageRoute(builder: (context) => OtpVerificationScreen(response)));
+          var result = await Navigator.of(context).push(MaterialPageRoute(builder: (_) => OtpVerificationScreen(response)));
           debugPrint('PRINT_STACK_TRACE.....................: $result');
-          _callPaywithOtp(result);
+          if(result.toString().isEmpty){
+            Navigator.pop(context);
+            errorMesg = 'Invalid Otp';
+            setState(() {
+              viewType = 4;
+            });
+          }else
+            _callPaywithOtp(result.toString());
         },
         onFailed: (code,message){
           Navigator.pop(context);
@@ -92,6 +99,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
   void _callPaywithOtp(String otpCode) {
       _paymentSendOtpRequest?.otp = otpCode;
+      _showProgressDialog();
       FastpaySdkController.instance.paymentWithOtpVerification(
           _paymentSendOtpRequest!
           ,(response) async{
