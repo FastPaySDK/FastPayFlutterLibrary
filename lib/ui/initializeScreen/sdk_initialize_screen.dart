@@ -1,12 +1,21 @@
 import 'dart:async';
 
+
 import 'package:fastpay_flutter_sdk/ui/widget/text_style.dart';
+
+import 'package:fastpay_flutter_sdk/fastpay_flutter_sdk.dart';
+import 'package:fastpay_flutter_sdk/models/fastpay_payment_request.dart';
+import 'package:fastpay_flutter_sdk/models/request/payment_initiation_request.dart';
+import 'package:fastpay_flutter_sdk/services/fastpay_sdk_controller.dart';
 import 'package:flutter/material.dart';
 
 import '../paymentScreen/payment_screen.dart';
 
 class SdkInitializeScreen extends StatefulWidget {
-  const SdkInitializeScreen({super.key});
+
+  final FastpayPaymentRequest fastpayPaymentRequest;
+
+  const SdkInitializeScreen(this.fastpayPaymentRequest,{super.key});
 
   @override
   State<SdkInitializeScreen> createState() => _SdkInitializeScreenState();
@@ -17,12 +26,18 @@ class _SdkInitializeScreenState extends State<SdkInitializeScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const PaymentScreen()),
-      );
-    });
+    FastpayFlutterSdk.instance.fastpayPaymentRequest = widget.fastpayPaymentRequest;
+    FastpaySdkController.instance.initPayment(
+      PaymentInitiationRequest(
+          widget.fastpayPaymentRequest.stroreId,
+          widget.fastpayPaymentRequest.storePassword,
+          widget.fastpayPaymentRequest.amount,
+          widget.fastpayPaymentRequest.orderID,
+          'IQD'
+      ),(){
+
+    }
+    );
   }
 
 
