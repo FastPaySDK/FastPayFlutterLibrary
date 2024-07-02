@@ -1,3 +1,5 @@
+import 'package:fastpay_flutter_sdk/ui/otpScreen/otp_verification_screen.dart';
+import 'package:fastpay_flutter_sdk/ui/widget/text_style.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,6 +18,13 @@ class PaymentScreen extends StatefulWidget {
 
 class _PaymentScreenState extends State<PaymentScreen> {
   bool? isSelected = false;
+  String phoneNumber = '';
+  String password = '';
+  bool showQrCode = false;
+
+  bool shouldEnableButton() {
+    return phoneNumber.length == 12 && password.isNotEmpty && isSelected == true;
+  }
 
   @override
   void initState() {
@@ -38,12 +47,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     children: [
                       Image.asset(AssetImage("assets/ic_logo.png").assetName, package: 'fastpay_flutter_sdk',width: 128, height: 55,),
                       const SizedBox(width: 16,),
-                      const Column(
+                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('LEZZO', style: TextStyle(color: Color(0xFF43466E), fontSize: 16, fontWeight: FontWeight.normal),),
-                          Text('Order ID: 1234', style: TextStyle(color: Color(0xFF43466E), fontSize: 12, fontWeight: FontWeight.normal))
+                          Text('LEZZO', style: getTextStyle( fontColor: Color(0xFF43466E), textSize: 16, fontWeight: FontWeight.normal),),
+                          Text('Order ID: 1234', style: getTextStyle(fontColor: Color(0xFF43466E), textSize: 12, fontWeight: FontWeight.normal))
                         ],
                       )
                     ],
@@ -52,14 +61,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   CustomPaint(
                     painter: DottedBorderPainter(),
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8,vertical: 8),
-                      child: Text('300008888 IQD', style: TextStyle(color: Color(0xFF090909), fontSize: 16, fontWeight: FontWeight.normal),),
+                      padding: EdgeInsets.symmetric(horizontal: 12,vertical: 8),
+                      child: Text('300008888 IQD', style: getTextStyle(fontColor: Color(0xFF090909), textSize: 16, fontWeight: FontWeight.normal),),
                     ),
                   )
                 ],
               ),
             ),
-            paymentViewWidget()
+            (showQrCode)? QRViewWidget() : paymentViewWidget()
           ],
         ),
       ),
@@ -74,13 +83,18 @@ class _PaymentScreenState extends State<PaymentScreen> {
         children: [
           Row(
             children: [
-              Text('Pay via', style: TextStyle(color: Color(0xFF000000), fontSize: 12, fontWeight: FontWeight.normal),),
+              Text('Pay via', style: getTextStyle(fontColor: Color(0xFF000000), textSize: 12, fontWeight: FontWeight.w400),),
               SizedBox(width: 10,),
               Image.asset(AssetImage("assets/ic_logo.png").assetName, package: 'fastpay_flutter_sdk',width: 80, height: 80,),
             ],),
-          Text('Mobile Number', style: TextStyle(color: Color(0xFF000000), fontSize: 12, fontWeight: FontWeight.normal),),
+          Text('Mobile Number', style: getTextStyle(fontColor: Color(0xFF000000), textSize: 12, fontWeight: FontWeight.w500),),
           SizedBox(height: 8,),
           TextField(
+            onChanged: (value) {
+              setState(() {
+                phoneNumber = value;
+              });
+            },
             maxLength: 12,
             minLines: 1,
             cursorColor: Color(0xFF000000),
@@ -95,11 +109,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 padding: const EdgeInsets.only(left: 20), // Adjust padding to fit design
                 child: Text(
                   '+964 - ',
-                  style: TextStyle(
-                    color: Color(0xFF000000),
-                    fontSize: 16,
-                    fontWeight: FontWeight.normal,
-                  ),
+                  style: getTextStyle(fontColor: Color(0xFF000000), textSize: 16, fontWeight: FontWeight.w500),
                 ),
               ),
               prefixIconConstraints: BoxConstraints(minWidth: 0, minHeight: 0),
@@ -129,9 +139,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
           )
           ,
           SizedBox(height: 20,),
-          Text('Password', style: TextStyle(color: Color(0xFF000000), fontSize: 12, fontWeight: FontWeight.normal),),
+          Text('Password', style: getTextStyle(fontColor: Color(0xFF000000), textSize: 12, fontWeight: FontWeight.w500),),
           SizedBox(height: 8,),
           TextField(
+            onChanged: (value) {
+              setState(() {
+                password = value;
+              });
+            },
             obscureText: true,
             minLines: 1,
             cursorColor: Color(0xFF000000),
@@ -175,13 +190,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 text: TextSpan(
                   style: TextStyle(color: Colors.black, fontSize: 16),
                   children: [
-                    TextSpan(text: 'I accept the ', style: TextStyle(color: Color(0xFF000000), fontSize: 12, fontWeight: FontWeight.normal)),
+                    TextSpan(text: 'I accept the ', style: getTextStyle(fontColor: Color(0xFF000000), textSize: 12, fontWeight: FontWeight.w500)),
                     TextSpan(
                       text: 'terms and conditions',
                       style: TextStyle(
                         color: Color(0xFF2892D7),
                         decoration: TextDecoration.underline,
-                          fontSize: 12, fontWeight: FontWeight.normal
+                          fontSize: 12, fontWeight: FontWeight.w500
                       ),
                       recognizer: TapGestureRecognizer()
                         ..onTap = (){
@@ -197,26 +212,44 @@ class _PaymentScreenState extends State<PaymentScreen> {
             ],
           ),
           SizedBox(height: 35,),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(24),
-              color: Color(0xFF2892D7),
+          InkWell(
+            onTap: shouldEnableButton() ? () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const OtpVerificationScreen()),
+              );
+            } : null,
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(24),
+                color: shouldEnableButton() ? Color(0xFF2892D7) : Colors.grey,
+              ),
+              child: Center(child: Padding(
+                padding: const EdgeInsets.symmetric(
+                    vertical: 15, horizontal: 20),
+                child: Text('Proceed to pay'.toUpperCase(), style: getTextStyle(fontColor: Color(0xFFFFFFFF), textSize: 12, fontWeight: FontWeight.bold),),
+              )),
             ),
-            child: Center(child: Padding(
-              padding: const EdgeInsets.symmetric(
-                  vertical: 15, horizontal: 20),
-              child: Text('Proceed to pay'.toUpperCase(), style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 12, fontWeight: FontWeight.bold),),
-            )),
           ),
           SizedBox(height: 20,),
-          Center(child: Text('Or', style: TextStyle(color: Color(0xFF000000), fontSize: 13, fontWeight: FontWeight.normal),)),
+          Center(child: Text('Or', style: getTextStyle(fontColor: Color(0xFF000000), textSize: 13, fontWeight: FontWeight.normal),)),
           SizedBox(height: 20,),
-          Center(child: Image.asset(AssetImage("assets/ic_scan.png").assetName, package: 'fastpay_flutter_sdk',width: 50, height: 47,)),
-          SizedBox(height: 10,),
-          Center(child: Text('Generate QR', style: TextStyle(color: Color(0xFF2892D7), fontSize: 14, fontWeight: FontWeight.normal),)),
+          InkWell(
+            onTap: (){
+              setState(() {
+                showQrCode = true;
+              });
+            },
+            child: Column(
+              children: [
+                Center(child: Image.asset(AssetImage("assets/ic_scan.png").assetName, package: 'fastpay_flutter_sdk',width: 50, height: 47,)),
+                SizedBox(height: 10,),
+                Center(child: Text('Generate QR', style: getTextStyle(fontColor: Color(0xFF2892D7), textSize: 14, fontWeight: FontWeight.w500),)),            ],
+            ),
+          ),
           SizedBox(height: 50,),
-          Text('Back', style: TextStyle(color: Color(0xFF2892D7), fontSize: 14, fontWeight: FontWeight.normal)),
+          Text('Back', style: getTextStyle(fontColor: Color(0xFF2892D7), textSize: 14, fontWeight: FontWeight.normal)),
           SizedBox(height: 30,),
         ],
       ),
@@ -231,11 +264,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
         children: [
           Row(
             children: [
-              Text('Pay via', style: TextStyle(color: Color(0xFF000000), fontSize: 12, fontWeight: FontWeight.normal),),
+              Text('Pay via', style: getTextStyle(fontColor: Color(0xFF000000), textSize: 12, fontWeight: FontWeight.normal),),
               SizedBox(width: 10,),
               Image.asset(AssetImage("assets/ic_logo.png").assetName, package: 'fastpay_flutter_sdk',width: 80, height: 80,),
             ],),
-          const Center(child: Text('Use another mobile or\n let your friends & family help', style: TextStyle(color: Color(0xFF000000), fontSize: 12, fontWeight: FontWeight.normal),textAlign: TextAlign.center,)),
+          Center(child: Text('Use another mobile or\n let your friends & family help', style: getTextStyle(fontColor: Color(0xFF000000), textSize: 12, fontWeight: FontWeight.w500),textAlign: TextAlign.center,)),
           SizedBox(height: 20,),
           Container(
             width: MediaQuery.of(context).size.width/1.5,
@@ -249,9 +282,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
             ),
           ),
           SizedBox(height: 20,),
-          Center(child: Text('Or', style: TextStyle(color: Color(0xFF000000), fontSize: 13, fontWeight: FontWeight.normal),)),
+          Center(child: Text('Or', style: getTextStyle(fontColor: Color(0xFF000000), textSize: 13, fontWeight: FontWeight.normal),)),
           SizedBox(height: 20,),
-          Center(child: Text('Use Login Credential', style: TextStyle(color: Color(0xFF2892D7), fontSize: 14, fontWeight: FontWeight.normal),)),
+          InkWell(
+              onTap: (){
+                setState(() {
+                  showQrCode = false;
+                });
+              },
+              child: Center(child: Text('Use Login Credential', style: getTextStyle(fontColor: Color(0xFF2892D7), textSize: 14, fontWeight: FontWeight.normal),))),
           SizedBox(height: 50,),
         ],
       ),
@@ -264,7 +303,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
       child:Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text('Payment successful', style: TextStyle(color: Color(0xFF636696), fontSize: 20, fontWeight: FontWeight.normal),textAlign: TextAlign.center,),
+          Text('Payment successful', style: getTextStyle(fontColor: Color(0xFF636696), textSize: 20, fontWeight: FontWeight.w500),textAlign: TextAlign.center,),
           SizedBox(height: 20,),
           Container(
             width: MediaQuery.of(context).size.width/1.5,
@@ -278,7 +317,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             ),
           ),
           SizedBox(height: 20,),
-          Center(child: Text('Please wait while we take you back.', style: TextStyle(color: Color(0xFF636696), fontSize: 16, fontWeight: FontWeight.normal),)),
+          Center(child: Text('Please wait while we take you back.', style: getTextStyle(fontColor: Color(0xFF636696), textSize: 16, fontWeight: FontWeight.normal),)),
         ],
       ),
     );
@@ -294,7 +333,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         children: [
           Image.asset(AssetImage("assets/ic_error.png").assetName, package: 'fastpay_flutter_sdk',width: 123, height: 101,),
           SizedBox(height: 32,),
-          Text('Something went wrong!', style: TextStyle(color: Color(0xFF636696), fontSize: 18, fontWeight: FontWeight.normal),),
+          Text('Something went wrong!', style: getTextStyle(fontColor: Color(0xFF636696), textSize: 18, fontWeight: FontWeight.w500),),
           SizedBox(height: 12,),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -305,7 +344,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 width: 2,
               )
             ),
-            child: Text('RETRY', style: TextStyle(color: Color(0xFF2892D7), fontSize: 12, fontWeight: FontWeight.bold),),
+            child: Text('RETRY', style: getTextStyle(fontColor: Color(0xFF2892D7), textSize: 12, fontWeight: FontWeight.bold),),
           ),
         ],
       ),
