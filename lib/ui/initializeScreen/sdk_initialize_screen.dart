@@ -31,9 +31,12 @@ class _SdkInitializeScreenState extends State<SdkInitializeScreen> {
           widget.fastpayPaymentRequest.amount,
           widget.fastpayPaymentRequest.orderID,
           'IQD'
-      ),(){
+      ),(response){
+          debugPrint('PRINT_STACK_TRACE.....................: ${response.token}');
+      },
+      onFailed: (code,message){
 
-    }
+      }
     );
   }
 
