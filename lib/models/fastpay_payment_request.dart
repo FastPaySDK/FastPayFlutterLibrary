@@ -1,3 +1,5 @@
+import 'package:fastpay_flutter_sdk/models/fastpay_payment_response.dart';
+
 import '../fastpay_flutter_sdk.dart';
 
 class FastpayPaymentRequest{
@@ -16,7 +18,7 @@ class FastpayPaymentRequest{
   final String orderID;
   final String callbackUri;
   final bool isProduction;
-  Function(SDKStatus,String)? callback;
+  Function(SDKStatus,String, {FastpayPaymentResponse? result})? callback;
 
   FastpayPaymentRequest(this.stroreId, this.storePassword, this.amount,
       this.orderID, this.callbackUri, this.isProduction, this.callback);

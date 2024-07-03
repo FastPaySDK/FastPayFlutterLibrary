@@ -32,6 +32,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   String errorMesg = '';
   bool showQrCode = false;
   int viewType = 1; //1 = payment, 2 = qr, 3 = success,, 4 = error
+  bool isPaymentCompleted = false;
 
   PaymentSendOtpRequest? _paymentSendOtpRequest;
   PaymentInitiationResponse? paymentInitiationResponse;
@@ -112,14 +113,18 @@ class _PaymentScreenState extends State<PaymentScreen> {
               setState(() {
                 viewType = 3;
               });
+              isPaymentCompleted = true;
               Timer(const Duration(seconds: 5), () async {
                 var fastpayResult = FastpayPaymentResponse("success", response.summary?.invoiceId, _paymentSendOtpRequest?.orderId??'', FastpayFlutterSdk.instance.fastpayPaymentRequest?.amount, "IQD", response.summary?.recipient?.name, response.summary?.recipient?.mobileNumber, DateTime.now().microsecondsSinceEpoch.toString());
+                FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.SUCCESS,'Payment success',result:fastpayResult);
                 FastpayFlutterSdk.instance.dispose(fastpayResult);
               });
           },
           onFailed: (code,message){
             Navigator.pop(context);
             debugPrint('PRINT_STACK_TRACE.....................: $message');
+            var result = FastpayPaymentResponse("failed", null, FastpayFlutterSdk.instance.fastpayPaymentRequest?.orderID, FastpayFlutterSdk.instance.fastpayPaymentRequest?.amount, "IQD",FastpayFlutterSdk.instance.paymentInitiationResponse?.storeName, null, DateTime.now().microsecondsSinceEpoch.toString());
+            FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.FAILED,message,result:result);
             setState(() {
               errorMesg = message;
               viewType = 4;
@@ -132,7 +137,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
   Widget build(BuildContext context) {
     return PopScope(
       onPopInvoked: (value){
-        FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.CANCEL,'Fastpay payment canceled');
+        if(!isPaymentCompleted) {
+          FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.CANCEL,'Fastpay payment canceled');
+        }
       },
       child: SafeArea(child: Scaffold(
         body: SingleChildScrollView(
@@ -384,8 +391,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             ),
           ),
           SizedBox(height: 50,),
-          Text('Back', style: getTextStyle(fontColor: Color(0xFF2892D7), textSize: 14, fontWeight: FontWeight.normal)),
-          SizedBox(height: 30,),
+
         ],
       ),
     );

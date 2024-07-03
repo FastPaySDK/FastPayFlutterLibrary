@@ -13,7 +13,9 @@ enum SDKStatus{
   INIT,
   PAYMENT_WITH_FASTPAY_APP,
   PAYMENT_WITH_FASTPAY_SDK,
-  CANCEL
+  CANCEL,
+  SUCCESS,
+  FAILED
 }
 
 enum NetworkRequestType{
@@ -33,7 +35,6 @@ class FastpayFlutterSdk{
   BuildContext? _context;
 
   FastpayPaymentRequest? _fastpayPaymentRequest;
-  FastpayPaymentResponse? _fastpayPaymentResponse;
   PaymentInitiationResponse? _paymentInitiationResponse;
   String? _apiToken;
 
@@ -83,14 +84,6 @@ class FastpayFlutterSdk{
 
   String get apiVersionV1 => _apiVersionV1;
 
-
-  FastpayPaymentResponse? get fastpayPaymentResponse => _fastpayPaymentResponse;
-
-  set fastpayPaymentResponse(FastpayPaymentResponse? value) {
-    _fastpayPaymentResponse = value;
-  }
-
-
   PaymentInitiationResponse? get paymentInitiationResponse =>
       _paymentInitiationResponse;
 
@@ -116,7 +109,6 @@ class FastpayFlutterSdk{
 
   void dispose(FastpayPaymentResponse? response){
     _start = (_fastpayPaymentRequest?.isProduction == true)?(2*60):(5*50);
-    FastpayFlutterSdk.instance.fastpayPaymentResponse = (response == null?FastpayPaymentResponse("failed", null, fastpayPaymentRequest?.orderID, fastpayPaymentRequest?.amount, "IQD",_paymentInitiationResponse?.storeName, null, DateTime.now().microsecondsSinceEpoch.toString()):response);
     Navigator.of(_context!).popUntil(ModalRoute.withName('/'));
     _timer?.cancel();
   }

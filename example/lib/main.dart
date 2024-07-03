@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:app_links/app_links.dart';
 import 'package:fastpay_flutter_sdk/fastpay_flutter_sdk.dart';
 import 'package:fastpay_flutter_sdk/models/fastpay_payment_request.dart';
+import 'package:fastpay_flutter_sdk/models/fastpay_payment_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -35,6 +37,7 @@ class _MyAppHomePageState extends State<MyAppHomePage> {
   @override
   void initState() {
     super.initState();
+    _handleIncomingIntent();
     FastpayFlutterSdk.instance.fastpayPaymentRequest = FastpayPaymentRequest(
       "748957_847",
       "v=7bUPTeC2#nQ2-+",
@@ -42,9 +45,9 @@ class _MyAppHomePageState extends State<MyAppHomePage> {
       DateTime.now().microsecondsSinceEpoch.toString(),
       "sdk://fastpay-sdk.com/callback",
       false,
-          (status,message){
-        debugPrint("CALLBACK..................."+message);
-        //_showToast(context,message);
+      (status, message, {result}) {
+        debugPrint('PRINT_STACK_TRACE::MESSAGE.....................: ${message}');
+        debugPrint('PRINT_STACK_TRACE.....................: ${result.toString()}');
       },
     );
   }
@@ -58,12 +61,20 @@ class _MyAppHomePageState extends State<MyAppHomePage> {
       body: Center(
         child: InkWell(
             onTap: ()async{
-                await Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SdkInitializeScreen()));
-                debugPrint('PRINT_STACK_TRACE:::Response....................: ${FastpayFlutterSdk.instance.fastpayPaymentResponse.toString()}');
+                Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SdkInitializeScreen()));
               },
             child: Text('Click here')
         ),
       ),
     );
+  }
+
+  Future<void> _handleIncomingIntent() async {
+    final _appLinks = AppLinks();
+    final uri = await _appLinks.getLatestAppLink();
+    final allQueryParams = uri?.queryParameters;
+    final status = allQueryParams?['status'];
+    final orderId = allQueryParams?['order_id'];
+    debugPrint("..........................STATUS::: "+status.toString()+", OrderId:::"+orderId.toString());
   }
 }
