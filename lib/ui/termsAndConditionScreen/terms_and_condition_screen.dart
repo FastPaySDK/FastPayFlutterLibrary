@@ -1,6 +1,7 @@
 import 'package:fastpay_flutter_sdk/ui/widget/text_style.dart';
 import 'package:flutter/material.dart';
 
+import '../../fastpay_flutter_sdk.dart';
 import '../widget/app_bar.dart';
 
 class TermsAndConditionScreen extends StatefulWidget {
@@ -12,6 +13,14 @@ class TermsAndConditionScreen extends StatefulWidget {
 
 class _TermsAndConditionScreenState extends State<TermsAndConditionScreen> {
   final ScrollController controller = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    FastpayFlutterSdk.instance.context = context;
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(child: Scaffold(

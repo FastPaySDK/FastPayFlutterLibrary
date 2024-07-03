@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:fastpay_flutter_sdk/models/fastpay_payment_response.dart';
 import 'package:fastpay_flutter_sdk/models/request/payment_send_otp_request.dart';
 import 'package:fastpay_flutter_sdk/models/response/payment_initiation_response.dart';
 import 'package:fastpay_flutter_sdk/ui/otpScreen/otp_verification_screen.dart';
@@ -41,6 +44,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   void initState() {
     super.initState();
     paymentInitiationResponse = widget._paymentInitiationResponse;
+    FastpayFlutterSdk.instance.context = context;
   }
 
   void _showProgressDialog(){
@@ -78,6 +82,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
           Navigator.pop(context);
           var result = await Navigator.of(context).push(MaterialPageRoute(builder: (_) => OtpVerificationScreen(response)));
           debugPrint('PRINT_STACK_TRACE.....................: $result');
+          FastpayFlutterSdk.instance.context = context;
           if(result.toString().isEmpty){
             Navigator.pop(context);
             errorMesg = 'Invalid Otp';
@@ -100,12 +105,16 @@ class _PaymentScreenState extends State<PaymentScreen> {
   void _callPaywithOtp(String otpCode) {
       _paymentSendOtpRequest?.otp = otpCode;
       _showProgressDialog();
-      FastpaySdkController.instance.paymentWithOtpVerification(
+      FastpaySdkController.instance.payWithOtp(
           _paymentSendOtpRequest!
           ,(response) async{
               Navigator.pop(context);
               setState(() {
                 viewType = 3;
+              });
+              Timer(const Duration(seconds: 5), () async {
+                var fastpayResult = FastpayPaymentResponse("success", response.summary?.invoiceId, _paymentSendOtpRequest?.orderId??'', FastpayFlutterSdk.instance.fastpayPaymentRequest?.amount, "IQD", response.summary?.recipient?.name, response.summary?.recipient?.mobileNumber, DateTime.now().microsecondsSinceEpoch.toString());
+                FastpayFlutterSdk.instance.dispose(fastpayResult);
               });
           },
           onFailed: (code,message){
@@ -121,64 +130,69 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child: Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            if(viewType != 4)
-              Container(
-              height: MediaQuery.of(context).size.height/4,
-              color: const Color(0xFFECF2F5),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      paymentInitiationResponse?.storeLogo != null?
-                        Image.network(
-                          paymentInitiationResponse?.storeLogo,
-                          fit: BoxFit.fill,
-                          loadingBuilder: (BuildContext context, Widget child,
-                              ImageChunkEvent? loadingProgress) {
-                            if (loadingProgress == null) return child;
-                            return Center(
-                              child: CircularProgressIndicator(
-                                value: loadingProgress.expectedTotalBytes != null
-                                    ? loadingProgress.cumulativeBytesLoaded /
-                                    loadingProgress.expectedTotalBytes!
-                                    : null,
-                              ),
-                            );
-                          },
-                        ):Image.asset(const AssetImage("assets/ic_logo.png").assetName, package: 'fastpay_flutter_sdk',width: 128, height: 55,),
-                      const SizedBox(width: 16,),
-                       Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(paymentInitiationResponse?.storeName??'', style: getTextStyle( fontColor: Color(0xFF43466E), textSize: 16, fontWeight: FontWeight.normal),),
-                          Text('Order ID: ${paymentInitiationResponse?.orderId??''}', style: getTextStyle(fontColor: Color(0xFF43466E), textSize: 12, fontWeight: FontWeight.normal))
-                        ],
-                      )
-                    ],
-                  ),
-                  SizedBox(height: 20,),
-                  CustomPaint(
-                    painter: DottedBorderPainter(),
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 12,vertical: 8),
-                      child: Text('${paymentInitiationResponse?.billAmount??''} ${paymentInitiationResponse?.currency??''}', style: getTextStyle(fontColor: Color(0xFF090909), textSize: 16, fontWeight: FontWeight.normal),),
+    return PopScope(
+      onPopInvoked: (value){
+        FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.CANCEL,'Fastpay payment canceled');
+      },
+      child: SafeArea(child: Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              if(viewType != 4)
+                Container(
+                height: MediaQuery.of(context).size.height/4,
+                color: const Color(0xFFECF2F5),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        paymentInitiationResponse?.storeLogo != null?
+                          Image.network(
+                            paymentInitiationResponse?.storeLogo,
+                            fit: BoxFit.fill,
+                            loadingBuilder: (BuildContext context, Widget child,
+                                ImageChunkEvent? loadingProgress) {
+                              if (loadingProgress == null) return child;
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  value: loadingProgress.expectedTotalBytes != null
+                                      ? loadingProgress.cumulativeBytesLoaded /
+                                      loadingProgress.expectedTotalBytes!
+                                      : null,
+                                ),
+                              );
+                            },
+                          ):Image.asset(const AssetImage("assets/ic_logo.png").assetName, package: 'fastpay_flutter_sdk',width: 128, height: 55,),
+                        const SizedBox(width: 16,),
+                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(paymentInitiationResponse?.storeName??'', style: getTextStyle( fontColor: Color(0xFF43466E), textSize: 16, fontWeight: FontWeight.normal),),
+                            Text('Order ID: ${paymentInitiationResponse?.orderId??''}', style: getTextStyle(fontColor: Color(0xFF43466E), textSize: 12, fontWeight: FontWeight.normal))
+                          ],
+                        )
+                      ],
                     ),
-                  )
-                ],
+                    SizedBox(height: 20,),
+                    CustomPaint(
+                      painter: DottedBorderPainter(),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 12,vertical: 8),
+                        child: Text('${paymentInitiationResponse?.billAmount??''} ${paymentInitiationResponse?.currency??''}', style: getTextStyle(fontColor: Color(0xFF090909), textSize: 16, fontWeight: FontWeight.normal),),
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-            _viewCondition()
-          ],
+              _viewCondition()
+            ],
+          ),
         ),
-      ),
-    ));
+      )),
+    );
   }
 
   Widget _viewCondition(){

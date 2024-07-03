@@ -42,23 +42,33 @@ class PaymentSendOtpRequest {
     return map;
   }
 
-  set token(String value) {
+  set token(String? value) {
     _token = value;
   }
 
-  set otp(String value) {
+  set otp(String? value) {
     _otp = value;
   }
 
-  set password(String value) {
+  set password(String? value) {
     _password = value;
   }
 
-  set orderId(String value) {
+  set orderId(String? value) {
     _orderId = value;
   }
 
-  set mobileNumber(String value) {
+  set mobileNumber(String? value) {
     _mobileNumber = value;
   }
+
+  String? get token => _token;
+
+  String? get otp => _otp;
+
+  String? get password => _password;
+
+  String? get orderId => _orderId;
+
+  String? get mobileNumber => _mobileNumber;
 }

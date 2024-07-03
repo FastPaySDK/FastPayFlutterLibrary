@@ -1,8 +1,11 @@
 import 'dart:async';
 
 import 'package:fastpay_flutter_sdk/models/fastpay_payment_request.dart';
+import 'package:fastpay_flutter_sdk/models/fastpay_payment_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'models/response/payment_initiation_response.dart';
 
 export 'ui/initializeScreen/sdk_initialize_screen.dart';
 
@@ -30,6 +33,8 @@ class FastpayFlutterSdk{
   BuildContext? _context;
 
   FastpayPaymentRequest? _fastpayPaymentRequest;
+  FastpayPaymentResponse? _fastpayPaymentResponse;
+  PaymentInitiationResponse? _paymentInitiationResponse;
   String? _apiToken;
 
   final String _sandBoxUrl = "https://staging-apigw-sdk.fast-pay.iq/";
@@ -78,14 +83,30 @@ class FastpayFlutterSdk{
 
   String get apiVersionV1 => _apiVersionV1;
 
+
+  FastpayPaymentResponse? get fastpayPaymentResponse => _fastpayPaymentResponse;
+
+  set fastpayPaymentResponse(FastpayPaymentResponse? value) {
+    _fastpayPaymentResponse = value;
+  }
+
+
+  PaymentInitiationResponse? get paymentInitiationResponse =>
+      _paymentInitiationResponse;
+
+  set paymentInitiationResponse(PaymentInitiationResponse? value) {
+    _paymentInitiationResponse = value;
+  }
+
   void startTimer() {
-    const oneSec = const Duration(seconds: 1);
-    _timer = new Timer.periodic(
-      oneSec,
-          (Timer timer) {
+    _start = (_fastpayPaymentRequest?.isProduction == true)?(2*60):(5*50);
+    const oneSec = Duration(seconds: 1);
+    _timer = Timer.periodic(
+      oneSec, (Timer timer) {
         if (_start == 0) {
+          fastpayPaymentRequest?.callback?.call(SDKStatus.CANCEL,'Request time out');
           debugPrint('.............timer is finished');
-          dispose();
+          dispose(null);
         } else {
           _start--;
         }
@@ -93,8 +114,9 @@ class FastpayFlutterSdk{
     );
   }
 
-  void dispose(){
-    _start = 10;
+  void dispose(FastpayPaymentResponse? response){
+    _start = (_fastpayPaymentRequest?.isProduction == true)?(2*60):(5*50);
+    FastpayFlutterSdk.instance.fastpayPaymentResponse = (response == null?FastpayPaymentResponse("failed", null, fastpayPaymentRequest?.orderID, fastpayPaymentRequest?.amount, "IQD",_paymentInitiationResponse?.storeName, null, DateTime.now().microsecondsSinceEpoch.toString()):response);
     Navigator.of(_context!).popUntil(ModalRoute.withName('/'));
     _timer?.cancel();
   }

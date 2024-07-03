@@ -2,6 +2,7 @@ import 'package:fastpay_flutter_sdk/ui/paymentScreen/payment_screen.dart';
 import 'package:fastpay_flutter_sdk/ui/widget/text_style.dart';
 import 'package:flutter/material.dart';
 
+import '../../fastpay_flutter_sdk.dart';
 import '../widget/CustomOtpView.dart';
 import '../widget/app_bar.dart';
 
@@ -24,6 +25,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   @override
   void initState() {
     super.initState();
+    FastpayFlutterSdk.instance.context = context;
     // Add listener to each controller to check for changes
     _fieldOne.addListener(_checkAllFieldsFilled);
     _fieldTwo.addListener(_checkAllFieldsFilled);

@@ -59,7 +59,7 @@ class _MyAppHomePageState extends State<MyAppHomePage> {
         child: InkWell(
             onTap: ()async{
                 await Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SdkInitializeScreen()));
-                debugPrint('.............'+FastpayFlutterSdk.instance.apiToken);
+                debugPrint('PRINT_STACK_TRACE:::Response....................: ${FastpayFlutterSdk.instance.fastpayPaymentResponse.toString()}');
               },
             child: Text('Click here')
         ),

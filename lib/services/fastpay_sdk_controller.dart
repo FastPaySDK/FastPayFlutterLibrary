@@ -8,6 +8,8 @@ import 'package:fastpay_flutter_sdk/models/response/payment_initiation_response.
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import '../models/response/payment_success_response.dart';
+
 class FastpaySdkController{
 
   FastpaySdkController._privateConstructor();
@@ -46,26 +48,13 @@ class FastpaySdkController{
 
   Future<void> payWithOtp(
       PaymentSendOtpRequest paymentSendOtpRequest,
-      Function(String message) onSuccess,
+      Function(PaymentSuccessResponse message) onSuccess,
       {Function(int code,String message)? onFailed}) async {
-    final response = await _executeNetworkRequest(FastpayFlutterSdk.instance.apiPaymentWithOtpVerification,NetworkRequestType.POST,paymentSendOtpRequest.toJson(),onFailed: onFailed,isVersion2: true,isEmptyBody: true);
+    final response = await _executeNetworkRequest(FastpayFlutterSdk.instance.apiPaymentWithOtpVerification,NetworkRequestType.POST,paymentSendOtpRequest.toJson(),onFailed: onFailed,isVersion2: true,isEmptyBody: false);
     if(response != null){
       try{
-        onSuccess.call(response);
-      }catch(e){
-        onFailed?.call(0,'Something went wrong');
-      }
-    }
-  }
-
-  Future<void> paymentWithOtpVerification(
-      PaymentSendOtpRequest paymentSendOtpRequest,
-      Function(String message) onSuccess,
-      {Function(int code,String message)? onFailed}) async {
-    final response = await _executeNetworkRequest(FastpayFlutterSdk.instance.apiPaymentWithOtpVerification,NetworkRequestType.POST,paymentSendOtpRequest.toJson(),onFailed: onFailed,isVersion2: true,isEmptyBody: true);
-    if(response != null){
-      try{
-        onSuccess.call(response);
+        var data = PaymentSuccessResponse.fromJson(response);
+        onSuccess.call(data);
       }catch(e){
         onFailed?.call(0,'Something went wrong');
       }

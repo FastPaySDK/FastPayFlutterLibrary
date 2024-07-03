@@ -1,4 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.fastpay.sdk.fastpay_flutter_sdk">
     <uses-permission android:name="android.permission.INTERNET" />
+    <queries>
+        <package android:name="com.sslwireless.fastpay"/>
+    </queries>
 </manifest>
