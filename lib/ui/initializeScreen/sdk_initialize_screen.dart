@@ -7,6 +7,7 @@ import 'package:fastpay_flutter_sdk/services/fastpay_sdk_controller.dart';
 import 'package:fastpay_flutter_sdk/ui/widget/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:external_app_launcher/external_app_launcher.dart';
+import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../paymentScreen/payment_screen.dart';
@@ -93,9 +94,25 @@ class _SdkInitializeScreenState extends State<SdkInitializeScreen> {
 
   }
 
+  @override
+  void dispose() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+
     return SafeArea(child: Scaffold(
       body: Container(
         width: MediaQuery.of(context).size.width,

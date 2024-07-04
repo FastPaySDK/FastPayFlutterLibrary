@@ -48,6 +48,17 @@ class _PaymentScreenState extends State<PaymentScreen> {
     FastpayFlutterSdk.instance.context = context;
   }
 
+  @override
+  void dispose() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+    super.dispose();
+  }
+
   void _showProgressDialog(){
     AlertDialog alert = AlertDialog(
       backgroundColor: Colors.transparent,
@@ -135,6 +146,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+
     return PopScope(
       onPopInvoked: (value){
         if(!isPaymentCompleted) {

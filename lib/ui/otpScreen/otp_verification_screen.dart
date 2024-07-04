@@ -1,6 +1,7 @@
 import 'package:fastpay_flutter_sdk/ui/paymentScreen/payment_screen.dart';
 import 'package:fastpay_flutter_sdk/ui/widget/text_style.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../fastpay_flutter_sdk.dart';
 import '../widget/CustomOtpView.dart';
@@ -64,12 +65,24 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     _fieldFour.dispose();
     _fieldFive.dispose();
     _fieldSix.dispose();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     super.dispose();
   }
 
 
   @override
   Widget build(BuildContext context) {
+
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+
     return SafeArea(
       child: Scaffold(
         body: Column(
