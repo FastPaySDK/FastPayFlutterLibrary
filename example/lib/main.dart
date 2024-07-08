@@ -44,6 +44,7 @@ class _MyAppHomePageState extends State<MyAppHomePage> {
       "450",
       DateTime.now().microsecondsSinceEpoch.toString(),
       "sdk://fastpay-sdk.com/callback",
+      "appfpclientFastpayFlutterSdk",
       false,
       (status, message, {result}) {
         debugPrint('PRINT_STACK_TRACE::MESSAGE.....................: ${message}');
