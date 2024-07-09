@@ -12,6 +12,10 @@ dependencies:
   flutter:
     sdk: flutter
   plugin_platform_interface: ^2.0.2
+  http: ^1.2.1
+  external_app_launcher: ^4.0.0
+  url_launcher: ^6.3.0
+  google_fonts: ^4.0.4
 
 
 dev_dependencies:
