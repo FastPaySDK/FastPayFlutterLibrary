@@ -1,93 +1,69 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:app_links/app_links.dart';
-import 'package:fastpay_merchant/fastPayRequests.dart';
+import 'package:fastpay_merchant/fastpay_flutter_sdk.dart';
+import 'package:fastpay_merchant/models/fastpay_payment_request.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  @override
-  void initState() {
-    super.initState();
-    initPlatformState();
-    _handleIncomingIntent();
-  }
-
-  FastpayResult? _fastpayResult;
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    if (!mounted) return;
-  }
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Column(
-          children: [
-            Center(
-              child: Text("${_fastpayResult?.toJson()}\n"),
-            ),
-            ScaffoldMessenger(
-              child: ElevatedButton(
-                onPressed: () async {
-                  FastpayResult _fastpayResult = await FastPayRequest(
-                    storeID: "*****",
-                    storePassword: "******",
-                    amount: "450",
-                    orderID: DateTime.now().microsecondsSinceEpoch.toString(),
-                    isProduction: false,
-                    callback: (status,message){
-                      debugPrint("CALLBACK..................."+message);
-                      //_showToast(context,message);
-                    }, callbackUri: "sdk://fastpay-sdk.com/callback",
-                  );
-                  if (_fastpayResult.isSuccess ?? false) {
-                    // transaction success
-                   // _showToast(context, "transaction success");
-                    print(
-                        '......................................transaction success');
-                  } else {
-                    // transaction failed
-                    //_showToast(context, "transaction failed");
-                    print(
-                        '......................................transaction failed');
-                  }
-                  setState(() {});
-                },
-                child: Text("Pay"),
-              ),
-            ),
-          ],
-        ),
-      ),
+      title: 'Plugin Example App',
+      home: MyAppHomePage(),
+    );
+  }
+}
+
+class MyAppHomePage extends StatefulWidget {
+  const MyAppHomePage({super.key});
+
+  @override
+  State<MyAppHomePage> createState() => _MyAppHomePageState();
+}
+
+class _MyAppHomePageState extends State<MyAppHomePage> {
+  String _platformVersion = 'Unknown';
+  //final _fastpayFlutterSdkPlugin = FastpayFlutterSdk();
+
+  @override
+  void initState() {
+    super.initState();
+    _handleIncomingIntent();
+    FastpayFlutterSdk.instance.fastpayPaymentRequest = FastpayPaymentRequest(
+      "748957_847",
+      "v=7bUPTeC2#nQ2-+",
+      "450",
+      DateTime.now().microsecondsSinceEpoch.toString(),
+      "sdk://fastpay-sdk.com/callback",
+      "appfpclientFastpayFlutterSdk",
+      false,
+          (status, message, {result}) {
+        debugPrint('PRINT_STACK_TRACE::MESSAGE.....................: ${message}');
+        debugPrint('PRINT_STACK_TRACE.....................: ${result.toString()}');
+      },
     );
   }
 
-
-
-
-  void _showToast(BuildContext context,String message) {
-    final scaffold = ScaffoldMessenger.of(context);
-    scaffold.showSnackBar(
-      SnackBar(
-        content:  Text(message),
-        action: SnackBarAction(label: 'UNDO', onPressed: scaffold.hideCurrentSnackBar),
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Plugin example app'),
+      ),
+      body: Center(
+        child: InkWell(
+            onTap: ()async{
+              Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SdkInitializeScreen()));
+            },
+            child: Text('Click here')
+        ),
       ),
     );
   }
