@@ -24,4 +24,6 @@
 - Added iOS redirection .plist code snippet in documentation
 ## 1.1.1
 - iOS framework issue solved
+## 1.1.2
+- IOS deeplink issues fixed.
 

@@ -1,12 +1,19 @@
+
 # FastPay Flutter SDK
+![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white)![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)![iOS](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white)![Dart](https://img.shields.io/badge/dart-%230175C2.svg?style=for-the-badge&logo=dart&logoColor=white)
+![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)
+![Generic badge](https://img.shields.io/badge/Version-1.1.2-<COLOR>.svg)
 
 ## FastPay Developers Arena
 
 Accept payments with FastPay's APIs. Our simple and easy-to-integrate APIs allow for less effort in processing payments. This is an official support channel, but our APIs support both Android and iOS.
 
+### SDK flow
+![alt text](https://raw.githubusercontent.com/Fast-Solution-Inc/FastPay-Android-SDK/main/flow.png)
+
 ### Screenshots
 
-| ![Screenshot 1](https://github.com/FastPaySDK/FastPayFlutterLibrary/blob/devZarraf/1.jpg?raw=true) | ![Screenshot 2](https://github.com/FastPaySDK/FastPayFlutterLibrary/blob/devZarraf/2.jpg?raw=true) | ![Screenshot 3](https://github.com/FastPaySDK/FastPayFlutterLibrary/blob/devZarraf/3.jpg?raw=true) |
+| ![Screenshot 1](https://raw.githubusercontent.com/Fast-Solution-Inc/FastPay-Android-SDK/main/1.jpg?raw=true) | ![Screenshot 2](https://raw.githubusercontent.com/Fast-Solution-Inc/FastPay-Android-SDK/main/2.jpg?raw=true) | ![Screenshot 3](https://raw.githubusercontent.com/Fast-Solution-Inc/FastPay-Android-SDK/main/3.jpg?raw=true) |
 | :---: | :---: | :---: |
 
 ## Quick Glance
@@ -18,57 +25,12 @@ Accept payments with FastPay's APIs. Our simple and easy-to-integrate APIs allow
 
 ```yaml
 dependencies:
-  fastpay_merchant: ^1.0.10
+  fastpay_merchant: ^1.1.2
   #To handle callbacks (Redirection) from fastpay wallet application.
   app_links: ^4.0.0 
 ```
 
-
-## Android Setup
-  - Requires AndroidX
-
-### Build Gradle
-
- Include support in ```android/app/build.gradle```
-add this line if not exit:
-```properties
-implementation 'com.android.support:appcompat-v7:28.0.0'
-```
-### styles
- change theme app in ```android/app/src/main/res/values/styles.xml``` and ```android/app/src/main/res/values-night/styles.xml``` to :
-##### if you want show appbar with app name title :
-```bash 
-Theme.AppCompat.Light
-```
-##### if you do not want show appbar with app name title :
-```bash 
-Theme.AppCompat.Light.NoActionBar
-```
-Example :
-```properties
-<!-- change theme app to AppCompat theme -->
- <style name="LaunchTheme" parent="Theme.AppCompat.Light">
-       <!-- update this line to change background payment color to white -->
-        <item name="android:windowBackground">#ffffff</item>
-       ...
-
-    </style>
-```
-### Manifest
-add this line to  manifest
-```properties
-<application
-       <-- lable name show in fastpay title screen -->
-        android:label="example"
-       <-- add this line in hear --> 
-        android:theme="@style/LaunchTheme"
-      ...
->
-```
-
-## IOS
-It doesn't need to be changed
-- iOS only supports real device you can't test it on simulator because FastPay SDK not support simulator
+> :warning: **iOS only supports real device you can't test it on simulator because FastPay SDK not support simulator**
 
 ___
 
@@ -79,8 +41,8 @@ ___
 - __Order ID__ : Order ID/Bill number for the transaction, this value should be unique in every transaction
 - __Amount__ : Payable amount in the transaction ex: “1000”
 - __isProduction__ : Payment Environment to initiate transaction (false for test & true for real life transaction)
-- __Call back Uri__: When the SDK redirect to the fastpay application for payment and after payment cancel or failed it throws a callback with this uri. It is used for deeplinking with the client app for catching callbacks from fastpay application.
-- **Callback( Sdk status, message):** There are four sdk status (e.g. *FastpayRequest.SDKStatus.INIT*) and status message.
+- __Call back Uri's__: When the SDK redirect to the fastpay application for payment and after payment cancel or failed it throws a callback with this uri. It is used for deeplinking with the client app for catching callbacks from fastpay application. Both android and ios has platform specific call back uri's.
+- **Callback( Sdk status, message, FastpayResult):** There are four sdk status (e.g. *FastpayRequest.SDKStatus.INIT*) , status message show scurrent status of the SDK and the result is fastpay SDK payment result.
 
 ```dart 
   enum SDKStatus{
@@ -91,27 +53,40 @@ ___
    }
 ```
 
-## Examples 
+## Examples
+1. Initiate payment in init method of your flutter widget:
 ```dart 
-FastpayResult _fastpayResult = await FastPayRequest(
-                    storeID: "********", 
-                    storePassword: "********",
-                    amount: "1000", 
-                    orderID: "HBBS7657", 
-                     isProduction: false,
-              callback: (status,message){
-                  debugPrint("CALLBACK..................."+message);
-                  _showToast(context,message);
-            },callbackUri: "sdk://your.website.com/further/paths",);
+import 'package:fastpay_merchant/fastpay_flutter_sdk.dart';  
+import 'package:fastpay_merchant/models/fastpay_payment_request.dart';
 
- if (_fastpayResult.isSuccess ?? false) {
-       // transaction success
-     } else {
-       // transaction failed
-     }
+/*  
+* 
+* Add this code on init method
+*/
+FastpayFlutterSdk.instance.fastpayPaymentRequest = FastpayPaymentRequest(  
+  "******STORE ID*****",  //(Required)
+  "******STORE PASSWORD****", //(Required) 
+  "450",  //AMOUNT
+  "YOUR ORDER ID",  //order Id
+  "sdk://fastpay-sdk.com/callback",  // Android callback URI (Required)
+  "appfpclientFastpayFlutterSdk",  // IOS callback URI(Required)
+  false,// is production  (Required)
+  (status, message, {result}) {  
+    debugPrint('PRINT_STACK_TRACE::MESSAGE.....................: ${message}');  
+    debugPrint('PRINT_STACK_TRACE.....................: ${result.toString()}');  
+  },  
+);
+```
+2. Start the journey by navigating the app to the SDK:
+```dart 
+/*  
+* 
+* Use this code to navigate to flutter SDK
+*/
+Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SdkInitializeScreen()));
 ```
 
-## SDK callback Uri
+## SDK callback Uri (Optional)
 
 ```dart
 //Using app_links
@@ -127,7 +102,8 @@ Future<void> _handleIncomingIntent() async {
   }
 ```
 
-NOTE: Don't forget to add following code block to your android manifest file.
+#### Android setup
+Add the callback uri to the __AndroidManifest__ file as shown below.
 
 ```properties
 <application
@@ -139,7 +115,7 @@ NOTE: Don't forget to add following code block to your android manifest file.
             <category android:name="android.intent.category.LAUNCHER"/>
         </intent-filter>
         <intent-filter>
-            <data android:scheme="sdk" android:host="your.website.com" android:pathPrefix="/further/paths"/>
+            <data android:scheme="sdk" android:host="fastpay-sdk.com" android:pathPrefix="/callback"/>
             <action android:name="android.intent.action.VIEW" />
             <category android:name="android.intent.category.DEFAULT" />
             <category android:name="android.intent.category.BROWSABLE" />
@@ -150,7 +126,8 @@ NOTE: Don't forget to add following code block to your android manifest file.
 </application>
 ```
 
-For iOS redirection:
+#### IOS setup
+Add the callback uri to the manifest file as shown below.
 
 - Create URI Create a URI with a unique name (our suggestion is to provide your app name with prefix text "appfpclient", for example, if your app name is "FaceLook", your URI should be appfpclientFaceLook)
 - Add URI to your `info.plist` Now add this URI to your app info.plist file
@@ -160,7 +137,7 @@ For iOS redirection:
     <dict>
       <key>CFBundleURLSchemes</key>
       <array>
-    < string>appfpclientFaceLook</string>
+    < string>appfpclientFastpayFlutterSdk</string>
       </array>
     </dict>
   </array>
@@ -168,9 +145,10 @@ For iOS redirection:
 
 When __FastPayRequest__ call open FastPay SDK then after payment return __FastpayResult__ that contains:
 
-### payment result 
+## Payment Result
+__FastpayPaymentResponse__ class contains these params:
 - __isSuccess__ : return true for a successful transaction else false.
-- __errorMessage__ : if transaction failed return failed result 
+- __errorMessage__ : if transaction failed return failed result
 - __transactionStatus__ : Payment status weather it is success / failed.
 - __transactionId__ : If payment is successful then a transaction id will be available.
 - __orderId__ : Unique Order ID/Bill number for the transaction which was passed at initiation time.
@@ -179,12 +157,10 @@ When __FastPayRequest__ call open FastPay SDK then after payment return __Fastpa
 - __payeeName__ : Payee name for a successful transaction.
 - __payeeMobileNumber__ :  Number: Payee name for a successful transaction.
 - __paymentTime__ : Payment occurrence time as the timestamp.
-   
+
 ### Callback Uri via app deeplinks results.
 
 ```java
 callback URI pattern (SUCCESS): sdk://your.website.com/further/paths?status=success&transaction_id=XXXX&order_id=XXXX&amount=XXX&currency=XXX&mobile_number=XXXXXX&time=XXXX&name=XXXX
 callback URI pattern (FAILED): sdk://your.website.com/further/paths?status=failed&order_id=XXXXX
 ```
-
-
