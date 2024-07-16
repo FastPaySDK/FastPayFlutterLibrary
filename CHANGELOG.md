@@ -26,4 +26,6 @@
 - iOS framework issue solved
 ## 1.1.2
 - IOS deeplink issues fixed.
+## 1.1.3
+- Minor issue fix
 

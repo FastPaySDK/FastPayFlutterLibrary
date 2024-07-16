@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:app_links/app_links.dart';
 import 'package:fastpay_merchant/fastpay_flutter_sdk.dart';
@@ -28,17 +29,16 @@ class MyAppHomePage extends StatefulWidget {
   State<MyAppHomePage> createState() => _MyAppHomePageState();
 }
 
-class _MyAppHomePageState extends State<MyAppHomePage> {
-  String _platformVersion = 'Unknown';
-  //final _fastpayFlutterSdkPlugin = FastpayFlutterSdk();
+class _MyAppHomePageState extends State<MyAppHomePage> with WidgetsBindingObserver {
+  StreamSubscription<Uri>? _linkSubscription;
 
   @override
   void initState() {
     super.initState();
     _handleIncomingIntent();
     FastpayFlutterSdk.instance.fastpayPaymentRequest = FastpayPaymentRequest(
-      "748957_847",
-      "v=7bUPTeC2#nQ2-+",
+      "*****",
+      "*****",
       "450",
       DateTime.now().microsecondsSinceEpoch.toString(),
       "sdk://fastpay-sdk.com/callback",
@@ -49,6 +49,7 @@ class _MyAppHomePageState extends State<MyAppHomePage> {
         debugPrint('PRINT_STACK_TRACE.....................: ${result.toString()}');
       },
     );
+
   }
 
   @override
@@ -70,10 +71,28 @@ class _MyAppHomePageState extends State<MyAppHomePage> {
 
   Future<void> _handleIncomingIntent() async {
     final _appLinks = AppLinks();
-    final uri = await _appLinks.getLatestAppLink();
-    final allQueryParams = uri?.queryParameters;
-    final status = allQueryParams?['status'];
-    final orderId = allQueryParams?['order_id'];
-    debugPrint("..........................STATUS::: "+status.toString()+", OrderId:::"+orderId.toString());
+    if(Platform.isAndroid){
+      final uri = await _appLinks.getLatestAppLink();
+      debugPrint("Redirect URI: ${uri?.queryParameters}");
+      final allQueryParams = uri?.queryParameters;
+      final status = allQueryParams?['status'];
+      final orderId = allQueryParams?['order_id'];
+      debugPrint("..........................STATUS::: $status, OrderId:::$orderId");
+    }else if(Platform.isIOS){
+      final appLink = await _appLinks.getInitialAppLink();
+      if (appLink != null) {
+        var uri = Uri.parse(appLink.toString());
+        debugPrint(' here you can redirect from url as per your need ');
+      }
+      _linkSubscription = _appLinks.uriLinkStream.listen((uriValue) {
+        debugPrint('.................$uriValue');
+        debugPrint(' you will listen any url updates ');
+        debugPrint(' here you can redirect from url as per your need ');
+      },onError: (err){
+        debugPrint('====>>> error : $err');
+      },onDone: () {
+        _linkSubscription?.cancel();
+      },);
+    }
   }
 }

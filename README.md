@@ -1,4 +1,5 @@
 
+
 # FastPay Flutter SDK
 ![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white)![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)![iOS](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white)![Dart](https://img.shields.io/badge/dart-%230175C2.svg?style=for-the-badge&logo=dart&logoColor=white)
 ![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)
@@ -25,7 +26,7 @@ Accept payments with FastPay's APIs. Our simple and easy-to-integrate APIs allow
 
 ```yaml
 dependencies:
-  fastpay_merchant: ^1.1.2
+  fastpay_merchant: ^1.1.3
   #To handle callbacks (Redirection) from fastpay wallet application.
   app_links: ^4.0.0 
 ```
@@ -46,11 +47,13 @@ ___
 
 ```dart 
   enum SDKStatus{
-      INIT,
-      PAYMENT_WITH_FASTPAY_APP,
-      PAYMENT_WITH_FASTPAY_SDK,
-      CANCEL
-   }
+      INIT, 
+      PAYMENT_WITH_FASTPAY_APP, 
+      PAYMENT_WITH_FASTPAY_SDK, 
+      CANCEL, 
+      SUCCESS,
+      FAILED
+ }
 ```
 
 ## Examples
