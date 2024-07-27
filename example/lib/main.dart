@@ -54,6 +54,7 @@ class _MyAppHomePageState extends State<MyAppHomePage> with WidgetsBindingObserv
 
   @override
   Widget build(BuildContext context) {
+    FastpayFlutterSdk.instance.context = context;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Plugin example app'),

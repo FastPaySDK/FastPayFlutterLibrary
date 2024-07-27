@@ -28,7 +28,6 @@ class _SdkInitializeScreenState extends State<SdkInitializeScreen> {
   void initState() {
     super.initState();
     FastpayFlutterSdk.instance.startTimer();
-    FastpayFlutterSdk.instance.context = context;
     var paymentRequest = FastpayFlutterSdk.instance.fastpayPaymentRequest;
     var errorList = <String>[];
     if(paymentRequest?.stroreId == null || paymentRequest?.stroreId.isEmpty == true){

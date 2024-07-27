@@ -26,7 +26,6 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   @override
   void initState() {
     super.initState();
-    FastpayFlutterSdk.instance.context = context;
     // Add listener to each controller to check for changes
     _fieldOne.addListener(_checkAllFieldsFilled);
     _fieldTwo.addListener(_checkAllFieldsFilled);

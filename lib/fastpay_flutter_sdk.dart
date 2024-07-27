@@ -35,6 +35,7 @@ class FastpayFlutterSdk{
   FastpayPaymentRequest? _fastpayPaymentRequest;
   PaymentInitiationResponse? _paymentInitiationResponse;
   String? _apiToken;
+  bool _isTermsAndConditionPage = false;
 
   final String _sandBoxUrl = "https://staging-apigw-sdk.fast-pay.iq/";
   final String _productionUrl = "https://apigw-sdk.fast-pay.iq/";
@@ -60,6 +61,11 @@ class FastpayFlutterSdk{
 
   set context(BuildContext value) {
     _context = value;
+  }
+
+
+  set isTermsAndConditionPage(bool value) {
+    _isTermsAndConditionPage = value;
   }
 
   String get apiToken => _apiToken??'';
@@ -107,7 +113,10 @@ class FastpayFlutterSdk{
 
   void dispose(FastpayPaymentResponse? response){
     _start = (_fastpayPaymentRequest?.isProduction == true)?(2*60):(5*50);
-    Navigator.of(_context!).popUntil(ModalRoute.withName('/checkout_payment'));
+    if(_isTermsAndConditionPage){
+      Navigator.of(_context!).pop();
+    }
+    Navigator.of(_context!).pop();
     _timer?.cancel();
   }
 }

@@ -44,7 +44,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
   void initState() {
     super.initState();
     paymentInitiationResponse = widget._paymentInitiationResponse;
-    FastpayFlutterSdk.instance.context = context;
   }
 
   @override

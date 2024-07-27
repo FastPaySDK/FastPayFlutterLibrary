@@ -19,7 +19,7 @@ class _TermsAndConditionScreenState extends State<TermsAndConditionScreen> {
   @override
   void initState() {
     super.initState();
-    FastpayFlutterSdk.instance.context = context;
+    FastpayFlutterSdk.instance.isTermsAndConditionPage = true;
   }
 
   @override
@@ -30,6 +30,7 @@ class _TermsAndConditionScreenState extends State<TermsAndConditionScreen> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+    FastpayFlutterSdk.instance.isTermsAndConditionPage = false;
     super.dispose();
   }
 
