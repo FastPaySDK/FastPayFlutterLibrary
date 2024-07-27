@@ -12,7 +12,7 @@ Widget AppbarWidget(Function onClick) {
           },
           icon: const Icon(Icons.arrow_back),
         ),
-        Image.asset(AssetImage("assets/ic_logo.png").assetName, package: 'fastpay_flutter_sdk',width: 95, height: 25,),
+        Image.asset(AssetImage("asset/ic_logo.png").assetName, package: 'fastpay_merchant',width: 95, height: 25,),
       ],
     ),
   );

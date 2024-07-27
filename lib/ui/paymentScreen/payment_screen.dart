@@ -186,7 +186,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 ),
                               );
                             },
-                          ):Image.asset(const AssetImage("assets/ic_logo.png").assetName, package: 'fastpay_merchant',width: 128, height: 55,),
+                          ):Image.asset(const AssetImage("asset/ic_logo.png").assetName, package: 'fastpay_merchant',width: 128, height: 55,),
                         const SizedBox(width: 16,),
                          Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -241,7 +241,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             children: [
               Text('Pay via', style: getTextStyle(fontColor: Color(0xFF000000), textSize: 12, fontWeight: FontWeight.w400),),
               SizedBox(width: 10,),
-              Image.asset(AssetImage("assets/ic_logo.png").assetName, package: 'fastpay_merchant',width: 80, height: 80,),
+              Image.asset(AssetImage("asset/ic_logo.png").assetName, package: 'fastpay_merchant',width: 80, height: 80,),
             ],),
           Text('Mobile Number', style: getTextStyle(fontColor: Color(0xFF000000), textSize: 12, fontWeight: FontWeight.w500),),
           SizedBox(height: 8,),
@@ -400,7 +400,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             },
             child: Column(
               children: [
-                Center(child: Image.asset(AssetImage("assets/ic_scan.png").assetName, package: 'fastpay_merchant',width: 50, height: 47,)),
+                Center(child: Image.asset(AssetImage("asset/ic_scan.png").assetName, package: 'fastpay_merchant',width: 50, height: 47,)),
                 SizedBox(height: 10,),
                 Center(child: Text('Generate QR', style: getTextStyle(fontColor: Color(0xFF2892D7), textSize: 14, fontWeight: FontWeight.w500),)),            ],
             ),
@@ -422,7 +422,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             children: [
               Text('Pay via', style: getTextStyle(fontColor: Color(0xFF000000), textSize: 12, fontWeight: FontWeight.normal),),
               SizedBox(width: 10,),
-              Image.asset(AssetImage("assets/ic_logo.png").assetName, package: 'fastpay_merchant',width: 80, height: 80,),
+              Image.asset(AssetImage("asset/ic_logo.png").assetName, package: 'fastpay_merchant',width: 80, height: 80,),
             ],),
           Center(child: Text('Use another mobile or\n let your friends & family help', style: getTextStyle(fontColor: Color(0xFF000000), textSize: 12, fontWeight: FontWeight.w500),textAlign: TextAlign.center,)),
           SizedBox(height: 20,),
@@ -512,7 +512,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(AssetImage("assets/ic_error.png").assetName, package: 'fastpay_merchant',width: 123, height: 101,),
+          Image.asset(AssetImage("asset/ic_error.png").assetName, package: 'fastpay_merchant',width: 123, height: 101,),
           SizedBox(height: 32,),
           Text(errorMesg,textAlign: TextAlign.center ,style: getTextStyle(fontColor: Color(0xFF636696), textSize: 18, fontWeight: FontWeight.w500),),
           SizedBox(height: 12,),
