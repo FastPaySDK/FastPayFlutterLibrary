@@ -175,6 +175,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         paymentInitiationResponse?.storeLogo != null?
                           Image.network(
                             paymentInitiationResponse?.storeLogo,
+                            width: 128, height: 55,
                             fit: BoxFit.fill,
                             loadingBuilder: (BuildContext context, Widget child,
                                 ImageChunkEvent? loadingProgress) {
@@ -197,7 +198,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             children: [
                               Text(paymentInitiationResponse?.storeName??'', style: getTextStyle( fontColor: Color(0xFF43466E), textSize: 16, fontWeight: FontWeight.normal),),
                               Text(
-                                  'Order ID: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', style: getTextStyle(fontColor: Color(0xFF43466E), textSize: 12, fontWeight: FontWeight.normal),
+                                'Order ID: ${paymentInitiationResponse?.orderId??''}', style: getTextStyle(fontColor: Color(0xFF43466E), textSize: 12, fontWeight: FontWeight.normal),
                                 maxLines: 2, // Limit to 2 lines
                                 overflow: TextOverflow.ellipsis,
                                 softWrap: true,
