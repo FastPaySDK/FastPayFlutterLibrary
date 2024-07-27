@@ -28,4 +28,6 @@
 - IOS deeplink issues fixed.
 ## 1.1.3
 - Minor issue fix
+## 1.1.4
+- Some asset images error issues fixed.
 

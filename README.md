@@ -1,9 +1,8 @@
 
 
 # FastPay Flutter SDK
-![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white)![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)![iOS](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white)![Dart](https://img.shields.io/badge/dart-%230175C2.svg?style=for-the-badge&logo=dart&logoColor=white)
-![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)
-![Generic badge](https://img.shields.io/badge/Version-1.1.2-<COLOR>.svg)
+![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)![iOS](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white)
+[![Pub Points](https://img.shields.io/pub/points/fastpay_merchant)](https://pub.dev/packages/fastpay_merchant/score) [![pub package](https://img.shields.io/pub/v/fastpay_merchant.svg)](https://pub.dev/packages/fastpay_merchant)
 
 ## FastPay Developers Arena
 
@@ -26,7 +25,7 @@ Accept payments with FastPay's APIs. Our simple and easy-to-integrate APIs allow
 
 ```yaml
 dependencies:
-  fastpay_merchant: ^1.1.3
+  fastpay_merchant: ^1.1.4
   #To handle callbacks (Redirection) from fastpay wallet application.
   app_links: ^4.0.0 
 ```
@@ -47,37 +46,37 @@ ___
 
 ```dart 
   enum SDKStatus{
-      INIT, 
-      PAYMENT_WITH_FASTPAY_APP, 
-      PAYMENT_WITH_FASTPAY_SDK, 
-      CANCEL, 
-      SUCCESS,
-      FAILED
- }
+  INIT,
+  PAYMENT_WITH_FASTPAY_APP,
+  PAYMENT_WITH_FASTPAY_SDK,
+  CANCEL,
+  SUCCESS,
+  FAILED
+}
 ```
 
 ## Examples
 1. Initiate payment in init method of your flutter widget:
 ```dart 
-import 'package:fastpay_merchant/fastpay_flutter_sdk.dart';  
+import 'package:fastpay_merchant/fastpay_flutter_sdk.dart';
 import 'package:fastpay_merchant/models/fastpay_payment_request.dart';
 
 /*  
 * 
 * Add this code on init method
 */
-FastpayFlutterSdk.instance.fastpayPaymentRequest = FastpayPaymentRequest(  
-  "******STORE ID*****",  //(Required)
-  "******STORE PASSWORD****", //(Required) 
-  "450",  //AMOUNT
-  "YOUR ORDER ID",  //order Id
-  "sdk://fastpay-sdk.com/callback",  // Android callback URI (Required)
-  "appfpclientFastpayFlutterSdk",  // IOS callback URI(Required)
-  false,// is production  (Required)
-  (status, message, {result}) {  
-    debugPrint('PRINT_STACK_TRACE::MESSAGE.....................: ${message}');  
-    debugPrint('PRINT_STACK_TRACE.....................: ${result.toString()}');  
-  },  
+FastpayFlutterSdk.instance.fastpayPaymentRequest = FastpayPaymentRequest(
+"******STORE ID*****",  //(Required)
+"******STORE PASSWORD****", //(Required) 
+"450",  //AMOUNT
+"YOUR ORDER ID",  //order Id
+"sdk://fastpay-sdk.com/callback",  // Android callback URI (Required)
+"appfpclientFastpayFlutterSdk",  // IOS callback URI(Required)
+false,// is production  (Required)
+(status, message, {result}) {
+debugPrint('PRINT_STACK_TRACE::MESSAGE.....................: ${message}');
+debugPrint('PRINT_STACK_TRACE.....................: ${result.toString()}');
+},
 );
 ```
 2. Start the journey by navigating the app to the SDK:
@@ -96,13 +95,13 @@ Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SdkInitialize
 import 'package:app_links/app_links.dart';
 
 Future<void> _handleIncomingIntent() async {
-    final _appLinks = AppLinks();
-    final uri = await _appLinks.getLatestAppLink();
-    final allQueryParams = uri?.queryParameters;
-    final status = allQueryParams?['status'];
-    final orderId = allQueryParams?['order_id'];
-    debugPrint("..........................STATUS::: "+status.toString()+", OrderId:::"+orderId.toString());
-  }
+  final _appLinks = AppLinks();
+  final uri = await _appLinks.getLatestAppLink();
+  final allQueryParams = uri?.queryParameters;
+  final status = allQueryParams?['status'];
+  final orderId = allQueryParams?['order_id'];
+  debugPrint("..........................STATUS::: "+status.toString()+", OrderId:::"+orderId.toString());
+}
 ```
 
 #### Android setup
@@ -110,22 +109,22 @@ Add the callback uri to the __AndroidManifest__ file as shown below.
 
 ```properties
 <application
-    <activity
-        android:name=".MainActivity"...>
-        ...
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN"/>
-            <category android:name="android.intent.category.LAUNCHER"/>
-        </intent-filter>
-        <intent-filter>
-            <data android:scheme="sdk" android:host="fastpay-sdk.com" android:pathPrefix="/callback"/>
-            <action android:name="android.intent.action.VIEW" />
-            <category android:name="android.intent.category.DEFAULT" />
-            <category android:name="android.intent.category.BROWSABLE" />
-        </intent-filter>
-        ...
-    </activity>
-      ...
+<activity
+android:name=".MainActivity"...>
+...
+<intent-filter>
+<action android:name="android.intent.action.MAIN"/>
+<category android:name="android.intent.category.LAUNCHER"/>
+</intent-filter>
+<intent-filter>
+<data android:scheme="sdk" android:host="fastpay-sdk.com" android:pathPrefix="/callback"/>
+<action android:name="android.intent.action.VIEW" />
+<category android:name="android.intent.category.DEFAULT" />
+<category android:name="android.intent.category.BROWSABLE" />
+</intent-filter>
+...
+</activity>
+...
 </application>
 ```
 
@@ -137,12 +136,12 @@ Add the callback uri to the manifest file as shown below.
 ```yaml
   <key>CFBundleURLTypes</key>
   <array>
-    <dict>
-      <key>CFBundleURLSchemes</key>
-      <array>
-    < string>appfpclientFastpayFlutterSdk</string>
-      </array>
-    </dict>
+  <dict>
+  <key>CFBundleURLSchemes</key>
+  <array>
+  < string>appfpclientFastpayFlutterSdk</string>
+  </array>
+  </dict>
   </array>
 ```
 
