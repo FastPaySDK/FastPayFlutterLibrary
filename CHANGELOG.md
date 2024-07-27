@@ -30,6 +30,6 @@
 - Minor issue fix
 ## 1.1.4
 - Some asset images error issues fixed.
-## 1.1.5
+## 1.1.6
 - Minor issue fix
 
