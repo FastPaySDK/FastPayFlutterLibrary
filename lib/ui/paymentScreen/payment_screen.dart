@@ -5,6 +5,7 @@ import 'package:fastpay_merchant/models/request/payment_send_otp_request.dart';
 import 'package:fastpay_merchant/models/response/payment_initiation_response.dart';
 import 'package:fastpay_merchant/ui/otpScreen/otp_verification_screen.dart';
 import 'package:fastpay_merchant/ui/widget/text_style.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -163,6 +164,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               if(viewType != 4)
                 Container(
                 height: MediaQuery.of(context).size.height/4,
+                padding: EdgeInsets.symmetric(horizontal: 20),
                 color: const Color(0xFFECF2F5),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -188,14 +190,21 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             },
                           ):Image.asset(const AssetImage("asset/ic_logo.png").assetName, package: 'fastpay_merchant',width: 128, height: 55,),
                         const SizedBox(width: 16,),
-                         Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(paymentInitiationResponse?.storeName??'', style: getTextStyle( fontColor: Color(0xFF43466E), textSize: 16, fontWeight: FontWeight.normal),),
-                            Text('Order ID: ${paymentInitiationResponse?.orderId??''}', style: getTextStyle(fontColor: Color(0xFF43466E), textSize: 12, fontWeight: FontWeight.normal))
-                          ],
-                        )
+                         Expanded(
+                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(paymentInitiationResponse?.storeName??'', style: getTextStyle( fontColor: Color(0xFF43466E), textSize: 16, fontWeight: FontWeight.normal),),
+                              Text(
+                                  'Order ID: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', style: getTextStyle(fontColor: Color(0xFF43466E), textSize: 12, fontWeight: FontWeight.normal),
+                                maxLines: 2, // Limit to 2 lines
+                                overflow: TextOverflow.ellipsis,
+                                softWrap: true,
+                              )
+                            ],
+                                                   ),
+                         )
                       ],
                     ),
                     SizedBox(height: 20,),
