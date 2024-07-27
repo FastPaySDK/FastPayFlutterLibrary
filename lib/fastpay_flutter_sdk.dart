@@ -107,7 +107,7 @@ class FastpayFlutterSdk{
 
   void dispose(FastpayPaymentResponse? response){
     _start = (_fastpayPaymentRequest?.isProduction == true)?(2*60):(5*50);
-    Navigator.of(_context!).popUntil(ModalRoute.withName('/'));
+    Navigator.of(_context!).popUntil(ModalRoute.withName('/checkout_payment'));
     _timer?.cancel();
   }
 }
