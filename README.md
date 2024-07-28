@@ -83,25 +83,39 @@ debugPrint('PRINT_STACK_TRACE.....................: ${result.toString()}');
 ```dart 
 /*  
 * 
-* Use this code to navigate to flutter SDK
+* Use this code to navigate to flutter SDK. Set the context same as the Navigator is using. If you are using the Getx navigation try to use "Get.context" 
 */
+FastpayFlutterSdk.instance.context = context;
 Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SdkInitializeScreen()));
 ```
 
 ## SDK callback Uri (Optional)
-
+> **Warning**
+> This will reinitiate the whole application with applinks data from the top page of the navigation queue. Thats means, after payment from the fastpay app, it will redirect to your app with the data, but it will start from the begining of the application.
 ```dart
 //Using app_links
 import 'package:app_links/app_links.dart';
 
 Future<void> _handleIncomingIntent() async {
-  final _appLinks = AppLinks();
-  final uri = await _appLinks.getLatestAppLink();
-  final allQueryParams = uri?.queryParameters;
-  final status = allQueryParams?['status'];
-  final orderId = allQueryParams?['order_id'];
-  debugPrint("..........................STATUS::: "+status.toString()+", OrderId:::"+orderId.toString());
-}
+    final _appLinks = AppLinks();
+    if(Platform.isAndroid){
+      final uri = await _appLinks.getLatestAppLink();
+      debugPrint("Redirect URI: ${uri?.queryParameters}");
+    }else if(Platform.isIOS){
+      final appLink = await _appLinks.getInitialAppLink();
+      if (appLink != null) {
+        var uri = Uri.parse(appLink.toString());
+        debugPrint(' here you can redirect from url as per your need ');
+      }
+      _linkSubscription = _appLinks.uriLinkStream.listen((uriValue) {
+        debugPrint('Redirect URI:.................$uriValue');
+      },onError: (err){
+        debugPrint('====>>> error : $err');
+      },onDone: () {
+        _linkSubscription?.cancel();
+      },);
+    }
+  }
 ```
 
 #### Android setup
