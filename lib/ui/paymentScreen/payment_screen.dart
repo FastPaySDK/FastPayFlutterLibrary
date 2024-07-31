@@ -89,19 +89,19 @@ class _PaymentScreenState extends State<PaymentScreen> {
     FastpaySdkController.instance.sendOtp(
         _paymentSendOtpRequest!
         ,(response) async{
-          Navigator.pop(context);
-          var result = await Navigator.of(context).push(MaterialPageRoute(builder: (_) => OtpVerificationScreen(response)));
-          debugPrint('PRINT_STACK_TRACE.....................: $result');
-          FastpayFlutterSdk.instance.context = context;
-          if(result.toString().isEmpty){
-            Navigator.pop(context);
-            errorMesg = 'Invalid Otp';
-            setState(() {
-              viewType = 4;
-            });
-          }else
-            _callPaywithOtp(result.toString());
-        },
+      Navigator.pop(context);
+      var result = await Navigator.of(context).push(MaterialPageRoute(builder: (_) => OtpVerificationScreen(response)));
+      debugPrint('PRINT_STACK_TRACE.....................: $result');
+      FastpayFlutterSdk.instance.context = context;
+      if(result.toString().isEmpty){
+        Navigator.pop(context);
+        errorMesg = 'Invalid Otp';
+        setState(() {
+          viewType = 4;
+        });
+      }else
+        _callPaywithOtp(result.toString());
+    },
         onFailed: (code,message){
           Navigator.pop(context);
           errorMesg = message;
@@ -113,33 +113,33 @@ class _PaymentScreenState extends State<PaymentScreen> {
   }
 
   void _callPaywithOtp(String otpCode) {
-      _paymentSendOtpRequest?.otp = otpCode;
-      _showProgressDialog();
-      FastpaySdkController.instance.payWithOtp(
-          _paymentSendOtpRequest!
-          ,(response) async{
-              Navigator.pop(context);
-              setState(() {
-                viewType = 3;
-              });
-              isPaymentCompleted = true;
-              Timer(const Duration(seconds: 5), () async {
-                var fastpayResult = FastpayPaymentResponse("success", response.summary?.invoiceId, _paymentSendOtpRequest?.orderId??'', FastpayFlutterSdk.instance.fastpayPaymentRequest?.amount, "IQD", response.summary?.recipient?.name, response.summary?.recipient?.mobileNumber, DateTime.now().microsecondsSinceEpoch.toString());
-                FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.SUCCESS,'Payment success',result:fastpayResult);
-                FastpayFlutterSdk.instance.dispose(fastpayResult);
-              });
-          },
-          onFailed: (code,message){
-            Navigator.pop(context);
-            debugPrint('PRINT_STACK_TRACE.....................: $message');
-            var result = FastpayPaymentResponse("failed", null, FastpayFlutterSdk.instance.fastpayPaymentRequest?.orderID, FastpayFlutterSdk.instance.fastpayPaymentRequest?.amount, "IQD",FastpayFlutterSdk.instance.paymentInitiationResponse?.storeName, null, DateTime.now().microsecondsSinceEpoch.toString());
-            FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.FAILED,message,result:result);
-            setState(() {
-              errorMesg = message;
-              viewType = 4;
-            });
-          }
-      );
+    _paymentSendOtpRequest?.otp = otpCode;
+    _showProgressDialog();
+    FastpaySdkController.instance.payWithOtp(
+        _paymentSendOtpRequest!
+        ,(response) async{
+      Navigator.pop(context);
+      setState(() {
+        viewType = 3;
+      });
+      isPaymentCompleted = true;
+      Future.delayed(Duration(seconds: 5),(){
+        var fastpayResult = FastpayPaymentResponse("success", response.summary?.invoiceId, _paymentSendOtpRequest?.orderId??'', FastpayFlutterSdk.instance.fastpayPaymentRequest?.amount, "IQD", response.summary?.recipient?.name, response.summary?.recipient?.mobileNumber, DateTime.now().microsecondsSinceEpoch.toString());
+        FastpayFlutterSdk.instance.dispose(fastpayResult);
+        FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.SUCCESS,'Payment success',result:fastpayResult);
+      });
+    },
+        onFailed: (code,message){
+          Navigator.pop(context);
+          debugPrint('PRINT_STACK_TRACE.....................: $message');
+          var result = FastpayPaymentResponse("failed", null, FastpayFlutterSdk.instance.fastpayPaymentRequest?.orderID, FastpayFlutterSdk.instance.fastpayPaymentRequest?.amount, "IQD",FastpayFlutterSdk.instance.paymentInitiationResponse?.storeName, null, DateTime.now().microsecondsSinceEpoch.toString());
+          FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.FAILED,message,result:result);
+          setState(() {
+            errorMesg = message;
+            viewType = 4;
+          });
+        }
+    );
   }
 
   @override
@@ -162,16 +162,16 @@ class _PaymentScreenState extends State<PaymentScreen> {
             children: [
               if(viewType != 4)
                 Container(
-                height: MediaQuery.of(context).size.height/4,
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                color: const Color(0xFFECF2F5),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        paymentInitiationResponse?.storeLogo != null?
+                  height: MediaQuery.of(context).size.height/4,
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  color: const Color(0xFFECF2F5),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          paymentInitiationResponse?.storeLogo != null?
                           Image.network(
                             paymentInitiationResponse?.storeLogo,
                             width: 128, height: 55,
@@ -189,35 +189,35 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               );
                             },
                           ):Image.asset(const AssetImage("asset/ic_logo.png").assetName, package: 'fastpay_merchant',width: 128, height: 55,),
-                        const SizedBox(width: 16,),
-                         Expanded(
-                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(paymentInitiationResponse?.storeName??'', style: getTextStyle( fontColor: Color(0xFF43466E), textSize: 16, fontWeight: FontWeight.normal),),
-                              Text(
-                                'Order ID: ${paymentInitiationResponse?.orderId??''}', style: getTextStyle(fontColor: Color(0xFF43466E), textSize: 12, fontWeight: FontWeight.normal),
-                                maxLines: 2, // Limit to 2 lines
-                                overflow: TextOverflow.ellipsis,
-                                softWrap: true,
-                              )
-                            ],
-                                                   ),
-                         )
-                      ],
-                    ),
-                    SizedBox(height: 20,),
-                    CustomPaint(
-                      painter: DottedBorderPainter(),
-                      child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 12,vertical: 8),
-                        child: Text('${paymentInitiationResponse?.billAmount??''} ${paymentInitiationResponse?.currency??''}', style: getTextStyle(fontColor: Color(0xFF090909), textSize: 16, fontWeight: FontWeight.normal),),
+                          const SizedBox(width: 16,),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(paymentInitiationResponse?.storeName??'', style: getTextStyle( fontColor: Color(0xFF43466E), textSize: 16, fontWeight: FontWeight.normal),),
+                                Text(
+                                  'Order ID: ${paymentInitiationResponse?.orderId??''}', style: getTextStyle(fontColor: Color(0xFF43466E), textSize: 12, fontWeight: FontWeight.normal),
+                                  maxLines: 2, // Limit to 2 lines
+                                  overflow: TextOverflow.ellipsis,
+                                  softWrap: true,
+                                )
+                              ],
+                            ),
+                          )
+                        ],
                       ),
-                    )
-                  ],
+                      SizedBox(height: 20,),
+                      CustomPaint(
+                        painter: DottedBorderPainter(),
+                        child: Container(
+                          padding: EdgeInsets.symmetric(horizontal: 12,vertical: 8),
+                          child: Text('${paymentInitiationResponse?.billAmount??''} ${paymentInitiationResponse?.currency??''}', style: getTextStyle(fontColor: Color(0xFF090909), textSize: 16, fontWeight: FontWeight.normal),),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-              ),
               _viewCondition()
             ],
           ),
@@ -359,8 +359,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     TextSpan(
                       text: 'terms and conditions',
                       style: TextStyle(
-                        color: Color(0xFF2892D7),
-                        decoration: TextDecoration.underline,
+                          color: Color(0xFF2892D7),
+                          decoration: TextDecoration.underline,
                           fontSize: 12, fontWeight: FontWeight.w500
                       ),
                       recognizer: TapGestureRecognizer()
@@ -439,11 +439,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
             width: MediaQuery.of(context).size.width/1.5,
             height: MediaQuery.of(context).size.height/3.5,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(
-                color: Color(0xFFE9EEF2),
-                width: 1,
-              )
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: Color(0xFFE9EEF2),
+                  width: 1,
+                )
             ),
             child: Image.network(
               'https://api.qrserver.com/v1/create-qr-code/?size=300x350&data=${paymentInitiationResponse?.qrToken}',
@@ -472,11 +472,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 });
               },
               child: InkWell(
-                onTap: (){
-                  setState(() {
-                    viewType = 1;
-                  });
-                },
+                  onTap: (){
+                    setState(() {
+                      viewType = 1;
+                    });
+                  },
                   child: Center(child: Text('Use Login Credential', style: getTextStyle(fontColor: Color(0xFF2892D7), textSize: 14, fontWeight: FontWeight.normal),)))
           ),
           SizedBox(height: 50,),
@@ -497,11 +497,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
             width: MediaQuery.of(context).size.width/1.5,
             height: MediaQuery.of(context).size.height/3.5,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(
-                color: Color(0xFFE9EEF2),
-                width: 1,
-              )
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: Color(0xFFE9EEF2),
+                  width: 1,
+                )
             ),
             child: Image.asset(AssetImage("asset/success.gif").assetName, package: 'fastpay_merchant',width: 80, height: 80,),
           ),
@@ -528,18 +528,18 @@ class _PaymentScreenState extends State<PaymentScreen> {
           Container(
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(1218),
-              border: Border.all(
-                color: const Color(0xFF2892D7),
-                width: 2,
-              )
+                borderRadius: BorderRadius.circular(1218),
+                border: Border.all(
+                  color: const Color(0xFF2892D7),
+                  width: 2,
+                )
             ),
             child: InkWell(
-              onTap: (){
-                setState(() {
-                  viewType = 1;
-                });
-              },
+                onTap: (){
+                  setState(() {
+                    viewType = 1;
+                  });
+                },
                 child: Text('RETRY', style: getTextStyle(fontColor: Color(0xFF2892D7), textSize: 12, fontWeight: FontWeight.bold),)
             ),
           ),

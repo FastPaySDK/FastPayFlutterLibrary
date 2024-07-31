@@ -113,10 +113,14 @@ class FastpayFlutterSdk{
 
   void dispose(FastpayPaymentResponse? response){
     _start = (_fastpayPaymentRequest?.isProduction == true)?(2*60):(5*50);
-    if(_isTermsAndConditionPage){
+    try{
+      if(_isTermsAndConditionPage){
+        Navigator.of(_context!).pop();
+      }
+      Navigator.of(_context!).pop();
+      _timer?.cancel();
+    }catch(e){
       Navigator.of(_context!).pop();
     }
-    Navigator.of(_context!).pop();
-    _timer?.cancel();
   }
 }
