@@ -24,6 +24,8 @@ class SdkInitializeScreen extends StatefulWidget {
 
 class _SdkInitializeScreenState extends State<SdkInitializeScreen> {
 
+  static const platform = MethodChannel('com.fastpay.fastpay/payment');
+
   @override
   void initState() {
     super.initState();
@@ -92,6 +94,14 @@ class _SdkInitializeScreenState extends State<SdkInitializeScreen> {
     }
 
   }
+
+  Future<void> _startFastpayApp(String s) async {
+    try {
+      final result = await platform.invokeMethod<dynamic>('fastpaySDKPayment',s);
+    } on PlatformException catch (e) {
+    }
+  }
+
 
   @override
   void dispose() {

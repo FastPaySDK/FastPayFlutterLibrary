@@ -10,17 +10,89 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  AppLinks _appLinks = AppLinks();
+  Uri? _deepLink;
+
+  @override
+  void initState() {
+    super.initState();
+    _initDeepLinks();
+  }
+
+  void _initDeepLinks() async {
+    final appLinksStream = _appLinks.uriLinkStream;
+
+    appLinksStream.listen((Uri? deepLink) {
+      if (!mounted) return;
+      setState(() {
+        _deepLink = deepLink;
+        _handleDeepLink(deepLink);
+      });
+    }).onError((err) {
+      // Handle errors
+    });
+
+    // Check for initial deep link when the app starts
+    _deepLink = await _appLinks.getInitialAppLink();
+    if (_deepLink != null) {
+      _handleDeepLink(_deepLink);
+    }
+  }
+
+  void _handleDeepLink(Uri? deepLink) {
+    if (deepLink != null) {
+      if (deepLink.path == '/details') {
+        Navigator.pushNamed(context, '/details', arguments: deepLink.queryParameters);
+      }
+      // Handle other deep link paths
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Plugin Example App',
-      home: MyAppHomePage(),
+      home: LauncherScreen(),
     );
   }
 }
+
+
+class LauncherScreen extends StatefulWidget {
+  const LauncherScreen({super.key});
+
+  @override
+  State<LauncherScreen> createState() => _LauncherScreenState();
+}
+
+class _LauncherScreenState extends State<LauncherScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Fastpay SDK test'),
+      ),
+      body: Center(
+        child: InkWell(
+            onTap: ()async{
+              Navigator.of(context).push(MaterialPageRoute(builder: (_) => const MyAppHomePage()));
+            },
+            child: Text('Click here to initiate')
+        ),
+      ),
+    );
+  }
+}
+
 
 class MyAppHomePage extends StatefulWidget {
   const MyAppHomePage({super.key});
@@ -35,10 +107,10 @@ class _MyAppHomePageState extends State<MyAppHomePage> with WidgetsBindingObserv
   @override
   void initState() {
     super.initState();
-    _handleIncomingIntent();
+    //_handleIncomingIntent();
     FastpayFlutterSdk.instance.fastpayPaymentRequest = FastpayPaymentRequest(
-      "*****",
-      "*****",
+      "748957_847",
+      "v=7bUPTeC2#nQ2-+",
       "450",
       DateTime.now().microsecondsSinceEpoch.toString(),
       "sdk://test-sdk.com/callback",
@@ -57,20 +129,20 @@ class _MyAppHomePageState extends State<MyAppHomePage> with WidgetsBindingObserv
     FastpayFlutterSdk.instance.context = context;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Plugin example app'),
+        title: const Text('Fastpay SDK test'),
       ),
       body: Center(
         child: InkWell(
             onTap: ()async{
               Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SdkInitializeScreen()));
             },
-            child: Text('Click here')
+            child: Text('Click here to pay')
         ),
       ),
     );
   }
 
-  Future<void> _handleIncomingIntent() async {
+  /*Future<void> _handleIncomingIntent() async {
     final _appLinks = AppLinks();
     if(Platform.isAndroid){
       final uri = await _appLinks.getLatestAppLink();
@@ -95,5 +167,5 @@ class _MyAppHomePageState extends State<MyAppHomePage> with WidgetsBindingObserv
         _linkSubscription?.cancel();
       },);
     }
-  }
+  }*/
 }

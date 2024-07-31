@@ -503,7 +503,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 width: 1,
               )
             ),
-            child: Image.asset(AssetImage("assets/success.gif").assetName, package: 'fastpay_merchant',width: 80, height: 80,),
+            child: Image.asset(AssetImage("asset/success.gif").assetName, package: 'fastpay_merchant',width: 80, height: 80,),
           ),
           SizedBox(height: 20,),
           Center(child: Text('Please wait while we take you back.', style: getTextStyle(fontColor: Color(0xFF636696), textSize: 16, fontWeight: FontWeight.normal),)),
