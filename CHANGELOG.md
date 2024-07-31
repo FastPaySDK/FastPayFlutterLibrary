@@ -32,4 +32,6 @@
 - Some asset images error issues fixed.
 ## 1.1.5
 - Minor issue fix
+## 1.1.6
+- Minor issue fix
 
