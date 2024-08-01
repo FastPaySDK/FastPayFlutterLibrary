@@ -64,9 +64,10 @@ class _SdkInitializeScreenState extends State<SdkInitializeScreen> {
                   if(isAppInstalled){
                     FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.PAYMENT_WITH_FASTPAY_APP,'Payment is redirected to fastpay application');
                     // requestExtra.getCallBackUrl()+"&order_id="+requestExtra.getOrderId()
-                    final Uri _url = Uri.parse('appFpp://fast-pay.cash/qrpay?qrData=${response.qrToken}&redirect_url=${FastpayFlutterSdk.instance.fastpayPaymentRequest?.callbackUriAndroid}&order_id=${paymentRequest?.orderID??''}');
-                    launchUrl(_url);
+                    /*final Uri _url = Uri.parse('appFpp://fast-pay.cash/qrpay?qrData=${response.qrToken}&redirect_url=${FastpayFlutterSdk.instance.fastpayPaymentRequest?.callbackUriAndroid}&order_id=${paymentRequest?.orderID??''}');
+                    launchUrl(_url);*/
                     FastpayFlutterSdk.instance.dispose(null);
+                    _startFastpayApp('appFpp://fast-pay.cash/qrpay?qrData=${response.qrToken}&redirect_url=${FastpayFlutterSdk.instance.fastpayPaymentRequest?.callbackUriAndroid}&order_id=${paymentRequest?.orderID??''}');
                   }else{
                     FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.PAYMENT_WITH_FASTPAY_SDK,'Fastpay payment processing with fastpay SDK');
                     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => PaymentScreen(response)));
@@ -97,7 +98,7 @@ class _SdkInitializeScreenState extends State<SdkInitializeScreen> {
 
   Future<void> _startFastpayApp(String s) async {
     try {
-      final result = await platform.invokeMethod<dynamic>('fastpaySDKPayment',s);
+      await platform.invokeMethod<dynamic>('fastpaySDKPayment',s);
     } on PlatformException catch (e) {
     }
   }

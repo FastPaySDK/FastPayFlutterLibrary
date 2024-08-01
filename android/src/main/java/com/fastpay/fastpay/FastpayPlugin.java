@@ -5,10 +5,11 @@ import android.content.Intent;
 import android.app.Activity;
 import android.os.Handler;
 import android.provider.ContactsContract;
-
+import android.content.Intent;
+import android.content.IntentFilter;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
+import android.net.Uri;
 
 
 import io.flutter.Log;
@@ -46,7 +47,7 @@ public class FastpayPlugin implements FlutterPlugin, MethodCallHandler , Activit
 
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
-    channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "fastpay");
+    channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "com.fastpay.fastpay/payment");
     context = flutterPluginBinding.getApplicationContext();
 
 
@@ -56,36 +57,12 @@ public class FastpayPlugin implements FlutterPlugin, MethodCallHandler , Activit
 
   @Override
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
-    if (call.method.equals("FastPayRequest")) {
-      final Map<String,Object> getData = call.arguments();
-      // this vrible get from Flutter initial
-      // orderID must be unique id
-      // isProduction bool with if False this with SANDBOX (TEST) if true with PRODUCTION
-      String storeId = (String)getData.get("storeID");
-      String storePassword = (String)getData.get("storePassword");
-      String orderId = (String)getData.get("orderID");
-      String amount = (String)getData.get("amount");
-      String callbackUri = (String)getData.get("callbackUri");
-      isProduction = (boolean)getData.get("isProduction");
-
-      FastpayRequest request = new FastpayRequest(context, storeId, storePassword, amount, orderId, isProduction ? FastpaySDK.PRODUCTION : FastpaySDK.SANDBOX,callbackUri, (sdkStatus, message) -> {
-        /*String statusString = sdkStatus.name().toLowerCase(Locale.ROOT);
-        String response = "{\"isSuccess\":false,\"isStatus\":true,\"status\":"+statusString+",\"statusMessage\":"+message+",\"errorMessage\":\"\",\"transactionStatus\":\"\",\"transactionId\":\"\",\"orderId\":\"\",\"paymentAmount\":\"\",\"paymentCurrency\":\"\",\"payeeName\":\"\",\"payeeMobileNumber\":\"\",\"paymentTime\":\"\"}";
-        mResult.success(response);*/
-        channel.invokeMethod("frequentCall","{\"status\":\""+sdkStatus.name()+"\",\"message\":\""+message+"\"}");
-      });
-      mResult = result;
-
-      if (activity != null) {
-        try {
-          request.startPaymentIntent(activity,1999);
-        } catch (Exception e) {
-          String response = "{\"isSuccess\":false,\"errorMessage\":\""+e.getMessage()+"\",\"transactionStatus\":\"\",\"transactionId\":\"\",\"orderId\":\"\",\"paymentAmount\":\"\",\"paymentCurrency\":\"\",\"payeeName\":\"\",\"payeeMobileNumber\":\"\",\"paymentTime\":\"\"}";
-          if (!isProduction)
-            android.util.Log.i(TAG, "onMethodCall: ....."+response);
-          mResult.success(response);
-        }
-      }
+    if (call.method.equals("fastpaySDKPayment")) {
+      String getData = call.arguments();
+      Intent intent = new Intent (Intent.ACTION_VIEW);
+      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      intent.setData(Uri.parse(getData));
+      context.startActivity(intent);
     } else {
       result.notImplemented();
     }
