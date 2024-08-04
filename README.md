@@ -25,7 +25,7 @@ Accept payments with FastPay's APIs. Our simple and easy-to-integrate APIs allow
 
 ```yaml
 dependencies:
-  fastpay_merchant: ^1.1.5
+  fastpay_merchant: ^1.1.6
   #To handle callbacks (Redirection) from fastpay wallet application.
   app_links: ^4.0.0 
 ```
@@ -91,7 +91,7 @@ Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SdkInitialize
 
 ## SDK callback Uri (Optional)
 > **Warning**
-> This will reinitiate the whole application with applinks data from the top page of the navigation queue. Thats means, after payment from the fastpay app, it will redirect to your app with the data, but it will start from the begining of the application.
+> This will reinitiate the whole application with applinks data from the top page of the navigation queue. Thats means, after payment from the fastpay app, it will redirect to your app with the data, but it will start from the begining of the application so put it in app.dart file.
 ```dart
 //Using app_links
 import 'package:app_links/app_links.dart';
