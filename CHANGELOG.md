@@ -34,4 +34,6 @@
 - Minor issue fix
 ## 1.1.6
 - Minor issue fix
+## 1.1.7
+- Fastpay payment with app has been removed.
 

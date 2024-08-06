@@ -9,7 +9,6 @@ export 'ui/initializeScreen/sdk_initialize_screen.dart';
 
 enum SDKStatus{
   INIT,
-  PAYMENT_WITH_FASTPAY_APP,
   PAYMENT_WITH_FASTPAY_SDK,
   CANCEL,
   SUCCESS,

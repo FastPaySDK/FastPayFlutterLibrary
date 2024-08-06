@@ -113,8 +113,6 @@ class _MyAppHomePageState extends State<MyAppHomePage> with WidgetsBindingObserv
       "*****",
       "450",
       DateTime.now().microsecondsSinceEpoch.toString(),
-      "sdk://test-sdk.com/callback",
-      "appfpclientFastpayFlutterSdk",
       false,
           (status, message, {result}) {
         debugPrint('PRINT_STACK_TRACE::MESSAGE.....................: ${message}');

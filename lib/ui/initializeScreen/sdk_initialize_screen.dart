@@ -55,7 +55,9 @@ class _SdkInitializeScreenState extends State<SdkInitializeScreen> {
               'IQD'
           ),(response)async{
             FastpayFlutterSdk.instance.paymentInitiationResponse = response;
-              try{
+            FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.PAYMENT_WITH_FASTPAY_SDK,'Fastpay payment processing with fastpay SDK');
+            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => PaymentScreen(response)));
+              /*try{
 
                 if (Platform.isAndroid){
                   var isAppInstalled = await LaunchApp.isAppInstalled(
@@ -82,7 +84,7 @@ class _SdkInitializeScreenState extends State<SdkInitializeScreen> {
               }catch(e){
                 FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.PAYMENT_WITH_FASTPAY_SDK,'Fastpay payment processing with fastpay SDK');
                 Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => PaymentScreen(response)));
-              }
+              }*/
           },
           onFailed: (code,message){
             FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.CANCEL,'Payment initialization failed');
