@@ -36,4 +36,7 @@
 - Minor issue fix
 ## 1.1.7
 - Fastpay payment with app has been removed.
+## 1.1.8
+- Fastpay payment with app has been reintroduced and improved.
+- Payment with QR now has a callback.
 
