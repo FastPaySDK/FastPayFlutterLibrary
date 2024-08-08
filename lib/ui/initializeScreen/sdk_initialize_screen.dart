@@ -105,9 +105,9 @@ class _SdkInitializeScreenState extends State<SdkInitializeScreen> with WidgetsB
                     titleText = "Waiting for payment completion..";
                   });
                   FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.PAYMENT_WITH_FASTPAY_APP,'Payment is redirected to fastpay application');
-                  final Uri _url = Uri.parse('appFpp://fast-pay.cash/qrpay?qrdata=${response.qrToken}&clientUri=sdk://fp.com&transactionId=${paymentRequest?.orderID??''}');
+                  final Uri _url = Uri.parse('appFpp://fast-pay.cash/qrpay?qrdata=${response.qrToken}&clientUri=${FastpayFlutterSdk.instance.fastpayPaymentRequest?.callbackUriIos}&transactionId=${paymentRequest?.orderID??''}');
                   await launchUrl(_url);
-                  //FastpayFlutterSdk.instance.dispose(null);
+                  FastpayFlutterSdk.instance.dispose(null);
                 }
 
               }catch(e){
