@@ -154,10 +154,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
     _validationTimer = Timer.periodic(
       oneSec, (Timer timer) {
       FastpaySdkController.instance.paymentValidate(request,(response)async{
-        var paymentValidateResponse = PaymentValidateResponse.fromJson(response);
+        //var paymentValidateResponse = PaymentValidateResponse.fromJson(response);
         isPaymentCompleted = true;
         Future.delayed(Duration(seconds: 5),(){
-          var fastpayResult = FastpayPaymentResponse("success", paymentValidateResponse.gwTransactionId, FastpayFlutterSdk.instance.fastpayPaymentRequest?.orderID??'', FastpayFlutterSdk.instance.fastpayPaymentRequest?.amount, "IQD", paymentValidateResponse.customerName, paymentValidateResponse.customerMobileNumber, DateTime.now().microsecondsSinceEpoch.toString());
+          var fastpayResult = FastpayPaymentResponse("success", response.gwTransactionId, FastpayFlutterSdk.instance.fastpayPaymentRequest?.orderID??'', FastpayFlutterSdk.instance.fastpayPaymentRequest?.amount, "IQD", response.customerName, response.customerMobileNumber, DateTime.now().microsecondsSinceEpoch.toString());
           FastpayFlutterSdk.instance.dispose(fastpayResult);
           FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.SUCCESS,'Payment success',result:fastpayResult);
         });
