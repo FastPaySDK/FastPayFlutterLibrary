@@ -12,7 +12,7 @@ enum SDKStatus{
   PAYMENT_WITH_FASTPAY_SDK,
   CANCEL,
   SUCCESS,
-  FAILED
+  FAILED, PAYMENT_WITH_FASTPAY_APP
 }
 
 enum NetworkRequestType{

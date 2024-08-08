@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:fastpay_merchant/models/fastpay_payment_response.dart';
+import 'package:fastpay_merchant/models/request/payment_initiation_request.dart';
 import 'package:fastpay_merchant/models/request/payment_send_otp_request.dart';
 import 'package:fastpay_merchant/models/response/payment_initiation_response.dart';
 import 'package:fastpay_merchant/ui/otpScreen/otp_verification_screen.dart';
@@ -10,6 +11,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../fastpay_flutter_sdk.dart';
+import '../../models/request/payment_validate_request.dart';
+import '../../models/response/payment_validate_response.dart';
 import '../../services/fastpay_sdk_controller.dart';
 import '../termsAndConditionScreen/terms_and_condition_screen.dart';
 import '../widget/CustomCheckbox.dart';
@@ -32,7 +35,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   bool showQrCode = false;
   int viewType = 1; //1 = payment, 2 = qr, 3 = success,, 4 = error
   bool isPaymentCompleted = false;
-
+  Timer? _validationTimer;
   PaymentSendOtpRequest? _paymentSendOtpRequest;
   PaymentInitiationResponse? paymentInitiationResponse;
 
@@ -54,6 +57,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+    _validationTimer?.cancel();
     super.dispose();
   }
 
@@ -121,6 +125,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
       Navigator.pop(context);
       setState(() {
         viewType = 3;
+        _validationTimer?.cancel();
       });
       isPaymentCompleted = true;
       Future.delayed(Duration(seconds: 5),(){
@@ -137,8 +142,33 @@ class _PaymentScreenState extends State<PaymentScreen> {
           setState(() {
             errorMesg = message;
             viewType = 4;
+            _validationTimer?.cancel();
           });
         }
+    );
+  }
+
+  void _startValidateQRPaymentApi(){
+    const oneSec = Duration(seconds: 4);
+    PaymentValidateRequest request = PaymentValidateRequest(FastpayFlutterSdk.instance.fastpayPaymentRequest?.stroreId??'', FastpayFlutterSdk.instance.fastpayPaymentRequest?.storePassword??'', FastpayFlutterSdk.instance.fastpayPaymentRequest?.orderID??'');
+    _validationTimer = Timer.periodic(
+      oneSec, (Timer timer) {
+      FastpaySdkController.instance.paymentValidate(request,(response)async{
+        var paymentValidateResponse = PaymentValidateResponse.fromJson(response);
+        isPaymentCompleted = true;
+        Future.delayed(Duration(seconds: 5),(){
+          var fastpayResult = FastpayPaymentResponse("success", paymentValidateResponse.gwTransactionId, FastpayFlutterSdk.instance.fastpayPaymentRequest?.orderID??'', FastpayFlutterSdk.instance.fastpayPaymentRequest?.amount, "IQD", paymentValidateResponse.customerName, paymentValidateResponse.customerMobileNumber, DateTime.now().microsecondsSinceEpoch.toString());
+          FastpayFlutterSdk.instance.dispose(fastpayResult);
+          FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.SUCCESS,'Payment success',result:fastpayResult);
+        });
+        setState(() {
+          viewType = 3;
+          _validationTimer?.cancel();
+        });
+      },onFailed: (_,__){
+
+      });
+      },
     );
   }
 
@@ -405,6 +435,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             onTap: (){
               setState(() {
                 viewType = 2;
+                _startValidateQRPaymentApi();
               });
             },
             child: Column(
@@ -475,6 +506,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   onTap: (){
                     setState(() {
                       viewType = 1;
+                      _validationTimer?.cancel();
                     });
                   },
                   child: Center(child: Text('Use Login Credential', style: getTextStyle(fontColor: Color(0xFF2892D7), textSize: 14, fontWeight: FontWeight.normal),)))
@@ -538,6 +570,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 onTap: (){
                   setState(() {
                     viewType = 1;
+                    _validationTimer?.cancel();
                   });
                 },
                 child: Text('RETRY', style: getTextStyle(fontColor: Color(0xFF2892D7), textSize: 12, fontWeight: FontWeight.bold),)

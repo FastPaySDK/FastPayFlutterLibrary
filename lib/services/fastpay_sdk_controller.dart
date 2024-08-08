@@ -6,8 +6,10 @@ import 'package:fastpay_merchant/models/request/payment_initiation_request.dart'
 import 'package:fastpay_merchant/models/request/payment_send_otp_request.dart';
 import 'package:fastpay_merchant/models/response/base_response_model.dart';
 import 'package:fastpay_merchant/models/response/payment_initiation_response.dart';
+import 'package:fastpay_merchant/models/response/payment_validate_response.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import '../models/request/payment_validate_request.dart';
 import '../models/response/payment_success_response.dart';
 
 class FastpaySdkController{
@@ -54,6 +56,21 @@ class FastpaySdkController{
     if(response != null){
       try{
         var data = PaymentSuccessResponse.fromJson(response);
+        onSuccess.call(data);
+      }catch(e){
+        onFailed?.call(0,'Something went wrong');
+      }
+    }
+  }
+
+  Future<void> paymentValidate(
+      PaymentValidateRequest request,
+      Function(PaymentValidateResponse message) onSuccess,
+      {Function(int code,String message)? onFailed}) async {
+    final response = await _executeNetworkRequest(FastpayFlutterSdk.instance.apiValidate,NetworkRequestType.POST,request.toJson(),onFailed: onFailed,isVersion2: false,isEmptyBody: false);
+    if(response != null){
+      try{
+        var data = PaymentValidateResponse.fromJson(response);
         onSuccess.call(data);
       }catch(e){
         onFailed?.call(0,'Something went wrong');
