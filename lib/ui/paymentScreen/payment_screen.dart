@@ -33,7 +33,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   String password = '';
   String errorMesg = '';
   bool showQrCode = false;
-  int viewType = 1; //1 = payment, 2 = qr, 3 = success,, 4 = error
+  int viewType = 2; //1 = payment, 2 = qr, 3 = success,, 4 = error
   bool isPaymentCompleted = false;
   Timer? _validationTimer;
   PaymentSendOtpRequest? _paymentSendOtpRequest;
@@ -248,6 +248,85 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     ],
                   ),
                 ),
+              Visibility(
+                visible: viewType == 1 || viewType == 2,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding:const EdgeInsets.symmetric(vertical: 0, horizontal: 24),
+                      child: Column(
+                        children: [
+                          Image.asset(AssetImage("asset/ic_logo.png").assetName, package: 'fastpay_merchant',width: 150, height: 80,),
+                          Align(alignment: Alignment.topLeft,child: Text('How would you like to pay?', style: getTextStyle(fontColor: Color(0xFF606785), textSize: 18, fontWeight: FontWeight.w500),)),
+                        ],),
+                    ),
+                    SizedBox(height: 15,),
+                    Padding(
+                      padding:const EdgeInsets.symmetric(vertical: 0, horizontal: 24),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  viewType = 2;
+                                  _startValidateQRPaymentApi();
+                                });
+                              },
+                              child: Container(
+                                padding: EdgeInsets.symmetric(vertical: 16),
+                                decoration: BoxDecoration(
+                                  color: (viewType == 2)? Color(0xFFdc376a):Color(0xFFECF2F5),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(5.0),
+                                    bottomLeft: Radius.circular(5.0),
+                                  ),
+                                  border: Border.all(color: Color(0xFFdc376a), width: 0.5),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'Scan QR Code',
+                                    style: getTextStyle(fontColor: (viewType == 2)? Colors.white:Color(0xFFdc376a), textSize: 14, fontWeight: FontWeight.w400),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  viewType = 1;
+                                  _validationTimer?.cancel();
+                                });
+                              },
+                              child: Container(
+                                padding: EdgeInsets.symmetric(vertical: 16),
+                                decoration: BoxDecoration(
+                                  color: (viewType == 1)? Color(0xFFdc376a):Color(0xFFECF2F5),
+                                  borderRadius: const BorderRadius.only(
+                                    topRight: Radius.circular(5.0),
+                                    bottomRight: Radius.circular(5.0),
+                                  ),
+                                  border: Border.all(color: Color(0xFFdc376a), width: 0.5),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'Login to Pay',
+                                    style: getTextStyle(fontColor: (viewType == 1)? Colors.white:Color(0xFFdc376a), textSize: 14, fontWeight: FontWeight.w400),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 30,),
               _viewCondition()
             ],
           ),
@@ -276,12 +355,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
       child:Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Text('Pay via', style: getTextStyle(fontColor: Color(0xFF000000), textSize: 12, fontWeight: FontWeight.w400),),
-              SizedBox(width: 10,),
-              Image.asset(AssetImage("asset/ic_logo.png").assetName, package: 'fastpay_merchant',width: 80, height: 80,),
-            ],),
           Text('Mobile Number', style: getTextStyle(fontColor: Color(0xFF000000), textSize: 12, fontWeight: FontWeight.w500),),
           SizedBox(height: 8,),
           TextField(
@@ -331,8 +404,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               contentPadding: const EdgeInsets.symmetric(
                   vertical: 15, horizontal: 20), // Ensure padding does not overlap with prefix
             ),
-          )
-          ,
+          ),
           SizedBox(height: 20,),
           Text('Password', style: getTextStyle(fontColor: Color(0xFF000000), textSize: 12, fontWeight: FontWeight.w500),),
           SizedBox(height: 8,),
@@ -428,23 +500,23 @@ class _PaymentScreenState extends State<PaymentScreen> {
               )),
             ),
           ),
-          SizedBox(height: 20,),
-          Center(child: Text('Or', style: getTextStyle(fontColor: Color(0xFF000000), textSize: 13, fontWeight: FontWeight.normal),)),
-          SizedBox(height: 20,),
-          InkWell(
-            onTap: (){
-              setState(() {
-                viewType = 2;
-                _startValidateQRPaymentApi();
-              });
-            },
-            child: Column(
-              children: [
-                Center(child: Image.asset(AssetImage("asset/ic_scan.png").assetName, package: 'fastpay_merchant',width: 50, height: 47,)),
-                SizedBox(height: 10,),
-                Center(child: Text('Generate QR', style: getTextStyle(fontColor: Color(0xFF2892D7), textSize: 14, fontWeight: FontWeight.w500),)),            ],
-            ),
-          ),
+          // SizedBox(height: 20,),
+          // Center(child: Text('Or', style: getTextStyle(fontColor: Color(0xFF000000), textSize: 13, fontWeight: FontWeight.normal),)),
+          // SizedBox(height: 20,),
+          // InkWell(
+          //   onTap: (){
+          //     setState(() {
+          //       viewType = 2;
+          //       _startValidateQRPaymentApi();
+          //     });
+          //   },
+          //   child: Column(
+          //     children: [
+          //       Center(child: Image.asset(AssetImage("asset/ic_scan.png").assetName, package: 'fastpay_merchant',width: 50, height: 47,)),
+          //       SizedBox(height: 10,),
+          //       Center(child: Text('Generate QR', style: getTextStyle(fontColor: Color(0xFF2892D7), textSize: 14, fontWeight: FontWeight.w500),)),            ],
+          //   ),
+          // ),
           SizedBox(height: 50,),
 
         ],
@@ -458,13 +530,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
       child:Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Row(
-            children: [
-              Text('Pay via', style: getTextStyle(fontColor: Color(0xFF000000), textSize: 12, fontWeight: FontWeight.normal),),
-              SizedBox(width: 10,),
-              Image.asset(AssetImage("asset/ic_logo.png").assetName, package: 'fastpay_merchant',width: 80, height: 80,),
-            ],),
-          Center(child: Text('Use another mobile or\n let your friends & family help', style: getTextStyle(fontColor: Color(0xFF000000), textSize: 12, fontWeight: FontWeight.w500),textAlign: TextAlign.center,)),
+          // Row(
+          //   children: [
+          //     Text('Pay via', style: getTextStyle(fontColor: Color(0xFF000000), textSize: 12, fontWeight: FontWeight.normal),),
+          //     SizedBox(width: 10,),
+          //     Image.asset(AssetImage("asset/ic_logo.png").assetName, package: 'fastpay_merchant',width: 80, height: 80,),
+          //   ],),
+          Center(child: Text('Scan to pay via Fastpay', style: getTextStyle(fontColor: Color(0xFF000000), textSize: 16, fontWeight: FontWeight.w400),textAlign: TextAlign.center,)),
           SizedBox(height: 20,),
           Container(
             width: MediaQuery.of(context).size.width/1.5,
@@ -493,24 +565,24 @@ class _PaymentScreenState extends State<PaymentScreen> {
               },
             ),
           ),
-          SizedBox(height: 20,),
-          Center(child: Text('Or', style: getTextStyle(fontColor: Color(0xFF000000), textSize: 13, fontWeight: FontWeight.normal),)),
-          SizedBox(height: 20,),
-          InkWell(
-              onTap: (){
-                setState(() {
-                  showQrCode = false;
-                });
-              },
-              child: InkWell(
-                  onTap: (){
-                    setState(() {
-                      viewType = 1;
-                      _validationTimer?.cancel();
-                    });
-                  },
-                  child: Center(child: Text('Use Login Credential', style: getTextStyle(fontColor: Color(0xFF2892D7), textSize: 14, fontWeight: FontWeight.normal),)))
-          ),
+          // SizedBox(height: 20,),
+          // Center(child: Text('Or', style: getTextStyle(fontColor: Color(0xFF000000), textSize: 13, fontWeight: FontWeight.normal),)),
+          // SizedBox(height: 20,),
+          // InkWell(
+          //     onTap: (){
+          //       setState(() {
+          //         showQrCode = false;
+          //       });
+          //     },
+          //     child: InkWell(
+          //         onTap: (){
+          //           setState(() {
+          //             viewType = 1;
+          //             _validationTimer?.cancel();
+          //           });
+          //         },
+          //         child: Center(child: Text('Use Login Credential', style: getTextStyle(fontColor: Color(0xFF2892D7), textSize: 14, fontWeight: FontWeight.normal),)))
+          // ),
           SizedBox(height: 50,),
         ],
       ),

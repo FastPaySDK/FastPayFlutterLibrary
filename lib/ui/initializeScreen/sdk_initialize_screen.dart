@@ -87,7 +87,7 @@ class _SdkInitializeScreenState extends State<SdkInitializeScreen> with WidgetsB
 
                 if (Platform.isAndroid){
                   var isAppInstalled = await LaunchApp.isAppInstalled(
-                      androidPackageName: 'com.sslwireless.fastpay'
+                      androidPackageName: 'com.sslwireless.fastpay',
                   );
                   if(isAppInstalled){
                     setState(() {
