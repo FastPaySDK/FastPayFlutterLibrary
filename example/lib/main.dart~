@@ -109,8 +109,8 @@ class _MyAppHomePageState extends State<MyAppHomePage> with WidgetsBindingObserv
     super.initState();
     _handleIncomingIntent();
     FastpayFlutterSdk.instance.fastpayPaymentRequest = FastpayPaymentRequest(
-     "749315_520",
-     "Password100@",
+      "749315_520",
+      "Password100@",
      "450",
       DateTime.now().microsecondsSinceEpoch.toString(),
       "appfpclientFastpayFlutterSdk",

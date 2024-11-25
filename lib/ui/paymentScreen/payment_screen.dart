@@ -179,6 +179,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+    if(viewType == 2){
+      _startValidateQRPaymentApi();
+    }
 
     return PopScope(
       onPopInvoked: (value){
@@ -186,176 +189,188 @@ class _PaymentScreenState extends State<PaymentScreen> {
           FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.CANCEL,'Fastpay payment canceled');
         }
       },
-      child: SafeArea(child: Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              if(viewType != 4)
-                Container(
-                  height: MediaQuery.of(context).size.height/4,
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  color: const Color(0xFFECF2F5),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          paymentInitiationResponse?.storeLogo != null?
-                          Image.network(
-                            paymentInitiationResponse?.storeLogo,
-                            width: 128, height: 55,
-                            fit: BoxFit.fill,
-                            loadingBuilder: (BuildContext context, Widget child,
-                                ImageChunkEvent? loadingProgress) {
-                              if (loadingProgress == null) return child;
-                              return Center(
-                                child: CircularProgressIndicator(
-                                  value: loadingProgress.expectedTotalBytes != null
-                                      ? loadingProgress.cumulativeBytesLoaded /
-                                      loadingProgress.expectedTotalBytes!
-                                      : null,
-                                ),
-                              );
-                            },
-                          ):Image.asset(const AssetImage("asset/ic_logo.png").assetName, package: 'fastpay_merchant',width: 128, height: 55,),
-                          const SizedBox(width: 16,),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(paymentInitiationResponse?.storeName??'', style: getTextStyle( fontColor: Color(0xFF43466E), textSize: 16, fontWeight: FontWeight.normal),),
-                                Text(
-                                  'Order ID: ${paymentInitiationResponse?.orderId??''}', style: getTextStyle(fontColor: Color(0xFF43466E), textSize: 12, fontWeight: FontWeight.normal),
-                                  maxLines: 2, // Limit to 2 lines
-                                  overflow: TextOverflow.ellipsis,
-                                  softWrap: true,
-                                )
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                      SizedBox(height: 20,),
-                      CustomPaint(
-                        painter: DottedBorderPainter(),
-                        child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 12,vertical: 8),
-                          child: Text('${paymentInitiationResponse?.billAmount??''} ${paymentInitiationResponse?.currency??''}', style: getTextStyle(fontColor: Color(0xFF090909), textSize: 16, fontWeight: FontWeight.normal),),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              Visibility(
-                visible: viewType == 1 || viewType == 2,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding:const EdgeInsets.symmetric(vertical: 0, horizontal: 24),
-                      child: Column(
-                        children: [
-                          Image.asset(AssetImage("asset/ic_logo.png").assetName, package: 'fastpay_merchant',width: 150, height: 80,),
-                          Align(alignment: Alignment.topLeft,child: Text('How would you like to pay?', style: getTextStyle(fontColor: Color(0xFF606785), textSize: 18, fontWeight: FontWeight.w500),)),
-                        ],),
-                    ),
-                    SizedBox(height: 15,),
-                    Padding(
-                      padding:const EdgeInsets.symmetric(vertical: 0, horizontal: 24),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: InkWell(
-                              onTap: () {
-                                setState(() {
-                                  viewType = 2;
-                                  _startValidateQRPaymentApi();
-                                });
-                              },
-                              child: Container(
-                                padding: EdgeInsets.symmetric(vertical: 16),
-                                decoration: BoxDecoration(
-                                  color: (viewType == 2)? Color(0xFFdc376a):Color(0xFFECF2F5),
-                                  borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(5.0),
-                                    bottomLeft: Radius.circular(5.0),
-                                  ),
-                                  border: Border.all(color: Color(0xFFdc376a), width: 0.5),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    'Scan QR Code',
-                                    style: getTextStyle(fontColor: (viewType == 2)? Colors.white:Color(0xFFdc376a), textSize: 14, fontWeight: FontWeight.w400),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: InkWell(
-                              onTap: () {
-                                setState(() {
-                                  viewType = 1;
-                                  _validationTimer?.cancel();
-                                });
-                              },
-                              child: Container(
-                                padding: EdgeInsets.symmetric(vertical: 16),
-                                decoration: BoxDecoration(
-                                  color: (viewType == 1)? Color(0xFFdc376a):Color(0xFFECF2F5),
-                                  borderRadius: const BorderRadius.only(
-                                    topRight: Radius.circular(5.0),
-                                    bottomRight: Radius.circular(5.0),
-                                  ),
-                                  border: Border.all(color: Color(0xFFdc376a), width: 0.5),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    'Login to Pay',
-                                    style: getTextStyle(fontColor: (viewType == 1)? Colors.white:Color(0xFFdc376a), textSize: 14, fontWeight: FontWeight.w400),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 30,),
-              _viewCondition(),
-              Visibility(
-                visible: viewType == 1 || viewType == 2, // Make sure the condition is correct
-                child: InkWell(
-                  onTap: () {
-                    FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.CANCEL, 'Fastpay payment canceled');
-                    Navigator.pop(context);
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                    decoration: BoxDecoration(
-                      color: Color(0xFFECF2F5),
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(30.0),
-                      ),
-                    ),
+      child: SafeArea(child: GestureDetector(
+        onTap: (){
+          keyboardHide();
+        },
+        child: Scaffold(
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                if(viewType != 4)
+                  Container(
+                    height: MediaQuery.of(context).size.height/4,
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    color: const Color(0xFFECF2F5),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          'Cancel payment',
-                          style: getTextStyle(fontColor: Color(0xFF606785), textSize: 14, fontWeight: FontWeight.w500),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            paymentInitiationResponse?.storeLogo != null?
+                            Expanded(
+                              child: Image.network(
+                                paymentInitiationResponse?.storeLogo,
+                                width: 128, height: 55,
+                                fit: BoxFit.fill,
+                                loadingBuilder: (BuildContext context, Widget child,
+                                    ImageChunkEvent? loadingProgress) {
+                                  if (loadingProgress == null) return child;
+                                  return Center(
+                                    child: CircularProgressIndicator(
+                                      value: loadingProgress.expectedTotalBytes != null
+                                          ? loadingProgress.cumulativeBytesLoaded /
+                                          loadingProgress.expectedTotalBytes!
+                                          : null,
+                                    ),
+                                  );
+                                },
+                              ),
+                            ):Expanded(child: Image.asset(const AssetImage("asset/ic_logo.png").assetName, package: 'fastpay_merchant',width: 128, height: 55,)),
+                            const SizedBox(width: 16,),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(paymentInitiationResponse?.storeName??'', style: getTextStyle( fontColor: Color(0xFF43466E), textSize: 16, fontWeight: FontWeight.normal),),
+                                  Text(
+                                    'Order ID: ${paymentInitiationResponse?.orderId??''}', style: getTextStyle(fontColor: Color(0xFF43466E), textSize: 12, fontWeight: FontWeight.normal),
+                                    maxLines: 2, // Limit to 2 lines
+                                    overflow: TextOverflow.ellipsis,
+                                    softWrap: true,
+                                  )
+                                ],
+                              ),
+                            )
+                          ],
                         ),
+                        SizedBox(height: 20,),
+                        CustomPaint(
+                          painter: DottedBorderPainter(),
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 12,vertical: 8),
+                            child: Text('${paymentInitiationResponse?.billAmount??''} ${paymentInitiationResponse?.currency??''}', style: getTextStyle(fontColor: Color(0xFF090909), textSize: 16, fontWeight: FontWeight.normal),),
+                          ),
+                        )
                       ],
                     ),
                   ),
+                Visibility(
+                  visible: viewType == 1 || viewType == 2,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding:const EdgeInsets.symmetric(vertical: 0, horizontal: 24),
+                        child: Column(
+                          children: [
+                            Image.asset(AssetImage("asset/ic_logo.png").assetName, package: 'fastpay_merchant',width: 150, height: 80,),
+                            Align(alignment: Alignment.topLeft,child: Text('How would you like to pay?', style: getTextStyle(fontColor: Color(0xFF606785), textSize: 18, fontWeight: FontWeight.w500),)),
+                          ],),
+                      ),
+                      SizedBox(height: 15,),
+                      Padding(
+                        padding:const EdgeInsets.symmetric(vertical: 0, horizontal: 24),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    viewType = 2;
+                                   // _startValidateQRPaymentApi();
+                                  });
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(vertical: 16),
+                                  decoration: BoxDecoration(
+                                    color: (viewType == 2)? Color(0xFFdc376a):Color(0xFFECF2F5),
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(5.0),
+                                      bottomLeft: Radius.circular(5.0),
+                                    ),
+                                    border: Border.all(color: Color(0xFFdc376a), width: 0.5),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'Scan QR Code',
+                                      style: getTextStyle(fontColor: (viewType == 2)? Colors.white:Color(0xFFdc376a), textSize: 14, fontWeight: FontWeight.w400),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    viewType = 1;
+                                    _validationTimer?.cancel();
+                                  });
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(vertical: 16),
+                                  decoration: BoxDecoration(
+                                    color: (viewType == 1)? Color(0xFFdc376a):Color(0xFFECF2F5),
+                                    borderRadius: const BorderRadius.only(
+                                      topRight: Radius.circular(5.0),
+                                      bottomRight: Radius.circular(5.0),
+                                    ),
+                                    border: Border.all(color: Color(0xFFdc376a), width: 0.5),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'Login to Pay',
+                                      style: getTextStyle(fontColor: (viewType == 1)? Colors.white:Color(0xFFdc376a), textSize: 14, fontWeight: FontWeight.w400),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              )
+                SizedBox(height: 30,),
+                _viewCondition(),
+                Visibility(
+                  visible: viewType == 1 || viewType == 2, // Make sure the condition is correct
+                  child: Column(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.CANCEL, 'Fastpay payment canceled');
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                          decoration: BoxDecoration(
+                            color: Color(0xFFECF2F5),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(30.0),
+                            ),
+                          ),
+                          child: Column(
+                            children: [
+                              Text(
+                                'Cancel payment',
+                                style: getTextStyle(fontColor: Color(0xFF606785), textSize: 14, fontWeight: FontWeight.w500),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 30,),
+                    ],
+                  ),
+                )
 
-            ],
+              ],
+            ),
           ),
         ),
       )),
@@ -422,7 +437,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(24),
                 borderSide: const BorderSide(
-                  color: Color(0xFF2892D7),
+                  color: Color(0xFFdc376a),
                   width: 1,
                 ),
               ),
@@ -460,7 +475,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(24),
                 borderSide: const BorderSide(
-                    color: Color(0xFF2892D7), width: 1),
+                    color: Color(0xFFdc376a), width: 1),
               ),
               filled: true,
               fillColor: Colors.transparent,
@@ -566,6 +581,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
           Center(child: Text('Scan to pay via Fastpay', style: getTextStyle(fontColor: Color(0xFF000000), textSize: 16, fontWeight: FontWeight.w400),textAlign: TextAlign.center,)),
           SizedBox(height: 20,),
           Container(
+            padding: EdgeInsets.all(22),
             width: MediaQuery.of(context).size.width/1.5,
             height: MediaQuery.of(context).size.height/3.5,
             decoration: BoxDecoration(
@@ -678,5 +694,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
         ],
       ),
     );
+  }
+
+  keyboardHide(){
+    FocusManager.instance.primaryFocus?.unfocus();
   }
 }
