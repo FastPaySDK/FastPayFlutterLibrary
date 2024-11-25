@@ -333,7 +333,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 child: InkWell(
                   onTap: () {
                     FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.CANCEL, 'Fastpay payment canceled');
-                    Navigator.pop(context);
                   },
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
