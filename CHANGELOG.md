@@ -39,4 +39,7 @@
 ## 1.1.8
 - Fastpay payment with app has been reintroduced and improved.
 - Payment with QR now has a callback.
+## 1.1.9
+- Fastpay SDK screen UI design changed
+- Minor bug fix
 
