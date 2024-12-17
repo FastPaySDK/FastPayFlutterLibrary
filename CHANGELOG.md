@@ -42,4 +42,6 @@
 ## 1.1.9
 - Fastpay SDK screen UI design changed
 - Minor bug fix
+## 1.2.0
+- iOS framework issue solved
 

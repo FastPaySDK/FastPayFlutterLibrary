@@ -101,13 +101,20 @@ class _SdkInitializeScreenState extends State<SdkInitializeScreen> with WidgetsB
                     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => PaymentScreen(response)));
                   }
                 }else{
+
                   setState(() {
                     titleText = "Waiting for payment completion..";
                   });
                   FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.PAYMENT_WITH_FASTPAY_APP,'Payment is redirected to fastpay application');
                   final Uri _url = Uri.parse('appFpp://fast-pay.cash/qrpay?qrdata=${response.qrToken}&clientUri=${FastpayFlutterSdk.instance.fastpayPaymentRequest?.callbackUriIos}&transactionId=${paymentRequest?.orderID??''}');
-                  await launchUrl(_url);
-                  FastpayFlutterSdk.instance.dispose(null);
+
+                  if (!await launchUrl(_url)) {
+                    FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.PAYMENT_WITH_FASTPAY_SDK,'Fastpay payment processing with fastpay SDK');
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => PaymentScreen(response)));
+                  }else{
+                    await launchUrl(_url);
+                    FastpayFlutterSdk.instance.dispose(null);
+                  }
                 }
 
               }catch(e){

@@ -1,18 +1,15 @@
 import 'dart:async';
 
 import 'package:fastpay_merchant/models/fastpay_payment_response.dart';
-import 'package:fastpay_merchant/models/request/payment_initiation_request.dart';
 import 'package:fastpay_merchant/models/request/payment_send_otp_request.dart';
 import 'package:fastpay_merchant/models/response/payment_initiation_response.dart';
 import 'package:fastpay_merchant/ui/otpScreen/otp_verification_screen.dart';
 import 'package:fastpay_merchant/ui/widget/text_style.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../fastpay_flutter_sdk.dart';
 import '../../models/request/payment_validate_request.dart';
-import '../../models/response/payment_validate_response.dart';
 import '../../services/fastpay_sdk_controller.dart';
 import '../termsAndConditionScreen/terms_and_condition_screen.dart';
 import '../widget/CustomCheckbox.dart';
