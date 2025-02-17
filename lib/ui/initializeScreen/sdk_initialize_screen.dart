@@ -9,11 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../fastpay_flutter_sdk.dart';
 import '../../models/fastpay_payment_response.dart';
 import '../../models/request/payment_validate_request.dart';
-import '../../models/response/payment_validate_response.dart';
 import '../../services/fastpay_sdk_controller.dart';
 
 class SdkInitializeScreen extends StatefulWidget {
