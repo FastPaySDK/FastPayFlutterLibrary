@@ -24,7 +24,7 @@ Accept payments with FastPay's APIs. Our simple and easy-to-integrate APIs allow
 ## Installation
 
 ```yaml dependencies:    
-fastpay_merchant: ^1.2.0
+fastpay_merchant: ^1.2.1
 #To handle callbacks (Redirection) from fastpay wallet application.
 app_links: ^4.0.0  
 ```   
@@ -60,8 +60,9 @@ FastpayFlutterSdk.instance.fastpayPaymentRequest = FastpayPaymentRequest(
       "******STORE ID*****",       // (Required) Replace with your actual store ID
       "******STORE PASSWORD****",   // (Required) Replace with your actual store password
       "450",                      // AMOUNT
-      "YOUR ORDER ID",             // Order ID (replace with your actual order ID)
-      "CallBack_URI_Ios",           //IOS callback URI e.g appfpclientFastpayFlutterSdk
+      "YOUR ORDER ID",            // Order ID (replace with your actual order ID)
+      "CallBack_URI_Ios",         //IOS callback URI e.g appfpclientFastpayFlutterSdk
+      "CallBack_URI_Android",     //Android callback URI e.g sdk://fp.com
       false,                      // isProduction (set to true for production environment)
       (status, message, result) {  // Callback handler
         debugPrint('MESSAGE: $message');
@@ -98,9 +99,22 @@ Future<void> _handleIncomingIntent() async {
       },);
   }
 ```
+#### Android Setup
+Add the callback uri to the `manifest` file as shown below
+
+```yml
+  <intent-filter>
+    <action android:name="android.intent.action.VIEW" />
+    <category android:name="android.intent.category.DEFAULT" />
+    <category android:name="android.intent.category.BROWSABLE" />
+    <data
+      android:scheme="sdk"
+      android:host="fp.com" />
+  </intent-filter>
+```
 
 #### IOS setup
-Add the callback uri to the manifest file as shown below.
+Add the callback uri to the `info.plist` file as shown below.
 
 - Create URI Create a URI with a unique name (our suggestion is to provide your app name with prefix text "appfpclientFastpayFlutterSdk", for example, if your app name is "FaceLook", your URI should be appfpclientFaceLook)
 - Add URI to your `info.plist` Now add this URI to your app info.plist file

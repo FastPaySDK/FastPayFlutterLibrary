@@ -107,14 +107,15 @@ class _MyAppHomePageState extends State<MyAppHomePage> with WidgetsBindingObserv
   @override
   void initState() {
     super.initState();
-    _handleIncomingIntent();
+    //_handleIncomingIntent();
     FastpayFlutterSdk.instance.fastpayPaymentRequest = FastpayPaymentRequest(
      "******",
      "******",
-     "450",
+     "250",
       DateTime.now().microsecondsSinceEpoch.toString(),
       "appfpclientFastpayFlutterSdk",
-      false,
+      "sdk://fp.com",
+      true,
           (status, message, {result}) {
         debugPrint('PRINT_STACK_TRACE::MESSAGE.....................: ${message}');
         debugPrint('PRINT_STACK_TRACE.....................: ${result.toString()}');

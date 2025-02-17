@@ -7,10 +7,11 @@ class FastpayPaymentRequest{
   final String storePassword;
   final String amount;
   final String orderID;
-  final String callbackUriIos;
+  final String callBackUriIos;
+  final String callBackUriAndroid;
   final bool isProduction;
   Function(SDKStatus,String, {FastpayPaymentResponse? result})? callback;
 
   FastpayPaymentRequest(this.stroreId, this.storePassword, this.amount,
-      this.orderID, this.callbackUriIos, this.isProduction, this.callback);
+      this.orderID, this.callBackUriIos, this.callBackUriAndroid, this.isProduction, this.callback);
 }

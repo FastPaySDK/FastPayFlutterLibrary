@@ -44,4 +44,6 @@
 - Minor bug fix
 ## 1.2.0
 - iOS framework issue solved
+## 1.2.1
+- Android deep link issue solved and added new param for initialization
 
