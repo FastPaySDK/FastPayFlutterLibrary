@@ -52,4 +52,6 @@
 - Android minor issue fix
 ## 1.2.4
 - Android minor issue fix
+## 1.2.5
+- Android minor issue fix
 
