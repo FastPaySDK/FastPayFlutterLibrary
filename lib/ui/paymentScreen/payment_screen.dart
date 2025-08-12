@@ -182,6 +182,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
     return PopScope(
       onPopInvoked: (value){
+        _validationTimer?.cancel();
         if(!isPaymentCompleted) {
           FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.CANCEL,'Fastpay payment canceled');
         }
@@ -340,6 +341,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     children: [
                       InkWell(
                         onTap: () {
+                          _validationTimer?.cancel();
                           FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.CANCEL, 'Fastpay payment canceled');
                           Navigator.pop(context);
                         },
