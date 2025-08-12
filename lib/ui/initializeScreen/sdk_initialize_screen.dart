@@ -32,7 +32,7 @@ class _SdkInitializeScreenState extends State<SdkInitializeScreen> with WidgetsB
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
 
-    if (state == AppLifecycleState.resumed) {
+    if (state == AppLifecycleState.resumed && !FastpayFlutterSdk.instance.isPaymentCanceled) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
         PaymentValidateRequest request = PaymentValidateRequest(FastpayFlutterSdk.instance.fastpayPaymentRequest?.stroreId??'', FastpayFlutterSdk.instance.fastpayPaymentRequest?.storePassword??'', FastpayFlutterSdk.instance.fastpayPaymentRequest?.orderID??'');
         FastpaySdkController.instance.paymentValidate(request,(response)async{
@@ -56,6 +56,7 @@ class _SdkInitializeScreenState extends State<SdkInitializeScreen> with WidgetsB
   void initState() {
     WidgetsBinding.instance.addObserver(this);
     super.initState();
+    FastpayFlutterSdk.instance.isPaymentCanceled = false;
     FastpayFlutterSdk.instance.startTimer();
     var paymentRequest = FastpayFlutterSdk.instance.fastpayPaymentRequest;
     var errorList = <String>[];
@@ -94,6 +95,7 @@ class _SdkInitializeScreenState extends State<SdkInitializeScreen> with WidgetsB
                     FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.PAYMENT_WITH_FASTPAY_APP,'Payment is redirected to fastpay application');
                     final Uri _url = Uri.parse('appFpp://fast-pay.cash/qrpay?qrData=${response.qrToken}&redirect_url=${FastpayFlutterSdk.instance.fastpayPaymentRequest?.callBackUriAndroid}&order_id=${paymentRequest?.orderID??''}');
                     launchUrl(_url);
+                    FastpayFlutterSdk.instance.dispose(null);
                   }else{
                     FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.PAYMENT_WITH_FASTPAY_SDK,'Fastpay payment processing with fastpay SDK');
                     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => PaymentScreen(response)));

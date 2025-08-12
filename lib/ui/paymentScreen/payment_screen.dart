@@ -44,6 +44,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
   void initState() {
     super.initState();
     paymentInitiationResponse = widget._paymentInitiationResponse;
+    if(viewType == 2){
+      _startValidateQRPaymentApi();
+    }
   }
 
   @override
@@ -148,6 +151,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   void _startValidateQRPaymentApi(){
     const oneSec = Duration(seconds: 4);
     PaymentValidateRequest request = PaymentValidateRequest(FastpayFlutterSdk.instance.fastpayPaymentRequest?.stroreId??'', FastpayFlutterSdk.instance.fastpayPaymentRequest?.storePassword??'', FastpayFlutterSdk.instance.fastpayPaymentRequest?.orderID??'');
+    _validationTimer?.cancel();
     _validationTimer = Timer.periodic(
       oneSec, (Timer timer) {
       FastpaySdkController.instance.paymentValidate(request,(response)async{
@@ -182,8 +186,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
     return PopScope(
       onPopInvoked: (value){
-        _validationTimer?.cancel();
         if(!isPaymentCompleted) {
+          _validationTimer?.cancel();
+          FastpayFlutterSdk.instance.dispose(null);
+          FastpayFlutterSdk.instance.isPaymentCanceled = true;
           FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.CANCEL,'Fastpay payment canceled');
         }
       },
@@ -342,6 +348,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       InkWell(
                         onTap: () {
                           _validationTimer?.cancel();
+                          FastpayFlutterSdk.instance.isPaymentCanceled = true;
+                          FastpayFlutterSdk.instance.dispose(null);
                           FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.CANCEL, 'Fastpay payment canceled');
                           Navigator.pop(context);
                         },

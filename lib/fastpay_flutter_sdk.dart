@@ -35,6 +35,7 @@ class FastpayFlutterSdk{
   PaymentInitiationResponse? _paymentInitiationResponse;
   String? _apiToken;
   bool _isTermsAndConditionPage = false;
+  bool isPaymentCanceled = false;
 
   final String _sandBoxUrl = "https://staging-apigw-sdk.fast-pay.iq/";
   final String _productionUrl = "https://apigw-sdk.fast-pay.iq/";
@@ -111,6 +112,7 @@ class FastpayFlutterSdk{
   }
 
   void dispose(FastpayPaymentResponse? response){
+    isPaymentCanceled = true;
     _start = (_fastpayPaymentRequest?.isProduction == true)?(2*60):(5*50);
     try{
       if(_isTermsAndConditionPage){
