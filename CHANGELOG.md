@@ -50,4 +50,6 @@
 - Android redirecting timer issue solved
 ## 1.2.3
 - Android minor issue fix
+## 1.2.4
+- Android minor issue fix
 
