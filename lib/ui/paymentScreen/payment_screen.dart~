@@ -179,7 +179,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
           timer.cancel();
         }
       });
-      },
+    },
     );
   }
 
@@ -198,8 +198,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
       onPopInvoked: (value){
         if(!isPaymentCompleted) {
           _shouldStopPolling = true; // Stop polling
-          _validationTimer?.cancel(); // Cancel timer
+          _validationTimer?.cancel(); // Cancel QR validation timer
           FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.CANCEL,'Fastpay payment canceled');
+          FastpayFlutterSdk.instance.dispose(null); // Cancel the FastpayFlutterSdk timer
         }
       },
       child: SafeArea(child: GestureDetector(
@@ -351,14 +352,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 SizedBox(height: 30,),
                 _viewCondition(),
                 Visibility(
-                  visible: viewType == 1 || viewType == 2, // Make sure the condition is correct
+                  visible: viewType == 1 || viewType == 2,
                   child: Column(
                     children: [
                       InkWell(
                         onTap: () {
                           _shouldStopPolling = true; // Stop polling
-                          _validationTimer?.cancel(); // Cancel timer
+                          _validationTimer?.cancel(); // Cancel QR validation timer
                           FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.CANCEL, 'Fastpay payment canceled');
+                          FastpayFlutterSdk.instance.dispose(null); // Cancel the FastpayFlutterSdk timer
                           Navigator.pop(context);
                         },
                         child: Container(

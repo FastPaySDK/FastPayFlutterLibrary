@@ -200,7 +200,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
           _shouldStopPolling = true; // Stop polling
           _validationTimer?.cancel(); // Cancel QR validation timer
           FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.CANCEL,'Fastpay payment canceled');
-          FastpayFlutterSdk.instance.dispose(null); // Cancel the FastpayFlutterSdk timer
+          FastpayFlutterSdk.instance.dispose(null); // Cancel timer and pop
         }
       },
       child: SafeArea(child: GestureDetector(
@@ -360,8 +360,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           _shouldStopPolling = true; // Stop polling
                           _validationTimer?.cancel(); // Cancel QR validation timer
                           FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.CANCEL, 'Fastpay payment canceled');
-                          FastpayFlutterSdk.instance.dispose(null); // Cancel the FastpayFlutterSdk timer
-                          Navigator.pop(context);
+                          FastpayFlutterSdk.instance.dispose(null); // Cancel timer and pop
                         },
                         child: Container(
                           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),

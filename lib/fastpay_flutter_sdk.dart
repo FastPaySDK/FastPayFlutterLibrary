@@ -110,17 +110,35 @@ class FastpayFlutterSdk{
     );
   }
 
+  // void dispose(FastpayPaymentResponse? response){
+  //   _start = (_fastpayPaymentRequest?.isProduction == true)?(2*60):(5*50);
+  //   debugPrint('Canceling timer in FastpayFlutterSdk');
+  //   try{
+  //     if(_isTermsAndConditionPage){
+  //       Navigator.of(_context!).pop();
+  //     }
+  //     Navigator.of(_context!).pop();
+  //     _timer?.cancel();
+  //   }catch(e){
+  //     Navigator.of(_context!).pop();
+  //   }
+  // }
+
   void dispose(FastpayPaymentResponse? response){
-    _start = (_fastpayPaymentRequest?.isProduction == true)?(2*60):(5*50);
+    _start = (_fastpayPaymentRequest?.isProduction == true) ? (2 * 60) : (5 * 50);
     debugPrint('Canceling timer in FastpayFlutterSdk');
-    try{
-      if(_isTermsAndConditionPage){
+    _timer?.cancel();
+    _timer = null; // Prevent reuse
+    if (_context != null && Navigator.canPop(_context!)) {
+      try {
+        if (_isTermsAndConditionPage) {
+          Navigator.of(_context!).pop();
+        }
         Navigator.of(_context!).pop();
+      } catch (e) {
+        debugPrint('Error during dispose navigation: $e');
       }
-      Navigator.of(_context!).pop();
-      _timer?.cancel();
-    }catch(e){
-      Navigator.of(_context!).pop();
     }
+    _context = null; // Clear context to prevent further navigation
   }
 }
