@@ -112,7 +112,6 @@ class FastpayFlutterSdk{
 
   void dispose(FastpayPaymentResponse? response){
     _start = (_fastpayPaymentRequest?.isProduction == true)?(2*60):(5*50);
-    debugPrint('Canceling timer in FastpayFlutterSdk');
     try{
       if(_isTermsAndConditionPage){
         Navigator.of(_context!).pop();
