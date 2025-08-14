@@ -36,6 +36,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   PaymentSendOtpRequest? _paymentSendOtpRequest;
   PaymentInitiationResponse? paymentInitiationResponse;
   bool _shouldStopPolling = false;
+  bool _isCancelButtonPressed = false;
 
   bool shouldEnableButton() {
     return phoneNumber.length == 12 && password.isNotEmpty && isSelected == true;
@@ -196,7 +197,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
     return PopScope(
       onPopInvoked: (value){
-        if(!isPaymentCompleted) {
+        if(!isPaymentCompleted && !_isCancelButtonPressed) {
           _shouldStopPolling = true; // Stop polling
           _validationTimer?.cancel(); // Cancel QR validation timer
           FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.CANCEL,'Fastpay payment canceled');
@@ -359,6 +360,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         onTap: () {
                           _shouldStopPolling = true; // Stop polling
                           _validationTimer?.cancel(); // Cancel QR validation timer
+                          _isCancelButtonPressed = true;
                           FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.CANCEL, 'Fastpay payment canceled');
                           FastpayFlutterSdk.instance.dispose(null); // Cancel timer and pop
                         },
