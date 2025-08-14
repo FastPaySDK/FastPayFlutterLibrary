@@ -146,7 +146,7 @@ class _SdkInitializeScreenState extends State<SdkInitializeScreen> with WidgetsB
   @override
   void dispose() {
     _shouldStopValidation = true;
-
+    
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
