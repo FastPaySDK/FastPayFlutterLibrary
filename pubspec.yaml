@@ -1,6 +1,6 @@
 name: fastpay_merchant
 description: Accept payments with FastPay's APIs. Our simple and easy-to-integrate APIs allow for less effort in processing payments. This is an official support channel, but our APIs support both Android and iOS.
-version: 1.2.6
+version: 1.2.8
 homepage: https://github.com/FastPaySDK/FastPayFlutterLibrary
 # publish_to: anyone
 

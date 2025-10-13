@@ -48,4 +48,6 @@
 - Android deep link issue solved and added new param for initialization
 ## 1.2.6
 - Android deep link issue solved and added new param for initialization
+## 1.2.8
+- Android deep link issue solved and added new param for initialization
 
