@@ -24,7 +24,7 @@ Accept payments with FastPay's APIs. Our simple and easy-to-integrate APIs allow
 ## Installation
 
 ```yaml dependencies:    
-fastpay_merchant: ^1.2.1
+fastpay_merchant: ^1.3.0
 #To handle callbacks (Redirection) from fastpay wallet application.
 app_links: ^4.0.0  
 ```   
