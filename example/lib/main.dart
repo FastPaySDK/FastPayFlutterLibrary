@@ -31,7 +31,7 @@ class _MyAppState extends State<MyApp> {
   void _initDeepLinks() async {
     final appLinksStream = _appLinks.uriLinkStream;
 
-    appLinksStream.listen((Uri? deepLink) {
+    appLinksStream.listen((Uri deepLink) {
       if (!mounted) return;
       setState(() {
         _deepLink = deepLink;
@@ -42,9 +42,10 @@ class _MyAppState extends State<MyApp> {
     });
 
     // Check for initial deep link when the app starts
-    _deepLink = await _appLinks.getInitialAppLink();
-    if (_deepLink != null) {
-      _handleDeepLink(_deepLink);
+    final initial = await _appLinks.getInitialLink();
+    if (initial != null) {
+      _deepLink = initial;
+      _handleDeepLink(initial);
     }
   }
 
@@ -145,14 +146,14 @@ class _MyAppHomePageState extends State<MyAppHomePage> with WidgetsBindingObserv
   Future<void> _handleIncomingIntent() async {
     final _appLinks = AppLinks();
     if(Platform.isAndroid){
-      final uri = await _appLinks.getLatestAppLink();
+      final uri = await _appLinks.getLatestLink();
       debugPrint("Redirect URI: ${uri?.queryParameters}");
       final allQueryParams = uri?.queryParameters;
       final status = allQueryParams?['status'];
       final orderId = allQueryParams?['order_id'];
       debugPrint("..........................STATUS::: $status, OrderId:::$orderId");
     }else if(Platform.isIOS){
-      final appLink = await _appLinks.getInitialAppLink();
+      final appLink = await _appLinks.getInitialLink();
       if (appLink != null) {
         var uri = Uri.parse(appLink.toString());
         debugPrint(' here you can redirect from url as per your need ');

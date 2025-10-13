@@ -8,8 +8,8 @@
 
 class PaymentInitiationResponse {
   PaymentInitiationResponse({
-      String? storeName, 
-      dynamic storeLogo, 
+      String? storeName,
+      String? storeLogo,
       String? orderId, 
       double? billAmount, 
       String? currency, 
@@ -28,13 +28,18 @@ class PaymentInitiationResponse {
     _storeName = json['storeName'];
     _storeLogo = json['storeLogo'];
     _orderId = json['orderId'];
-    _billAmount = json['billAmount'];
+    final bill = json['billAmount'];
+    if (bill is num) {
+      _billAmount = bill.toDouble();
+    } else if (bill is String) {
+      _billAmount = double.tryParse(bill);
+    }
     _currency = json['currency'];
     _token = json['token'];
     _qrToken = json['qrToken'];
   }
   String? _storeName;
-  dynamic _storeLogo;
+  String? _storeLogo;
   String? _orderId;
   double? _billAmount;
   String? _currency;
@@ -42,7 +47,7 @@ class PaymentInitiationResponse {
   String? _qrToken;
 
   String? get storeName => _storeName;
-  dynamic get storeLogo => _storeLogo;
+  String? get storeLogo => _storeLogo;
   String? get orderId => _orderId;
   double? get billAmount => _billAmount;
   String? get currency => _currency;

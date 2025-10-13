@@ -226,7 +226,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             paymentInitiationResponse?.storeLogo != null?
                             Expanded(
                               child: Image.network(
-                                paymentInitiationResponse?.storeLogo,
+                                paymentInitiationResponse?.storeLogo??"",
                                 width: 128, height: 55,
                                 fit: BoxFit.fill,
                                 loadingBuilder: (BuildContext context, Widget child,
