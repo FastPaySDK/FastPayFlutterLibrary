@@ -37,6 +37,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   PaymentInitiationResponse? paymentInitiationResponse;
   bool _shouldStopPolling = false;
   bool _isCancelButtonPressed = false;
+  int _qrReloadNonce = 0;
 
   bool shouldEnableButton() {
     return phoneNumber.length == 12 && password.isNotEmpty && isSelected == true;
@@ -241,8 +242,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                     ),
                                   );
                                 },
+                                errorBuilder: (context, error, stackTrace) {
+                                  return Image.asset('asset/ic_logo.png', package: 'fastpay_merchant', width: 128, height: 55, fit: BoxFit.contain);
+                                },
                               ),
-                            ):Expanded(child: Image.asset(const AssetImage("asset/ic_logo.png").assetName, package: 'fastpay_merchant',width: 128, height: 55,)),
+                            ):Expanded(child: Image.asset('asset/ic_logo.png', package: 'fastpay_merchant', width: 128, height: 55,)),
                             const SizedBox(width: 16,),
                             Expanded(
                               child: Column(
@@ -280,7 +284,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         padding:const EdgeInsets.symmetric(vertical: 0, horizontal: 24),
                         child: Column(
                           children: [
-                            Image.asset(AssetImage("asset/ic_logo.png").assetName, package: 'fastpay_merchant',width: 150, height: 80,),
+                            Image.asset('asset/ic_logo.png', package: 'fastpay_merchant', width: 150, height: 80,),
                             Align(alignment: Alignment.topLeft,child: Text('How would you like to pay?', style: getTextStyle(fontColor: Color(0xFF606785), textSize: 18, fontWeight: FontWeight.w500),)),
                           ],),
                       ),
@@ -610,7 +614,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 )
             ),
             child: Image.network(
-              'https://api.qrserver.com/v1/create-qr-code/?size=300x350&data=${paymentInitiationResponse?.qrToken}',
+              'https://api.qrserver.com/v1/create-qr-code/?size=300x350&data=${paymentInitiationResponse?.qrToken}&cb=${_qrReloadNonce}',
               fit: BoxFit.fill,
               loadingBuilder: (BuildContext context, Widget child,
                   ImageChunkEvent? loadingProgress) {
@@ -622,6 +626,30 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         loadingProgress.expectedTotalBytes!
                         : null,
                   ),
+                );
+              },
+              errorBuilder: (context, error, stackTrace) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Failed to load QR. Tap to retry.', style: getTextStyle(fontColor: Color(0xFF000000), textSize: 12, fontWeight: FontWeight.normal), textAlign: TextAlign.center,),
+                    const SizedBox(height: 12,),
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          _qrReloadNonce++;
+                        });
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF2892D7),
+                          borderRadius: BorderRadius.circular(24),
+                        ),
+                        child: Text('Retry', style: getTextStyle(fontColor: Colors.white, textSize: 12, fontWeight: FontWeight.bold)),
+                      ),
+                    ),
+                  ],
                 );
               },
             ),
@@ -668,7 +696,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   width: 1,
                 )
             ),
-            child: Image.asset(AssetImage("asset/success.gif").assetName, package: 'fastpay_merchant',width: 80, height: 80,),
+            child: Image.asset('asset/success.gif', package: 'fastpay_merchant', width: 80, height: 80,),
           ),
           SizedBox(height: 20,),
           Center(child: Text('Please wait while we take you back.', style: getTextStyle(fontColor: Color(0xFF636696), textSize: 16, fontWeight: FontWeight.normal),)),
@@ -686,7 +714,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(AssetImage("asset/ic_error.png").assetName, package: 'fastpay_merchant',width: 123, height: 101,),
+          Image.asset('asset/ic_error.png', package: 'fastpay_merchant', width: 123, height: 101,),
           SizedBox(height: 32,),
           Text(errorMesg,textAlign: TextAlign.center ,style: getTextStyle(fontColor: Color(0xFF636696), textSize: 18, fontWeight: FontWeight.w500),),
           SizedBox(height: 12,),

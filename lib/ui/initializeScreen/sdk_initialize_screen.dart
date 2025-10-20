@@ -174,7 +174,7 @@ class _SdkInitializeScreenState extends State<SdkInitializeScreen> with WidgetsB
           padding: EdgeInsets.only(top: MediaQuery.of(context).size.width/1.5),
           child: Column(
             children: [
-              Image.asset(AssetImage("asset/ic_logo.png").assetName, package: 'fastpay_merchant',width: MediaQuery.of(context).size.width/3,),
+              Image.asset('asset/ic_logo.png', package: 'fastpay_merchant', width: MediaQuery.of(context).size.width/3,),
               const SizedBox(height: 25,),
               Text(titleText,style: getTextStyle(textSize: 12),)
             ],
