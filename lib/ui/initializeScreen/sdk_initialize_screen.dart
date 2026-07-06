@@ -7,7 +7,6 @@ import 'package:fastpay_merchant/ui/paymentScreen/payment_screen.dart';
 import 'package:fastpay_merchant/ui/widget/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../fastpay_flutter_sdk.dart';
 import '../../models/fastpay_payment_response.dart';
