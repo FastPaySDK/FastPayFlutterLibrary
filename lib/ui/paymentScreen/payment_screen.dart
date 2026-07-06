@@ -17,8 +17,8 @@ import '../widget/PhoneNumberTextInputFormatter.dart';
 import '../widget/amount_dashboard.dart';
 
 class PaymentScreen extends StatefulWidget {
-  PaymentInitiationResponse _paymentInitiationResponse;
-  PaymentScreen(this._paymentInitiationResponse, {super.key});
+  final PaymentInitiationResponse _paymentInitiationResponse;
+  const PaymentScreen(this._paymentInitiationResponse, {super.key});
 
   @override
   State<PaymentScreen> createState() => _PaymentScreenState();
@@ -52,12 +52,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
   @override
   void dispose() {
     _shouldStopPolling = true;
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
     _validationTimer?.cancel();
     super.dispose();
   }
@@ -67,7 +61,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
       backgroundColor: Colors.transparent,
       elevation: 0,
       content: Container(
-        child: Center(
+        child: const Center(
           child: CircularProgressIndicator(color: Color(0xFF2892D7),),
         ),
       ),
@@ -104,8 +98,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
         setState(() {
           viewType = 4;
         });
-      }else
+      }else {
         _callPaywithOtp(result.toString());
+      }
     },
         onFailed: (code,message){
           Navigator.pop(context);
@@ -129,7 +124,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         _validationTimer?.cancel();
       });
       isPaymentCompleted = true;
-      Future.delayed(Duration(seconds: 5),(){
+      Future.delayed(const Duration(seconds: 5),(){
         var fastpayResult = FastpayPaymentResponse("success", response.summary?.invoiceId, _paymentSendOtpRequest?.orderId??'', FastpayFlutterSdk.instance.fastpayPaymentRequest?.amount, "IQD", response.summary?.recipient?.name, response.summary?.recipient?.mobileNumber, DateTime.now().microsecondsSinceEpoch.toString());
         FastpayFlutterSdk.instance.dispose(fastpayResult);
         FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.SUCCESS,'Payment success',result:fastpayResult);
@@ -167,7 +162,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         }
 
         isPaymentCompleted = true;
-        Future.delayed(Duration(seconds: 5),(){
+        Future.delayed(const Duration(seconds: 5),(){
           var fastpayResult = FastpayPaymentResponse("success", response.gwTransactionId, FastpayFlutterSdk.instance.fastpayPaymentRequest?.orderID??'', FastpayFlutterSdk.instance.fastpayPaymentRequest?.amount, "IQD", response.customerName, response.customerMobileNumber, DateTime.now().microsecondsSinceEpoch.toString());
           FastpayFlutterSdk.instance.dispose(fastpayResult);
           FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.SUCCESS,'Payment success',result:fastpayResult);
@@ -187,11 +182,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
   @override
   Widget build(BuildContext context) {
-
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
     if(viewType == 2){
       _startValidateQRPaymentApi();
     }
@@ -215,8 +205,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               children: [
                 if(viewType != 4)
                   Container(
-                    height: MediaQuery.of(context).size.height/4,
-                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                     color: const Color(0xFFECF2F5),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -229,7 +218,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               child: Image.network(
                                 paymentInitiationResponse?.storeLogo??"",
                                 width: 128, height: 55,
-                                fit: BoxFit.fill,
+                                fit: BoxFit.contain,
                                 loadingBuilder: (BuildContext context, Widget child,
                                     ImageChunkEvent? loadingProgress) {
                                   if (loadingProgress == null) return child;
@@ -246,16 +235,16 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   return Image.asset('asset/ic_logo.png', package: 'fastpay_merchant', width: 128, height: 55, fit: BoxFit.contain);
                                 },
                               ),
-                            ):Expanded(child: Image.asset('asset/ic_logo.png', package: 'fastpay_merchant', width: 128, height: 55,)),
+                            ):Expanded(child: Image.asset('asset/ic_logo.png', package: 'fastpay_merchant', width: 128, height: 55, fit: BoxFit.contain)),
                             const SizedBox(width: 16,),
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text(paymentInitiationResponse?.storeName??'', style: getTextStyle( fontColor: Color(0xFF43466E), textSize: 16, fontWeight: FontWeight.normal),),
+                                  Text(paymentInitiationResponse?.storeName??'', style: getTextStyle( fontColor: const Color(0xFF43466E), textSize: 16, fontWeight: FontWeight.normal),),
                                   Text(
-                                    'Order ID: ${paymentInitiationResponse?.orderId??''}', style: getTextStyle(fontColor: Color(0xFF43466E), textSize: 12, fontWeight: FontWeight.normal),
+                                    'Order ID: ${paymentInitiationResponse?.orderId??''}', style: getTextStyle(fontColor: const Color(0xFF43466E), textSize: 12, fontWeight: FontWeight.normal),
                                     maxLines: 2, // Limit to 2 lines
                                     overflow: TextOverflow.ellipsis,
                                     softWrap: true,
@@ -265,12 +254,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             )
                           ],
                         ),
-                        SizedBox(height: 20,),
+                        const SizedBox(height: 20,),
                         CustomPaint(
                           painter: DottedBorderPainter(),
                           child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 12,vertical: 8),
-                            child: Text('${paymentInitiationResponse?.billAmount??''} ${paymentInitiationResponse?.currency??''}', style: getTextStyle(fontColor: Color(0xFF090909), textSize: 16, fontWeight: FontWeight.normal),),
+                            padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 8),
+                            child: Text('${paymentInitiationResponse?.billAmount??''} ${paymentInitiationResponse?.currency??''}', style: getTextStyle(fontColor: const Color(0xFF090909), textSize: 16, fontWeight: FontWeight.normal),),
                           ),
                         )
                       ],
@@ -285,10 +274,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         child: Column(
                           children: [
                             Image.asset('asset/ic_logo.png', package: 'fastpay_merchant', width: 150, height: 80,),
-                            Align(alignment: Alignment.topLeft,child: Text('How would you like to pay?', style: getTextStyle(fontColor: Color(0xFF606785), textSize: 18, fontWeight: FontWeight.w500),)),
+                            Align(alignment: Alignment.topLeft,child: Text('How would you like to pay?', style: getTextStyle(fontColor: const Color(0xFF606785), textSize: 18, fontWeight: FontWeight.w500),)),
                           ],),
                       ),
-                      SizedBox(height: 15,),
+                      const SizedBox(height: 15,),
                       Padding(
                         padding:const EdgeInsets.symmetric(vertical: 0, horizontal: 24),
                         child: Row(
@@ -303,19 +292,19 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   });
                                 },
                                 child: Container(
-                                  padding: EdgeInsets.symmetric(vertical: 16),
+                                  padding: const EdgeInsets.symmetric(vertical: 16),
                                   decoration: BoxDecoration(
-                                    color: (viewType == 2)? Color(0xFFdc376a):Color(0xFFECF2F5),
+                                    color: (viewType == 2)? const Color(0xFFdc376a):const Color(0xFFECF2F5),
                                     borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(5.0),
                                       bottomLeft: Radius.circular(5.0),
                                     ),
-                                    border: Border.all(color: Color(0xFFdc376a), width: 0.5),
+                                    border: Border.all(color: const Color(0xFFdc376a), width: 0.5),
                                   ),
                                   child: Center(
                                     child: Text(
                                       'Scan QR Code',
-                                      style: getTextStyle(fontColor: (viewType == 2)? Colors.white:Color(0xFFdc376a), textSize: 14, fontWeight: FontWeight.w400),
+                                      style: getTextStyle(fontColor: (viewType == 2)? Colors.white:const Color(0xFFdc376a), textSize: 14, fontWeight: FontWeight.w400),
                                     ),
                                   ),
                                 ),
@@ -330,19 +319,19 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   });
                                 },
                                 child: Container(
-                                  padding: EdgeInsets.symmetric(vertical: 16),
+                                  padding: const EdgeInsets.symmetric(vertical: 16),
                                   decoration: BoxDecoration(
-                                    color: (viewType == 1)? Color(0xFFdc376a):Color(0xFFECF2F5),
+                                    color: (viewType == 1)? const Color(0xFFdc376a):const Color(0xFFECF2F5),
                                     borderRadius: const BorderRadius.only(
                                       topRight: Radius.circular(5.0),
                                       bottomRight: Radius.circular(5.0),
                                     ),
-                                    border: Border.all(color: Color(0xFFdc376a), width: 0.5),
+                                    border: Border.all(color: const Color(0xFFdc376a), width: 0.5),
                                   ),
                                   child: Center(
                                     child: Text(
                                       'Login to Pay',
-                                      style: getTextStyle(fontColor: (viewType == 1)? Colors.white:Color(0xFFdc376a), textSize: 14, fontWeight: FontWeight.w400),
+                                      style: getTextStyle(fontColor: (viewType == 1)? Colors.white:const Color(0xFFdc376a), textSize: 14, fontWeight: FontWeight.w400),
                                     ),
                                   ),
                                 ),
@@ -354,7 +343,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     ],
                   ),
                 ),
-                SizedBox(height: 30,),
+                const SizedBox(height: 30,),
                 _viewCondition(),
                 Visibility(
                   visible: viewType == 1 || viewType == 2,
@@ -370,9 +359,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         },
                         child: Container(
                           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Color(0xFFECF2F5),
-                            borderRadius: const BorderRadius.all(
+                            borderRadius: BorderRadius.all(
                               Radius.circular(30.0),
                             ),
                           ),
@@ -380,13 +369,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             children: [
                               Text(
                                 'Cancel payment',
-                                style: getTextStyle(fontColor: Color(0xFF606785), textSize: 14, fontWeight: FontWeight.w500),
+                                style: getTextStyle(fontColor: const Color(0xFF606785), textSize: 14, fontWeight: FontWeight.w500),
                               ),
                             ],
                           ),
                         ),
                       ),
-                      SizedBox(height: 30,),
+                      const SizedBox(height: 30,),
                     ],
                   ),
                 )
@@ -419,8 +408,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
       child:Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Mobile Number', style: getTextStyle(fontColor: Color(0xFF000000), textSize: 12, fontWeight: FontWeight.w500),),
-          SizedBox(height: 8,),
+          Text('Mobile Number', style: getTextStyle(fontColor: const Color(0xFF000000), textSize: 12, fontWeight: FontWeight.w500),),
+          const SizedBox(height: 8,),
           TextField(
             onChanged: (value) {
               setState(() {
@@ -429,7 +418,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             },
             maxLength: 12,
             minLines: 1,
-            cursorColor: Color(0xFF000000),
+            cursorColor: const Color(0xFF000000),
             inputFormatters: <TextInputFormatter>[
               FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
               PhoneNumberTextInputFormatter(),
@@ -441,10 +430,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 padding: const EdgeInsets.only(left: 20), // Adjust padding to fit design
                 child: Text(
                   '+964 - ',
-                  style: getTextStyle(fontColor: Color(0xFF000000), textSize: 16, fontWeight: FontWeight.w500),
+                  style: getTextStyle(fontColor: const Color(0xFF000000), textSize: 16, fontWeight: FontWeight.w500),
                 ),
               ),
-              prefixIconConstraints: BoxConstraints(minWidth: 0, minHeight: 0),
+              prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(24),
                 borderSide: BorderSide.none,
@@ -469,9 +458,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   vertical: 15, horizontal: 20), // Ensure padding does not overlap with prefix
             ),
           ),
-          SizedBox(height: 20,),
-          Text('Password', style: getTextStyle(fontColor: Color(0xFF000000), textSize: 12, fontWeight: FontWeight.w500),),
-          SizedBox(height: 8,),
+          const SizedBox(height: 20,),
+          Text('Password', style: getTextStyle(fontColor: const Color(0xFF000000), textSize: 12, fontWeight: FontWeight.w500),),
+          const SizedBox(height: 8,),
           TextField(
             onChanged: (value) {
               setState(() {
@@ -480,7 +469,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             },
             obscureText: true,
             minLines: 1,
-            cursorColor: Color(0xFF000000),
+            cursorColor: const Color(0xFF000000),
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
               border: OutlineInputBorder(
@@ -505,7 +494,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   vertical: 15, horizontal: 20),
             ),
           ),
-          SizedBox(height: 20,),
+          const SizedBox(height: 20,),
           Row(
             children: [
               CustomCheckbox(
@@ -516,15 +505,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   });
                 },
               ),
-              SizedBox(width: 10,),
+              const SizedBox(width: 10,),
               RichText(
                 text: TextSpan(
-                  style: TextStyle(color: Colors.black, fontSize: 16),
+                  style: const TextStyle(color: Colors.black, fontSize: 16),
                   children: [
-                    TextSpan(text: 'I accept the ', style: getTextStyle(fontColor: Color(0xFF000000), textSize: 12, fontWeight: FontWeight.w500)),
+                    TextSpan(text: 'I accept the ', style: getTextStyle(fontColor: const Color(0xFF000000), textSize: 12, fontWeight: FontWeight.w500)),
                     TextSpan(
                       text: 'terms and conditions',
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Color(0xFF2892D7),
                           decoration: TextDecoration.underline,
                           fontSize: 12, fontWeight: FontWeight.w500
@@ -542,7 +531,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               )
             ],
           ),
-          SizedBox(height: 35,),
+          const SizedBox(height: 35,),
           InkWell(
             onTap: shouldEnableButton() ? () {
               _callPaymentSendOtpApi();
@@ -555,12 +544,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(24),
-                color: shouldEnableButton() ? Color(0xFF2892D7) : Colors.grey,
+                color: shouldEnableButton() ? const Color(0xFF2892D7) : Colors.grey,
               ),
               child: Center(child: Padding(
                 padding: const EdgeInsets.symmetric(
                     vertical: 15, horizontal: 20),
-                child: Text('Proceed to pay'.toUpperCase(), style: getTextStyle(fontColor: Color(0xFFFFFFFF), textSize: 12, fontWeight: FontWeight.bold),),
+                child: Text('Proceed to pay'.toUpperCase(), style: getTextStyle(fontColor: const Color(0xFFFFFFFF), textSize: 12, fontWeight: FontWeight.bold),),
               )),
             ),
           ),
@@ -581,7 +570,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
           //       Center(child: Text('Generate QR', style: getTextStyle(fontColor: Color(0xFF2892D7), textSize: 14, fontWeight: FontWeight.w500),)),            ],
           //   ),
           // ),
-          SizedBox(height: 50,),
+          const SizedBox(height: 50,),
 
         ],
       ),
@@ -600,22 +589,22 @@ class _PaymentScreenState extends State<PaymentScreen> {
           //     SizedBox(width: 10,),
           //     Image.asset(AssetImage("asset/ic_logo.png").assetName, package: 'fastpay_merchant',width: 80, height: 80,),
           //   ],),
-          Center(child: Text('Scan to pay via Fastpay', style: getTextStyle(fontColor: Color(0xFF000000), textSize: 16, fontWeight: FontWeight.w400),textAlign: TextAlign.center,)),
-          SizedBox(height: 20,),
+          Center(child: Text('Scan to pay via Fastpay', style: getTextStyle(fontColor: const Color(0xFF000000), textSize: 16, fontWeight: FontWeight.w400),textAlign: TextAlign.center,)),
+          const SizedBox(height: 20,),
           Container(
-            padding: EdgeInsets.all(22),
-            width: MediaQuery.of(context).size.width/1.5,
-            height: MediaQuery.of(context).size.height/3.5,
+            padding: const EdgeInsets.all(22),
+            width: 200,
+            height: 200,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(
-                  color: Color(0xFFE9EEF2),
+                  color: const Color(0xFFE9EEF2),
                   width: 1,
                 )
             ),
             child: Image.network(
-              'https://api.qrserver.com/v1/create-qr-code/?size=300x350&data=${paymentInitiationResponse?.qrToken}&cb=${_qrReloadNonce}',
-              fit: BoxFit.fill,
+              'https://api.qrserver.com/v1/create-qr-code/?size=300x350&data=${paymentInitiationResponse?.qrToken}&cb=$_qrReloadNonce',
+              fit: BoxFit.contain,
               loadingBuilder: (BuildContext context, Widget child,
                   ImageChunkEvent? loadingProgress) {
                 if (loadingProgress == null) return child;
@@ -632,7 +621,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Failed to load QR. Tap to retry.', style: getTextStyle(fontColor: Color(0xFF000000), textSize: 12, fontWeight: FontWeight.normal), textAlign: TextAlign.center,),
+                    Text('Failed to load QR. Tap to retry.', style: getTextStyle(fontColor: const Color(0xFF000000), textSize: 12, fontWeight: FontWeight.normal), textAlign: TextAlign.center,),
                     const SizedBox(height: 12,),
                     InkWell(
                       onTap: () {
@@ -672,7 +661,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
           //         },
           //         child: Center(child: Text('Use Login Credential', style: getTextStyle(fontColor: Color(0xFF2892D7), textSize: 14, fontWeight: FontWeight.normal),)))
           // ),
-          SizedBox(height: 50,),
+          const SizedBox(height: 50,),
         ],
       ),
     );
@@ -684,22 +673,22 @@ class _PaymentScreenState extends State<PaymentScreen> {
       child:Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text('Payment successful', style: getTextStyle(fontColor: Color(0xFF636696), textSize: 20, fontWeight: FontWeight.w500),textAlign: TextAlign.center,),
+          Text('Payment successful', style: getTextStyle(fontColor: const Color(0xFF636696), textSize: 20, fontWeight: FontWeight.w500),textAlign: TextAlign.center,),
           const SizedBox(height: 20,),
           Container(
-            width: MediaQuery.of(context).size.width/1.5,
-            height: MediaQuery.of(context).size.height/3.5,
+            width: 200,
+            height: 200,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(
-                  color: Color(0xFFE9EEF2),
+                  color: const Color(0xFFE9EEF2),
                   width: 1,
                 )
             ),
             child: Image.asset('asset/success.gif', package: 'fastpay_merchant', width: 80, height: 80,),
           ),
-          SizedBox(height: 20,),
-          Center(child: Text('Please wait while we take you back.', style: getTextStyle(fontColor: Color(0xFF636696), textSize: 16, fontWeight: FontWeight.normal),)),
+          const SizedBox(height: 20,),
+          Center(child: Text('Please wait while we take you back.', style: getTextStyle(fontColor: const Color(0xFF636696), textSize: 16, fontWeight: FontWeight.normal),)),
         ],
       ),
     );
@@ -709,17 +698,17 @@ class _PaymentScreenState extends State<PaymentScreen> {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
-      padding: EdgeInsets.symmetric(horizontal: 14),
+      padding: const EdgeInsets.symmetric(horizontal: 14),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset('asset/ic_error.png', package: 'fastpay_merchant', width: 123, height: 101,),
-          SizedBox(height: 32,),
-          Text(errorMesg,textAlign: TextAlign.center ,style: getTextStyle(fontColor: Color(0xFF636696), textSize: 18, fontWeight: FontWeight.w500),),
-          SizedBox(height: 12,),
+          const SizedBox(height: 32,),
+          Text(errorMesg,textAlign: TextAlign.center ,style: getTextStyle(fontColor: const Color(0xFF636696), textSize: 18, fontWeight: FontWeight.w500),),
+          const SizedBox(height: 12,),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(1218),
                 border: Border.all(
@@ -734,7 +723,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     _validationTimer?.cancel();
                   });
                 },
-                child: Text('RETRY', style: getTextStyle(fontColor: Color(0xFF2892D7), textSize: 12, fontWeight: FontWeight.bold),)
+                child: Text('RETRY', style: getTextStyle(fontColor: const Color(0xFF2892D7), textSize: 12, fontWeight: FontWeight.bold),)
             ),
           ),
         ],

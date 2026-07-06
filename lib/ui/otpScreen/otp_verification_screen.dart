@@ -1,9 +1,7 @@
-import 'package:fastpay_merchant/ui/paymentScreen/payment_screen.dart';
 import 'package:fastpay_merchant/ui/widget/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../fastpay_flutter_sdk.dart';
 import '../widget/CustomOtpView.dart';
 import '../widget/app_bar.dart';
 
@@ -64,56 +62,46 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     _fieldFour.dispose();
     _fieldFive.dispose();
     _fieldSix.dispose();
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
     super.dispose();
   }
 
 
   @override
   Widget build(BuildContext context) {
-
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
-
     return SafeArea(
       child: Scaffold(
-        body: Column(
-          children: [
-            AppbarWidget((){
-              Navigator.pop(context);
-            }),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Confirm Transaction via Email OTP', style: getTextStyle(fontColor: Color(0xFF000000), textSize: 18, fontWeight: FontWeight.w500),),
-                  SizedBox(height: 10,),
-                  Text(widget.message, style: getTextStyle(fontColor: Color(0xFF000000), textSize: 14, fontWeight: FontWeight.normal),),
-                  SizedBox(height: 10,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      CustomOtpView(otpController: _fieldOne,autoFocus : true,isFirst: true,),
-                      CustomOtpView(otpController:_fieldTwo, autoFocus : false),
-                      CustomOtpView(otpController:_fieldThree,autoFocus : false),
-                      CustomOtpView(otpController:_fieldFour, autoFocus : false),
-                      CustomOtpView(otpController:_fieldFive, autoFocus : false),
-                      CustomOtpView(otpController:_fieldSix, autoFocus: false,isLast:true),
-                    ],
-                  ),
-                ],
-              ),
-            )
-          ],
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              AppbarWidget((){
+                Navigator.pop(context);
+              }),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Confirm Transaction via Email OTP', style: getTextStyle(fontColor: const Color(0xFF000000), textSize: 18, fontWeight: FontWeight.w500),),
+                    const SizedBox(height: 10,),
+                    Text(widget.message, style: getTextStyle(fontColor: const Color(0xFF000000), textSize: 14, fontWeight: FontWeight.normal),),
+                    const SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        CustomOtpView(otpController: _fieldOne,autoFocus : true,isFirst: true,),
+                        CustomOtpView(otpController:_fieldTwo, autoFocus : false),
+                        CustomOtpView(otpController:_fieldThree,autoFocus : false),
+                        CustomOtpView(otpController:_fieldFour, autoFocus : false),
+                        CustomOtpView(otpController:_fieldFive, autoFocus : false),
+                        CustomOtpView(otpController:_fieldSix, autoFocus: false,isLast:true),
+                      ],
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

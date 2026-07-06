@@ -42,3 +42,13 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Local android properties and build artifacts
+**/android/local.properties
+**/android/.gradle/
+**/android/build/
+**/.cxx/
+*.jks
+*.keystore
+*.apk
+*.aab

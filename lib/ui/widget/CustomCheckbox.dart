@@ -1,11 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomCheckbox extends StatelessWidget {
   final bool value;
   final ValueChanged<bool?> onChanged;
 
-  CustomCheckbox({required this.value, required this.onChanged});
+  const CustomCheckbox({super.key, required this.value, required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +13,7 @@ class CustomCheckbox extends StatelessWidget {
         onChanged(!value);
       },
       child: CustomPaint(
-        size: Size(15, 15), // Desired size
+        size: const Size(15, 15), // Desired size
         painter: _CheckboxPainter(isSelected: value),
       ),
     );
@@ -29,17 +28,17 @@ class _CheckboxPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = isSelected ? Color(0xFF2892D7) : Colors.transparent
+      ..color = isSelected ? const Color(0xFF2892D7) : Colors.transparent
       ..style = PaintingStyle.fill;
 
     final borderPaint = Paint()
-      ..color = Color(0xFFC4C4C4)
+      ..color = const Color(0xFFC4C4C4)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.0;
 
     final rect = RRect.fromRectAndRadius(
       Offset.zero & size,
-      Radius.circular(4.0),
+      const Radius.circular(4.0),
     );
 
     canvas.drawRRect(rect, paint);

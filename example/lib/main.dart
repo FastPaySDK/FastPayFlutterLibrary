@@ -19,7 +19,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
-  AppLinks _appLinks = AppLinks();
+  final AppLinks _appLinks = AppLinks();
   Uri? _deepLink;
 
   @override
@@ -87,7 +87,7 @@ class _LauncherScreenState extends State<LauncherScreen> {
             onTap: ()async{
               Navigator.of(context).push(MaterialPageRoute(builder: (_) => const MyAppHomePage()));
             },
-            child: Text('Click here to initiate')
+            child: const Text('Click here to initiate')
         ),
       ),
     );
@@ -118,7 +118,7 @@ class _MyAppHomePageState extends State<MyAppHomePage> with WidgetsBindingObserv
       "sdk://fp.com",
       false,
           (status, message, {result}) {
-        debugPrint('PRINT_STACK_TRACE::MESSAGE.....................: ${message}');
+        debugPrint('PRINT_STACK_TRACE::MESSAGE.....................: $message');
         debugPrint('PRINT_STACK_TRACE.....................: ${result.toString()}');
       },
     );
@@ -137,28 +137,28 @@ class _MyAppHomePageState extends State<MyAppHomePage> with WidgetsBindingObserv
             onTap: ()async{
               Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SdkInitializeScreen()));
             },
-            child: Text('Click here to pay')
+            child: const Text('Click here to pay')
         ),
       ),
     );
   }
 
   Future<void> _handleIncomingIntent() async {
-    final _appLinks = AppLinks();
+    final appLinks = AppLinks();
     if(Platform.isAndroid){
-      final uri = await _appLinks.getLatestLink();
+      final uri = await appLinks.getLatestLink();
       debugPrint("Redirect URI: ${uri?.queryParameters}");
       final allQueryParams = uri?.queryParameters;
       final status = allQueryParams?['status'];
       final orderId = allQueryParams?['order_id'];
       debugPrint("..........................STATUS::: $status, OrderId:::$orderId");
     }else if(Platform.isIOS){
-      final appLink = await _appLinks.getInitialLink();
+      final appLink = await appLinks.getInitialLink();
       if (appLink != null) {
         var uri = Uri.parse(appLink.toString());
         debugPrint(' here you can redirect from url as per your need ');
       }
-      _linkSubscription = _appLinks.uriLinkStream.listen((uriValue) {
+      _linkSubscription = appLinks.uriLinkStream.listen((uriValue) {
         debugPrint('.................$uriValue');
         debugPrint(' you will listen any url updates ');
         debugPrint(' here you can redirect from url as per your need ');

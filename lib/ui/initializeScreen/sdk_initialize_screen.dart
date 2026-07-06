@@ -102,8 +102,8 @@ class _SdkInitializeScreenState extends State<SdkInitializeScreen> with WidgetsB
                       titleText = "Waiting for payment completion..";
                     });
                     FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.PAYMENT_WITH_FASTPAY_APP,'Payment is redirected to fastpay application');
-                    final Uri _url = Uri.parse('appFpp://fast-pay.cash/qrpay?qrData=${response.qrToken}&redirect_url=${FastpayFlutterSdk.instance.fastpayPaymentRequest?.callBackUriAndroid}&order_id=${paymentRequest?.orderID??''}');
-                    launchUrl(_url);
+                    final Uri url = Uri.parse('appFpp://fast-pay.cash/qrpay?qrData=${response.qrToken}&redirect_url=${FastpayFlutterSdk.instance.fastpayPaymentRequest?.callBackUriAndroid}&order_id=${paymentRequest?.orderID??''}');
+                    launchUrl(url);
                   }else{
                     FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.PAYMENT_WITH_FASTPAY_SDK,'Fastpay payment processing with fastpay SDK');
                     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => PaymentScreen(response)));
@@ -114,13 +114,13 @@ class _SdkInitializeScreenState extends State<SdkInitializeScreen> with WidgetsB
                     titleText = "Waiting for payment completion..";
                   });
                   FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.PAYMENT_WITH_FASTPAY_APP,'Payment is redirected to fastpay application');
-                  final Uri _url = Uri.parse('appFpp://fast-pay.cash/qrpay?qrdata=${response.qrToken}&clientUri=${FastpayFlutterSdk.instance.fastpayPaymentRequest?.callBackUriIos}&transactionId=${paymentRequest?.orderID??''}');
+                  final Uri url = Uri.parse('appFpp://fast-pay.cash/qrpay?qrdata=${response.qrToken}&clientUri=${FastpayFlutterSdk.instance.fastpayPaymentRequest?.callBackUriIos}&transactionId=${paymentRequest?.orderID??''}');
 
-                  if (!await launchUrl(_url)) {
+                  if (!await launchUrl(url)) {
                     FastpayFlutterSdk.instance.fastpayPaymentRequest?.callback?.call(SDKStatus.PAYMENT_WITH_FASTPAY_SDK,'Fastpay payment processing with fastpay SDK');
                     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => PaymentScreen(response)));
                   }else{
-                    await launchUrl(_url);
+                    await launchUrl(url);
                     FastpayFlutterSdk.instance.dispose(null);
                   }
                 }
@@ -146,38 +146,27 @@ class _SdkInitializeScreenState extends State<SdkInitializeScreen> with WidgetsB
   @override
   void dispose() {
     _shouldStopValidation = true;
-
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
-
     return SafeArea(child: Scaffold(
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         color: Colors.white,
-        child: Padding(
-          padding: EdgeInsets.only(top: MediaQuery.of(context).size.width/1.5),
-          child: Column(
-            children: [
-              Image.asset('asset/ic_logo.png', package: 'fastpay_merchant', width: MediaQuery.of(context).size.width/3,),
-              const SizedBox(height: 25,),
-              Text(titleText,style: getTextStyle(textSize: 12),)
-            ],
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset('asset/ic_logo.png', package: 'fastpay_merchant', width: 120,),
+                const SizedBox(height: 25,),
+                Text(titleText,style: getTextStyle(textSize: 12),)
+              ],
+            ),
           ),
         ),
       ),

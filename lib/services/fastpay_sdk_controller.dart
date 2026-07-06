@@ -94,28 +94,23 @@ class FastpaySdkController{
     debugPrint('PRINT_STACK_TRACE::URL...........................: ${url.toString()}');
     debugPrint('PRINT_STACK_TRACE::Request.......................: ${json.encode(requestBody)}');
     var response = (requestType == NetworkRequestType.GET)?await http.get(url, headers: headers):await http.post(url, headers: headers,body: json.encode(requestBody));
-    if(response != null){
-      var jsonMap = jsonDecode(response.body);
-      var data = BaseResponseModel.fromJson(jsonMap);
-      debugPrint('PRINT_STACK_TRACE::Response(${response.statusCode}).....................: ${data.toString()}');
-      if (response.statusCode == 200) {
-        if(data.code == 200){
-          if(isEmptyBody) {
-            return data.message;
-          }
-          return data.data;
-        }else{
-          onFailed?.call(data.code??0,(data.errors??[]).join("/n"));
-          return null;
+    var jsonMap = jsonDecode(response.body);
+    var data = BaseResponseModel.fromJson(jsonMap);
+    debugPrint('PRINT_STACK_TRACE::Response(${response.statusCode}).....................: ${data.toString()}');
+    if (response.statusCode == 200) {
+      if(data.code == 200){
+        if(isEmptyBody) {
+          return data.message;
         }
-      } else {
+        return data.data;
+      }else{
         onFailed?.call(data.code??0,(data.errors??[]).join("/n"));
         return null;
       }
-    }else{
-      onFailed?.call(0,'Something went wrong');
+    } else {
+      onFailed?.call(data.code??0,(data.errors??[]).join("/n"));
       return null;
     }
-  }
+    }
 
 }

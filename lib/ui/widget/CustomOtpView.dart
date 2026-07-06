@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
@@ -8,8 +7,8 @@ class CustomOtpView extends StatefulWidget {
   final bool isFirst;
   final bool isLast;
 
-  CustomOtpView(
-      {required this.otpController,
+  const CustomOtpView(
+      {super.key, required this.otpController,
         required this.autoFocus,
         this.isFirst = false,
         this.isLast = false});
@@ -35,7 +34,7 @@ class _CustomOtpViewState extends State<CustomOtpView> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 80,
       width: MediaQuery.of(context).size.width / 7.5,
       child: Center(
@@ -50,7 +49,7 @@ class _CustomOtpViewState extends State<CustomOtpView> {
           maxLength: 1,
           obscureText: true,
           obscuringCharacter: '⚫',
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.black,
             fontSize: 14,
             fontStyle: FontStyle.normal,

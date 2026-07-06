@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
 class PhoneNumberTextInputFormatter extends TextInputFormatter {
@@ -8,7 +7,7 @@ class PhoneNumberTextInputFormatter extends TextInputFormatter {
     final int newTextLength = newValue.text.length;
     int selectionIndex = newValue.selection.end;
     int usedSubstringIndex = 0;
-    final StringBuffer newText = new StringBuffer();
+    final StringBuffer newText = StringBuffer();
     if (newTextLength >= 4) {
       newText.write('${newValue.text.substring(0, usedSubstringIndex = 3)} ');
       if (newValue.selection.end >= 3) {
